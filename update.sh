@@ -1,6 +1,4 @@
 #!/bin/bash
-pwd
-whoami
 echo "Stopping kestrel-csmpmweb.service..."
 systemctl stop kestrel-csmpmweb.service
 echo "STOPPED"
