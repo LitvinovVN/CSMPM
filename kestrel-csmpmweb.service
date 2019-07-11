@@ -1,0 +1,14 @@
+[Unit]
+Description=CSMPM https://github.com/LitvinovVN/CSMPM
+
+[Service]
+WorkingDirectory=/var/CSMPM/CSMPMWeb/bin/Debug/netcoreapp2.2/publish/
+ExecStart=/usr/bin/dotnet /var/CSMPM/CSMPMWeb/bin/Debug/netcoreapp2.2/publish/CSMPMWeb.dll
+Restart=always
+RestartSec=10
+SyslogIdentifier=dotnet-CSMPM
+User=root 
+Environment=ASPNETCORE_ENVIRONMENT=Production 
+
+[Install]
+WantedBy=multi-user.target
