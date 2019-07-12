@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSMPMWeb", "CSMPMWeb\CSMPMWeb.csproj", "{EC306CDC-936D-4B3F-B6DA-6E53136EBE1D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSMPMLib", "CSMPMLib\CSMPMLib.csproj", "{90D84A11-B7A4-4A95-B3F3-8CF29B1F8796}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EC306CDC-936D-4B3F-B6DA-6E53136EBE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC306CDC-936D-4B3F-B6DA-6E53136EBE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC306CDC-936D-4B3F-B6DA-6E53136EBE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D84A11-B7A4-4A95-B3F3-8CF29B1F8796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D84A11-B7A4-4A95-B3F3-8CF29B1F8796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D84A11-B7A4-4A95-B3F3-8CF29B1F8796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D84A11-B7A4-4A95-B3F3-8CF29B1F8796}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
