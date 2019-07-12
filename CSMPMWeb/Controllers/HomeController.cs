@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CSMPMWeb.Models;
+using CSMPMLib;
 
 namespace CSMPMWeb.Controllers
 {
@@ -12,6 +13,8 @@ namespace CSMPMWeb.Controllers
     {
         public IActionResult Index()
         {
+            Class1 c1 = new Class1();
+            ViewBag.c1 = c1;
             return View();
         }
 
