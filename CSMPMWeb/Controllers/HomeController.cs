@@ -11,10 +11,18 @@ namespace CSMPMWeb.Controllers
 {
     public class HomeController : Controller
     {
+        MySqlDbContext _context;
+
+        public HomeController(MySqlDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             Class1 c1 = new Class1();
             ViewBag.c1 = c1;
+            ViewBag.Roles = _context.Roles.ToList();
             return View();
         }
 
