@@ -30,7 +30,6 @@ namespace CSMPMWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel details, string returnUrl)
         {
-            var identity1 = User.Identity;
 
             if (ModelState.IsValid)
             {
@@ -39,7 +38,7 @@ namespace CSMPMWeb.Controllers
                 {
                     await signInManager.SignOutAsync();
                     Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, details.Password, false, false);
-                    var identity2 = User.Identity;
+
                     if (result.Succeeded)
                     {
                         return Redirect(returnUrl ?? "/");

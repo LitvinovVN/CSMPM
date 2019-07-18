@@ -1,15 +1,8 @@
-﻿@model string
-
-@if (Model == null)
-{
-    <a asp-controller="Account" asp-action="Login" class="nav-link text-dark">Войти</a>
-    <a asp-controller="Account" asp-action="Register" class="nav-link text-dark">Зарегистрироваться</a>
-}
-else
+﻿@if (User.IsInRole("Администраторы"))
 {
     <div class="dropdown" role="navigation">
         <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            @Model
+            Администрирование
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -19,4 +12,8 @@ else
             <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Выйти</a>
         </div>
     </div>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login" class="nav-link text-danger">!Не админ!</a>    
 }
