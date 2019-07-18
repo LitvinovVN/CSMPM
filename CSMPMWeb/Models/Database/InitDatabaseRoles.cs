@@ -28,7 +28,7 @@ namespace CSMPMWeb.Models
 
                 List<string> Roles = new List<string>
                 {
-                    "Администраторы",                    
+                    "Administrators",                    
                     "Пользователи"
                 };
 

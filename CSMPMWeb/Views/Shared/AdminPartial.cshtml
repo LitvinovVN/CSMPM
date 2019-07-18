@@ -1,4 +1,4 @@
-﻿@if (User.IsInRole("Администраторы"))
+﻿@if (User.IsInRole("Administrators"))
 {
     <div class="dropdown" role="navigation">
         <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -15,5 +15,5 @@
 }
 else
 {
-    <a asp-controller="Account" asp-action="Login" class="nav-link text-danger">!Не админ!</a>    
+    <a asp-controller="Account" asp-action="Login" class="nav-link text-danger">!Не принадлежит роли Administrators!</a>    
 }
