@@ -19,7 +19,7 @@ namespace CSMPMWeb.Models
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 UserManager<AppUser> userManager = serviceScope.ServiceProvider.GetService<UserManager<AppUser>>();
-                RoleManager<IdentityRole> roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                RoleManager<IdentityRole> roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();                
 
                 string username = configuration["Data:AdminUser:Name"];
                 string email = configuration["Data:AdminUser:Email"];
@@ -39,7 +39,7 @@ namespace CSMPMWeb.Models
                     };
                     IdentityResult result = await userManager.CreateAsync(user, password);
                     if (result.Succeeded)
-                    {
+                    {                        
                         await userManager.AddToRoleAsync(user, role);
                     }
                 }
