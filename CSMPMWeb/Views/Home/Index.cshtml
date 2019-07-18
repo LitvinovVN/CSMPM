@@ -9,10 +9,26 @@
         <li>Обновление 1</li>
         <li>@ViewBag.c1</li>
         <li>
-            @foreach(var role in ViewBag.Roles)
+            Roles: 
+            @foreach (var role in ViewBag.Roles)
             {
                 <text>@role </text>
             }
+        </li>
+        <li>
+            UserRoles:            
+            @if (ViewBag.UserRoles == null)
+            {
+                <text>UserRoles = null</text>
+            }
+            else
+            {
+                foreach (var userRole in ViewBag.UserRoles)
+                {
+                    <text>@userRole.RoleId - @userRole.UserId; </text>
+                }
+            }
+
         </li>
     </ul>
 </div>
