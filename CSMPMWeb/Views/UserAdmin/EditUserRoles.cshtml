@@ -1,0 +1,33 @@
+﻿@model AppUserEditRolesViewModel
+
+@{
+    ViewData["Title"] = "EditUserRoles";
+}
+
+<h1>Редактирование ролей пользователя @Model.AppUser.UserName (@Model.AppUser.GetFullName)</h1>
+
+@if (Model != null)
+{
+<form asp-action="EditUserRoles">    
+    @{ int i = 0;}
+    @foreach (var item in Model.Roles)
+    {
+        <div class="form-group form-check">            
+            <input type="hidden" name="viewModel.Roles[@i].RoleName" value="@item.RoleName" />            
+            <input type="hidden" name="viewModel.Roles[@i].IsInRole" value="@item.IsInRole.ToString()"  />
+            <input type="checkbox" name="viewModel.Roles[@i].IsInRole_Edited" value="true" @if (item.IsInRole) {<text>checked</text> }>
+            @*<input type="hidden" asp-for="@Model.Roles[i].RoleName" />*@            
+            <label class="form-check-label" for="exampleCheck1">@item.RoleName</label>
+        </div>
+        i++;
+    }
+
+    <input type="hidden" name="viewModel.AppUser.Id" value="@Model.AppUser.Id" />
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+</form>
+}
+else
+{
+    <h4>Нет данных</h4>
+}

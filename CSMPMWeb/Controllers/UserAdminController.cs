@@ -18,6 +18,7 @@ namespace CSMPMWeb.Controllers
     {
         #region Закрытые поля
         private UserManager<AppUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
         private IUserValidator<AppUser> _userValidator;
         private IPasswordValidator<AppUser> _passwordValidator;
         private IPasswordHasher<AppUser> _passwordHasher;
@@ -26,12 +27,14 @@ namespace CSMPMWeb.Controllers
 
         #region Конструктор
         public UserAdminController(UserManager<AppUser> usrMgr,
+            RoleManager<IdentityRole> roleMgr,
             IUserValidator<AppUser> userValid,
             IPasswordValidator<AppUser> passValid,
             IPasswordHasher<AppUser> passwordHash,
             MySqlDbContext ctx)
         {
             _userManager = usrMgr;
+            _roleManager = roleMgr;
             _userValidator = userValid;
             _passwordValidator = passValid;
             _passwordHasher = passwordHash;
@@ -116,14 +119,16 @@ namespace CSMPMWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id,
-            string email,
-            string password)
+        public async Task<IActionResult> Edit(AppUser userDataFromView, string password)
         {
-            AppUser user = await _userManager.FindByIdAsync(id);
+            AppUser user = await _userManager.FindByIdAsync(userDataFromView.Id);
             if (user != null)
             {
-                user.Email = email;
+                user.FirstName = userDataFromView.FirstName;
+                user.LastName = userDataFromView.LastName;
+                user.Patronymic = userDataFromView.Patronymic;
+
+                user.Email = userDataFromView.Email;
                 IdentityResult validEmail = await _userValidator.ValidateAsync(_userManager, user);
                 if (!validEmail.Succeeded)
                 {
@@ -175,9 +180,33 @@ namespace CSMPMWeb.Controllers
         public async Task<IActionResult> EditUserRoles(string id)
         {
             var appUser = await _userManager.FindByIdAsync(id);
-            var roles = context.Roles;
+            var roles = _roleManager.Roles.ToList();            
             var userRoles = await _userManager.GetRolesAsync(appUser);
-            return View();
+            var viewModel = new AppUserEditRolesViewModel(appUser, roles, userRoles);
+            return View(viewModel); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUserRoles(AppUserEditRolesViewModel viewModel)
+        {
+            var appUser = await _userManager.FindByIdAsync(viewModel.AppUser.Id);
+
+            foreach(var role in viewModel.Roles)
+            {
+                if (role.IsInRole == role.IsInRole_Edited) break;
+
+                if(role.IsInRole_Edited)
+                {
+                    await _userManager.AddToRoleAsync(appUser, role.RoleName);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(appUser, role.RoleName);
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
         }
         #endregion
 

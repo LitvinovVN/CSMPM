@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CSMPMWeb.Controllers
+namespace CSMPMWeb.Models
 {
     /// <summary>
     /// Модель представления для регистрации нового пользователя
