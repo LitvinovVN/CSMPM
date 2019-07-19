@@ -194,7 +194,7 @@ namespace CSMPMWeb.Controllers
 
             foreach(var role in viewModel.Roles)
             {
-                if (role.IsInRole == role.IsInRole_Edited) break;
+                if (role.IsInRole == role.IsInRole_Edited) continue;
 
                 if(role.IsInRole_Edited)
                 {
