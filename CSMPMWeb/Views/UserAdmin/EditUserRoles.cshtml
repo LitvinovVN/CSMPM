@@ -6,6 +6,13 @@
 
 <h1>Редактирование ролей пользователя @Model.AppUser.UserName (@Model.AppUser.GetFullName)</h1>
 
+<ul>
+    @foreach (var userRole in ViewBag.UserRoles)
+    {
+        <li>@userRole</li>
+    }
+</ul>
+
 @if (Model != null)
 {
 <form asp-action="EditUserRoles">    

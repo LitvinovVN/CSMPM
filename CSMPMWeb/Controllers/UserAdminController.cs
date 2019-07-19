@@ -183,6 +183,8 @@ namespace CSMPMWeb.Controllers
             var roles = _roleManager.Roles.ToList();            
             var userRoles = await _userManager.GetRolesAsync(appUser);
             var viewModel = new AppUserEditRolesViewModel(appUser, roles, userRoles);
+
+            ViewBag.UserRoles = userRoles;
             return View(viewModel); 
         }
 
