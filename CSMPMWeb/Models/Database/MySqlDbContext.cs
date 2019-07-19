@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
+using CSMPMLib;
 
 namespace CSMPMWeb.Models
 {
@@ -30,6 +31,15 @@ namespace CSMPMWeb.Models
             await InitDatabaseAdminAccount.CreateAdminAccount(serviceProvider, configuration);
             //await InitDatabaseUserData.CreateUserData(serviceProvider, configuration);            
         }
+        
+
+        /// <summary>
+        /// Инициализация базы данных
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public DbSet<CSMPMLib.CropGroup> CropGroup { get; set; }
 
     }
 }

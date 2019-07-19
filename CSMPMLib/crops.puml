@@ -1,0 +1,46 @@
+﻿@startuml
+'' crops
+class CropGroup
+{	
+	+ int CropGroupId { get; set; }        
+	+ string CropGroupName { get; set; }        
+	+ List<Crop> Crops { get; set; }
+}
+note right: Группа сельскохозяйственных культур
+
+class Crop
+{
+	+ int CropId { get; set; }
+	+ string CropName { get; set; }
+	+ double WateringRate { get; set; }
+	+ double IrrigationRate { get; set; }
+	+ int CropGroupId { get; set; }
+	+ CropGroup CropGroup { get; set; }
+}
+note right: Сельскохозяйственная культура
+
+CropGroup *-- Crop
+
+interface ICropGroupRepository
+{
+	+ void AddCropGroup(CropGroup cropGroup);
+    + void RemoveCropGroup(CropGroup cropGroup);
+    + void UpdateCropGroup(CropGroup cropGroup);
+    + CropGroup GetCropGroup(int cropGroupId);
+    + List<CropGroup> GetCropGroups();
+}
+
+class CropGroupMemoryRepository
+{
+	- List<CropGroup> _cropGroups;
+	+ void AddCropGroup(CropGroup cropGroup);
+    + void RemoveCropGroup(CropGroup cropGroup);
+    + void UpdateCropGroup(CropGroup cropGroup);
+    + CropGroup GetCropGroup(int cropGroupId);
+    + List<CropGroup> GetCropGroups();
+}
+
+ICropGroupRepository <|-- CropGroupMemoryRepository
+CropGroupMemoryRepository *-- CropGroup
+
+@enduml
