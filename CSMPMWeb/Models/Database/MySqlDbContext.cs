@@ -28,10 +28,11 @@ namespace CSMPMWeb.Models
         /// <returns></returns>
         public static async Task InitDatabase(IServiceProvider serviceProvider, IConfiguration configuration)
         {
+            await InitDatabaseCropGroupsCrops.CreateCropsData(serviceProvider, configuration);
+
             await InitDatabaseRoles.CreateRoles(serviceProvider, configuration);
             await InitDatabaseAdminAccount.CreateAdminAccount(serviceProvider, configuration);
-            //await InitDatabaseUserData.CreateUserData(serviceProvider, configuration);
-            await InitDatabaseCropGroupsCrops.CreateCropsData(serviceProvider, configuration);
+            //await InitDatabaseUserData.CreateUserData(serviceProvider, configuration);            
         }
         #endregion
 
