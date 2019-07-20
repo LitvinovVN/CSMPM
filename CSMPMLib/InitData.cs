@@ -10,7 +10,7 @@ namespace CSMPMLib
     public static class InitData
     {
         /// <summary>
-        /// Возвращает список групп с/х культур
+        /// Возвращает список групп с/х культур с УИД
         /// </summary>
         public static List<CropGroup> GetCropGroups_Crops()
         {
@@ -137,7 +137,7 @@ namespace CSMPMLib
         }
 
         /// <summary>
-        /// Возвращает список групп с/х культур
+        /// Возвращает список групп с/х культур без УИД
         /// </summary>
         public static List<CropGroup> GetCropGroups_Crops_WithoutIds()
         {

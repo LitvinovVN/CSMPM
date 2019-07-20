@@ -18,5 +18,49 @@ namespace CSMPMWeb.Controllers
             var cropGroups = await _cropGroupRepository.GetCropGroupsAsync();
             return View(cropGroups);
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            CropGroup cropGroup;
+
+            if(id == null)
+            {
+                cropGroup = new CropGroup();
+            }
+            else
+            {
+                cropGroup = await _cropGroupRepository.GetCropGroupAsync((int)id);
+                if (cropGroup == null)
+                    return RedirectToAction(nameof(Index));
+            }
+
+            return View(cropGroup);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CropGroup cropGroup)
+        {
+            if (cropGroup == null)
+                return RedirectToAction(nameof(Index));
+
+            await _cropGroupRepository.UpdateCropGroupAsync(cropGroup);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var cropGroup = await _cropGroupRepository.GetCropGroupAsync(id);
+            return View(cropGroup);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(CropGroup cropGroup)
+        {
+            await _cropGroupRepository.RemoveCropGroupAsync(cropGroup);            
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

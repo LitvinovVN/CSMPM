@@ -20,12 +20,15 @@ namespace CSMPMWeb.Models
 
         public async Task<CropGroup> AddCropGroupAsync(CropGroup cropGroup)
         {
-            throw new NotImplementedException();
+            await _context.CropGroups.AddAsync(cropGroup);
+            await _context.SaveChangesAsync();
+            return cropGroup;
         }
 
         public async Task<CropGroup> GetCropGroupAsync(int cropGroupId)
         {
-            throw new NotImplementedException();
+            var cropGroup = await _context.CropGroups.Include(cg => cg.Crops).FirstOrDefaultAsync(cg => cg.CropGroupId == cropGroupId);
+            return cropGroup;
         }
 
         public async Task<List<CropGroup>> GetCropGroupsAsync()
@@ -35,12 +38,14 @@ namespace CSMPMWeb.Models
 
         public async Task RemoveCropGroupAsync(CropGroup cropGroup)
         {
-            throw new NotImplementedException();
+            _context.Remove(cropGroup);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateCropGroupAsync(CropGroup cropGroup)
         {
-            throw new NotImplementedException();
+            _context.CropGroups.Update(cropGroup);
+            await _context.SaveChangesAsync();
         }
     }
 }
