@@ -19,17 +19,17 @@ namespace CSMPMWeb.Controllers
             return View(cropGroups);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             CropGroup cropGroup;
 
-            if(id == null)
+            if(id == 0)
             {
                 cropGroup = new CropGroup();
             }
             else
             {
-                cropGroup = await _cropGroupRepository.GetCropGroupAsync((int)id);
+                cropGroup = await _cropGroupRepository.GetCropGroupAsync(id);
                 if (cropGroup == null)
                     return RedirectToAction(nameof(Index));
             }
@@ -43,8 +43,14 @@ namespace CSMPMWeb.Controllers
         {
             if (cropGroup == null)
                 return RedirectToAction(nameof(Index));
-
-            await _cropGroupRepository.UpdateCropGroupAsync(cropGroup);
+            if(cropGroup.CropGroupId == 0)
+            {
+                await _cropGroupRepository.AddCropGroupAsync(cropGroup);                
+            }
+            else
+            {
+                await _cropGroupRepository.UpdateCropGroupAsync(cropGroup);
+            }
 
             return RedirectToAction(nameof(Index));
         }
