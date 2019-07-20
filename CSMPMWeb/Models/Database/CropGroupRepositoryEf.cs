@@ -20,6 +20,15 @@ namespace CSMPMWeb.Models
 
         public async Task<CropGroup> AddCropGroupAsync(CropGroup cropGroup)
         {
+            //////////
+            CropGroup testCrop = new CropGroup();
+            testCrop.CropGroupName = "testCrop";
+            _context.CropGroups.Add(testCrop);
+            _context.SaveChanges();
+
+            //////////////
+
+
             await _context.CropGroups.AddAsync(cropGroup);
             await _context.SaveChangesAsync();
             return cropGroup;
