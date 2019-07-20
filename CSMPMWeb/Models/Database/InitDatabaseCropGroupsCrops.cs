@@ -28,7 +28,7 @@ namespace CSMPMWeb.Models
                 
                 if(!context.CropGroups.Any())
                 {
-                    var data = InitData.GetCropGroups_Crops();
+                    var data = InitData.GetCropGroups_Crops_WithoutIds();
                     try
                     {
                         await context.AddRangeAsync(data);
