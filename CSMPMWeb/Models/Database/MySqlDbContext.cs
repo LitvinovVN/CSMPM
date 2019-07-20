@@ -19,6 +19,7 @@ namespace CSMPMWeb.Models
         }
         #endregion
 
+        #region Инициализация базы данных
         /// <summary>
         /// Инициализация базы данных
         /// </summary>
@@ -29,17 +30,21 @@ namespace CSMPMWeb.Models
         {
             await InitDatabaseRoles.CreateRoles(serviceProvider, configuration);
             await InitDatabaseAdminAccount.CreateAdminAccount(serviceProvider, configuration);
-            //await InitDatabaseUserData.CreateUserData(serviceProvider, configuration);            
+            //await InitDatabaseUserData.CreateUserData(serviceProvider, configuration);
+            await InitDatabaseCropGroupsCrops.CreateCropsData(serviceProvider, configuration);
         }
-        
+        #endregion
+
+        #region Таблицы
+        /// <summary>
+        /// Группы с/х культур
+        /// </summary>        
+        public DbSet<CropGroup> CropGroups { get; set; }
 
         /// <summary>
-        /// Инициализация базы данных
+        /// С/х культуры
         /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <param name="configuration"></param>
-        /// <returns></returns>
-        public DbSet<CSMPMLib.CropGroup> CropGroup { get; set; }
-
+        public DbSet<Crop> Crops { get; set; }
+        #endregion
     }
 }

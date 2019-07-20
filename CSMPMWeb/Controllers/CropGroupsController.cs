@@ -1,5 +1,6 @@
 ﻿using CSMPMLib;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CSMPMWeb.Controllers
 {
@@ -12,9 +13,9 @@ namespace CSMPMWeb.Controllers
             _cropGroupRepository = cropGroupRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var cropGroups = _cropGroupRepository.GetCropGroupsAsync();
+            var cropGroups = await _cropGroupRepository.GetCropGroupsAsync();
             return View(cropGroups);
         }
     }
