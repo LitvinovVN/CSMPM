@@ -1,4 +1,4 @@
-﻿@if (User.IsInRole("Administrators"))
+﻿@if (  true   @*User.IsInRole("Administrators")*@)
 {
     <div class="dropdown" role="navigation">
         <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -9,8 +9,8 @@
             <a asp-controller="UserAdmin" class="dropdown-item">Аккаунты пользователей</a>
             <a asp-controller="RoleAdmin" class="dropdown-item">Роли</a>
             <div class="dropdown-divider"></div>
-            <a asp-controller="CropGroups" class="dropdown-item">Группы с/х культур</a>
-            <a asp-controller="Crops" class="dropdown-item">С/х культуры</a>
+            <a asp-controller="CropGroups" asp-action="Index" class="dropdown-item">Группы с/х культур</a>
+            <a asp-controller="Crops" asp-action="Index" class="dropdown-item">С/х культуры</a>
             <div class="dropdown-divider"></div>
             <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Выйти</a>
         </div>

@@ -20,11 +20,7 @@ namespace CSMPMWeb.Controllers
 
         public IActionResult Index()
         {
-            Class1 c1 = new Class1();
-            ViewBag.c1 = c1;
-            ViewBag.Roles = _context.Roles.ToList();
-            ViewBag.UserRoles = _context.UserRoles.ToList();
-
+            
             return View();
         }
 

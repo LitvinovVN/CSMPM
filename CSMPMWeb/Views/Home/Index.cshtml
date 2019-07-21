@@ -4,33 +4,5 @@
 
 <div class="text-center">
     <h1 class="display-4">Добро пожаловать!</h1>
-    <a asp-action="SystemUpdate" class="btn btn-danger">Обновить</a>
-    <ul>
-        <li>Обновление 1</li>
-        <li>@ViewBag.c1</li>
-        <li>
-            Roles: 
-            @foreach (var role in ViewBag.Roles)
-            {
-                <text>@role </text>
-            }
-        </li>
-        <li>
-            UserRoles:            
-            @if (ViewBag.UserRoles == null)
-            {
-                <text>UserRoles = null</text>
-            }
-            else
-            {
-                foreach (var userRole in ViewBag.UserRoles)
-                {
-                    <text>@userRole.RoleId - @userRole.UserId; </text>
-                }
-            }
-        </li>
-        <li>
-            <a asp-controller="UserAdmin">Аккаунты пользователей</a>
-        </li>
-    </ul>
+    
 </div>

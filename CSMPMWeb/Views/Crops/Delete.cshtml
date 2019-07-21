@@ -1,0 +1,44 @@
+﻿@model CSMPMLib.Crop
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удаление с/х культуры</h1>
+
+<h3>Вы действительно хотите удалить запись??</h3>
+<div>    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CropName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CropName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WateringRate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WateringRate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IrrigationRate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IrrigationRate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CropGroup)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CropGroup.CropGroupId)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CropId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

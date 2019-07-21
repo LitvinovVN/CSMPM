@@ -52,6 +52,7 @@ namespace CSMPMWeb
             services.AddSession();
 
             services.AddTransient<ICropGroupRepository, CropGroupRepositoryEf>();
+            services.AddTransient<ICropRepository, CropRepositoryEf>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
