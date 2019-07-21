@@ -1,6 +1,7 @@
 ﻿//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 //using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -19,6 +20,7 @@ namespace CSMPMLib
         /// <summary>
         /// Наименование группы с/х культур
         /// </summary>        
+        [Display(Name = "Наименование группы с/х культур")]
         public string CropGroupName { get; set; }
 
         /// <summary>

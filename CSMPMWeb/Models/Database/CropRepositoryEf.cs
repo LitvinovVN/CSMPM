@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CSMPMWeb.Models
@@ -36,7 +37,8 @@ namespace CSMPMWeb.Models
         public async Task<List<Crop>> GetCropsAsync()
         {
             return await _context.Crops
-                .Include(c=>c.CropGroup)
+                .Include(c => c.CropGroup)
+                .OrderBy(c=> c.CropName)
                 .ToListAsync();
         }
 

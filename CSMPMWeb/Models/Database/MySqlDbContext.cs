@@ -46,6 +46,16 @@ namespace CSMPMWeb.Models
         /// С/х культуры
         /// </summary>
         public DbSet<Crop> Crops { get; set; }
+        
+        /// <summary>
+        /// Оросительные сети
+        /// </summary>
+        public DbSet<IrrigationGrid> IrrigationGrids { get; set; }
+        
+        /// <summary>
+        /// Оросительные каналы
+        /// </summary>
+        public DbSet<IrrigationCanal> IrrigationCanals { get; set; }
         #endregion
     }
 }
