@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSMPMLib
 {
@@ -15,6 +16,7 @@ namespace CSMPMLib
         /// <summary>
         /// Наименование с/х культуры
         /// </summary>
+        [Display(Name = "Наименование с/х культуры")]
         public string CropName { get; set; }
 
         /// <summary>
