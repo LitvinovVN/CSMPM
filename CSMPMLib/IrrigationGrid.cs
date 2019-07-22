@@ -21,6 +21,19 @@ namespace CSMPMLib
         [Display(Name = "Наименование оросительной сети")]
         public string IrrigationGridName { get; set; }
 
+
+        /// <summary>
+        /// УИД оросительной системы
+        /// </summary>
+        [Display(Name = "Оросительная система")]
+        public int IrrigationSystemId { get; set; }
+
+        /// <summary>
+        /// Оросительная система
+        /// </summary>
+        [Display(Name = "Оросительная система")]
+        public IrrigationSystem IrrigationSystem { get; set; }
+
         /// <summary>
         /// Оросительные каналы
         /// </summary>

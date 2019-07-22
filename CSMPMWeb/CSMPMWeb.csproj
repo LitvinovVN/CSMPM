@@ -10,6 +10,18 @@
     <Compile Remove="Migrations\20190720041513_CropGroups.Designer.cs" />
     <Compile Remove="Migrations\20190720042658_Crops.cs" />
     <Compile Remove="Migrations\20190720042658_Crops.Designer.cs" />
+    <Compile Remove="Migrations\20190721154859_IrrigationGridsAndIrrigationCanals.cs" />
+    <Compile Remove="Migrations\20190721154859_IrrigationGridsAndIrrigationCanals.Designer.cs" />
+    <Compile Remove="Migrations\20190721193232_OrganizationsIrrigationSystems.cs" />
+    <Compile Remove="Migrations\20190721193232_OrganizationsIrrigationSystems.Designer.cs" />
+    <Compile Remove="Migrations\20190721193501_OrganizationsIrrigationSystems.cs" />
+    <Compile Remove="Migrations\20190721193501_OrganizationsIrrigationSystems.Designer.cs" />
+    <Compile Remove="Migrations\20190721194009_OrganizationsIrrigationSystems.cs" />
+    <Compile Remove="Migrations\20190721194009_OrganizationsIrrigationSystems.Designer.cs" />
+    <Compile Remove="Migrations\20190722042519_permissions.cs" />
+    <Compile Remove="Migrations\20190722042519_permissions.Designer.cs" />
+    <Compile Remove="Migrations\20190722044311_permissions.cs" />
+    <Compile Remove="Migrations\20190722044311_permissions.Designer.cs" />
   </ItemGroup>
 
 

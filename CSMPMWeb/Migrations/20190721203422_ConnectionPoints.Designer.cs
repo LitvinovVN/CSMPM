@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSMPMWeb.Migrations
 {
     [DbContext(typeof(MySqlDbContext))]
-    [Migration("20190721154859_IrrigationGridsAndIrrigationCanals")]
-    partial class IrrigationGridsAndIrrigationCanals
+    [Migration("20190721203422_ConnectionPoints")]
+    partial class ConnectionPoints
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,54 @@ namespace CSMPMWeb.Migrations
                     b.ToTable("IrrigationCanals");
                 });
 
+            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPoint", b =>
+                {
+                    b.Property<int>("IrrigationCanalConnectionPointId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("IrrigationCanalConnectionPointName");
+
+                    b.HasKey("IrrigationCanalConnectionPointId");
+
+                    b.ToTable("IrrigationCanalConnectionPoints");
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPointToIrrigationCanal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IrrigationCanalConnectionPointId");
+
+                    b.Property<int>("IrrigationCanalConnectionPointTypeId");
+
+                    b.Property<int>("IrrigationCanalId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IrrigationCanalConnectionPointId");
+
+                    b.HasIndex("IrrigationCanalConnectionPointTypeId")
+                        .HasName("IX_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~1");
+
+                    b.HasIndex("IrrigationCanalId")
+                        .HasName("IX_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~2");
+
+                    b.ToTable("IrrigationCanalConnectionPointToIrrigationCanals");
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPointType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IrrigationCanalConnectionPointTypes");
+                });
+
             modelBuilder.Entity("CSMPMLib.IrrigationGrid", b =>
                 {
                     b.Property<int>("IrrigationGridId")
@@ -74,9 +122,43 @@ namespace CSMPMWeb.Migrations
 
                     b.Property<string>("IrrigationGridName");
 
+                    b.Property<int>("IrrigationSystemId");
+
                     b.HasKey("IrrigationGridId");
 
+                    b.HasIndex("IrrigationSystemId");
+
                     b.ToTable("IrrigationGrids");
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationSystem", b =>
+                {
+                    b.Property<int>("IrrigationSystemId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("IrrigationSystemName");
+
+                    b.Property<int>("OrganizationId");
+
+                    b.HasKey("IrrigationSystemId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("IrrigationSystems");
+                });
+
+            modelBuilder.Entity("CSMPMLib.Organization", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("OrganizationName");
+
+                    b.Property<int?>("ParentOrganizationId");
+
+                    b.HasKey("OrganizationId");
+
+                    b.ToTable("Organizations");
                 });
 
             modelBuilder.Entity("CSMPMWeb.Models.AppUser", b =>
@@ -255,6 +337,42 @@ namespace CSMPMWeb.Migrations
                     b.HasOne("CSMPMLib.IrrigationGrid", "IrrigationGrid")
                         .WithMany("IrrigationCanals")
                         .HasForeignKey("IrrigationGridId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPointToIrrigationCanal", b =>
+                {
+                    b.HasOne("CSMPMLib.IrrigationCanalConnectionPoint", "IrrigationCanalConnectionPoint")
+                        .WithMany("IrrigationCanalConnectionPointToIrrigationCanal")
+                        .HasForeignKey("IrrigationCanalConnectionPointId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMLib.IrrigationCanalConnectionPointType", "IrrigationCanalConnectionPointType")
+                        .WithMany()
+                        .HasForeignKey("IrrigationCanalConnectionPointTypeId")
+                        .HasConstraintName("FK_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~1")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMLib.IrrigationCanal", "IrrigationCanal")
+                        .WithMany()
+                        .HasForeignKey("IrrigationCanalId")
+                        .HasConstraintName("FK_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~2")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationGrid", b =>
+                {
+                    b.HasOne("CSMPMLib.IrrigationSystem", "IrrigationSystem")
+                        .WithMany("IrrigationGrids")
+                        .HasForeignKey("IrrigationSystemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationSystem", b =>
+                {
+                    b.HasOne("CSMPMLib.Organization", "Organization")
+                        .WithMany("IrrigationSystems")
+                        .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

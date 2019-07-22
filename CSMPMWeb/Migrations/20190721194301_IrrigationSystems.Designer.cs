@@ -3,14 +3,16 @@ using System;
 using CSMPMWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSMPMWeb.Migrations
 {
     [DbContext(typeof(MySqlDbContext))]
-    partial class MySqlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190721194301_IrrigationSystems")]
+    partial class IrrigationSystems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,54 +65,6 @@ namespace CSMPMWeb.Migrations
                     b.HasIndex("IrrigationGridId");
 
                     b.ToTable("IrrigationCanals");
-                });
-
-            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPoint", b =>
-                {
-                    b.Property<int>("IrrigationCanalConnectionPointId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("IrrigationCanalConnectionPointName");
-
-                    b.HasKey("IrrigationCanalConnectionPointId");
-
-                    b.ToTable("IrrigationCanalConnectionPoints");
-                });
-
-            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPointToIrrigationCanal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("IrrigationCanalConnectionPointId");
-
-                    b.Property<int>("IrrigationCanalConnectionPointTypeId");
-
-                    b.Property<int>("IrrigationCanalId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IrrigationCanalConnectionPointId");
-
-                    b.HasIndex("IrrigationCanalConnectionPointTypeId")
-                        .HasName("IX_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~1");
-
-                    b.HasIndex("IrrigationCanalId")
-                        .HasName("IX_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~2");
-
-                    b.ToTable("IrrigationCanalConnectionPointToIrrigationCanals");
-                });
-
-            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPointType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IrrigationCanalConnectionPointTypes");
                 });
 
             modelBuilder.Entity("CSMPMLib.IrrigationGrid", b =>
@@ -213,70 +167,6 @@ namespace CSMPMWeb.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("CSMPMWeb.Models.AppUserToOrganization", b =>
-                {
-                    b.Property<int>("AppUserToOrganizationId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AppUserId");
-
-                    b.Property<int>("OrganizationId");
-
-                    b.HasKey("AppUserToOrganizationId");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("AppUserToOrganizations");
-                });
-
-            modelBuilder.Entity("CSMPMWeb.Models.AssignedPermission", b =>
-                {
-                    b.Property<int>("AssignedPermissionId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AppUserToOrganizationId");
-
-                    b.Property<int>("SystemModuleId");
-
-                    b.Property<int>("SystemRoleId");
-
-                    b.HasKey("AssignedPermissionId");
-
-                    b.HasIndex("AppUserToOrganizationId");
-
-                    b.HasIndex("SystemModuleId");
-
-                    b.HasIndex("SystemRoleId");
-
-                    b.ToTable("AssignedPermissions");
-                });
-
-            modelBuilder.Entity("CSMPMWeb.Models.SystemModule", b =>
-                {
-                    b.Property<int>("SystemModuleId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("SystemModuleName");
-
-                    b.HasKey("SystemModuleId");
-
-                    b.ToTable("SystemModules");
-                });
-
-            modelBuilder.Entity("CSMPMWeb.Models.SystemRole", b =>
-                {
-                    b.Property<int>("SystemRoleId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("SystemRoleName");
-
-                    b.HasKey("SystemRoleId");
-
-                    b.ToTable("SystemRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -402,26 +292,6 @@ namespace CSMPMWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CSMPMLib.IrrigationCanalConnectionPointToIrrigationCanal", b =>
-                {
-                    b.HasOne("CSMPMLib.IrrigationCanalConnectionPoint", "IrrigationCanalConnectionPoint")
-                        .WithMany("IrrigationCanalConnectionPointToIrrigationCanal")
-                        .HasForeignKey("IrrigationCanalConnectionPointId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CSMPMLib.IrrigationCanalConnectionPointType", "IrrigationCanalConnectionPointType")
-                        .WithMany()
-                        .HasForeignKey("IrrigationCanalConnectionPointTypeId")
-                        .HasConstraintName("FK_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~1")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CSMPMLib.IrrigationCanal", "IrrigationCanal")
-                        .WithMany()
-                        .HasForeignKey("IrrigationCanalId")
-                        .HasConstraintName("FK_IrrigationCanalConnectionPointToIrrigationCanals_Irrigation~2")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("CSMPMLib.IrrigationGrid", b =>
                 {
                     b.HasOne("CSMPMLib.IrrigationSystem", "IrrigationSystem")
@@ -435,36 +305,6 @@ namespace CSMPMWeb.Migrations
                     b.HasOne("CSMPMLib.Organization", "Organization")
                         .WithMany("IrrigationSystems")
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CSMPMWeb.Models.AppUserToOrganization", b =>
-                {
-                    b.HasOne("CSMPMWeb.Models.AppUser", "AppUser")
-                        .WithMany("AppUserToOrganizationWithAppUserPermissions")
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("CSMPMLib.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CSMPMWeb.Models.AssignedPermission", b =>
-                {
-                    b.HasOne("CSMPMWeb.Models.AppUserToOrganization", "AppUserToOrganization")
-                        .WithMany("AssignedPermissions")
-                        .HasForeignKey("AppUserToOrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CSMPMWeb.Models.SystemModule", "SystemModule")
-                        .WithMany("AssignedPermissions")
-                        .HasForeignKey("SystemModuleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CSMPMWeb.Models.SystemRole", "SystemRole")
-                        .WithMany("AssignedPermissions")
-                        .HasForeignKey("SystemRoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

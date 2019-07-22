@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CSMPMWeb.Models
@@ -37,5 +38,10 @@ namespace CSMPMWeb.Models
                 return LastName + " " + FirstName + " " + Patronymic;
             }
         }
+
+        /// <summary>
+        /// Р
+        /// </summary>
+        public List<AppUserToOrganization> AppUserToOrganizationWithAppUserPermissions { get; set; }
     }
 }

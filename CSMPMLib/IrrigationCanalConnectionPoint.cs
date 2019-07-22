@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSMPMLib
 {
@@ -17,14 +18,12 @@ namespace CSMPMLib
         /// </summary>
         [Display(Name = "Наименование точки присоединения к оросительной сети")]
         public string IrrigationCanalConnectionPointName { get; set; }
-
+               
         /// <summary>
-        /// УИД оросительного канала, к которому привязана точки
+        /// Связующая таблица для хранения принадлежности точки присоединения оросительным каналам с указанием типа принадлежности
         /// </summary>
-        public int? IrrigationCanalId { get; set; }
-
         [Display(Name = "Оросительный канал")]
-        public IrrigationCanal IrrigationCanal { get; set; }
+        public List<IrrigationCanalConnectionPointToIrrigationCanal> IrrigationCanalConnectionPointToIrrigationCanal { get; set; }
 
         // Добавить координаты присоединения
         // широта, долгота, высота?

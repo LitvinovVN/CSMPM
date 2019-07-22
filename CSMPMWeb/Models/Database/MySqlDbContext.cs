@@ -37,6 +37,7 @@ namespace CSMPMWeb.Models
         #endregion
 
         #region Таблицы
+        #region С\х культуры
         /// <summary>
         /// Группы с/х культур
         /// </summary>        
@@ -46,7 +47,41 @@ namespace CSMPMWeb.Models
         /// С/х культуры
         /// </summary>
         public DbSet<Crop> Crops { get; set; }
-        
+        #endregion
+
+        #region Организации, пользователи и права доступа
+        /// <summary>
+        /// Организации
+        /// </summary>
+        public DbSet<Organization> Organizations { get; set; }
+
+        /// <summary>
+        /// Привязки пользователей к организациям
+        /// </summary>
+        public DbSet<AppUserToOrganization> AppUserToOrganizations { get; set; }
+
+        /// <summary>
+        /// Назначения разрешений на использование модулей системы
+        /// </summary>
+        public DbSet<AssignedPermission> AssignedPermissions { get; set; }
+
+        /// <summary>
+        /// Модули системы
+        /// </summary>
+        public DbSet<SystemModule> SystemModules { get; set; }
+
+        /// <summary>
+        /// Роли пользователей при работе с модулями системы
+        /// </summary>
+        public DbSet<SystemRole> SystemRoles { get; set; }
+        #endregion
+
+        #region Орошение
+        /// <summary>
+        /// Оросительные системы
+        /// </summary>
+        public DbSet<IrrigationSystem> IrrigationSystems { get; set; }
+
         /// <summary>
         /// Оросительные сети
         /// </summary>
@@ -56,6 +91,23 @@ namespace CSMPMWeb.Models
         /// Оросительные каналы
         /// </summary>
         public DbSet<IrrigationCanal> IrrigationCanals { get; set; }
+
+        /// <summary>
+        /// Точки присоединения к оросительным каналам
+        /// </summary>
+        public DbSet<IrrigationCanalConnectionPoint> IrrigationCanalConnectionPoints { get; set; }
+
+        /// <summary>
+        /// Типы присоединения точки к оросительному каналу
+        /// </summary>
+        public DbSet<IrrigationCanalConnectionPointType> IrrigationCanalConnectionPointTypes { get; set; }
+
+        /// <summary>
+        /// Связующая таблица для хранения принадлежности точки присоединения оросительным каналам с указанием типа принадлежности
+        /// </summary>
+        public DbSet<IrrigationCanalConnectionPointToIrrigationCanal> IrrigationCanalConnectionPointToIrrigationCanals { get; set; }
+        #endregion
+        
         #endregion
     }
 }
