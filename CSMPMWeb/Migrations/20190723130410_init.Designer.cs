@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSMPMWeb.Migrations
 {
     [DbContext(typeof(MySqlDbContext))]
-    [Migration("20190721203422_ConnectionPoints")]
-    partial class ConnectionPoints
+    [Migration("20190723130410_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -138,11 +138,7 @@ namespace CSMPMWeb.Migrations
 
                     b.Property<string>("IrrigationSystemName");
 
-                    b.Property<int>("OrganizationId");
-
                     b.HasKey("IrrigationSystemId");
-
-                    b.HasIndex("OrganizationId");
 
                     b.ToTable("IrrigationSystems");
                 });
@@ -158,7 +154,43 @@ namespace CSMPMWeb.Migrations
 
                     b.HasKey("OrganizationId");
 
+                    b.HasIndex("ParentOrganizationId");
+
                     b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToIrrigationSystem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IrrigationSystemId");
+
+                    b.Property<int>("OrganizationId");
+
+                    b.Property<int>("OrganizationToSystemRelationTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IrrigationSystemId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("OrganizationToSystemRelationTypeId");
+
+                    b.ToTable("OrganizationToIrrigationSystems");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToSystemRelationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrganizationToSystemRelationTypes");
                 });
 
             modelBuilder.Entity("CSMPMWeb.Models.AppUser", b =>
@@ -215,6 +247,70 @@ namespace CSMPMWeb.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("CSMPMWeb.Models.AppUserToOrganization", b =>
+                {
+                    b.Property<int>("AppUserToOrganizationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppUserId");
+
+                    b.Property<int>("OrganizationId");
+
+                    b.HasKey("AppUserToOrganizationId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("AppUserToOrganizations");
+                });
+
+            modelBuilder.Entity("CSMPMWeb.Models.AssignedPermission", b =>
+                {
+                    b.Property<int>("AssignedPermissionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AppUserToOrganizationId");
+
+                    b.Property<int>("SystemModuleId");
+
+                    b.Property<int>("SystemRoleId");
+
+                    b.HasKey("AssignedPermissionId");
+
+                    b.HasIndex("AppUserToOrganizationId");
+
+                    b.HasIndex("SystemModuleId");
+
+                    b.HasIndex("SystemRoleId");
+
+                    b.ToTable("AssignedPermissions");
+                });
+
+            modelBuilder.Entity("CSMPMWeb.Models.SystemModule", b =>
+                {
+                    b.Property<int>("SystemModuleId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("SystemModuleName");
+
+                    b.HasKey("SystemModuleId");
+
+                    b.ToTable("SystemModules");
+                });
+
+            modelBuilder.Entity("CSMPMWeb.Models.SystemRole", b =>
+                {
+                    b.Property<int>("SystemRoleId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("SystemRoleName");
+
+                    b.HasKey("SystemRoleId");
+
+                    b.ToTable("SystemRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -368,11 +464,58 @@ namespace CSMPMWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CSMPMLib.IrrigationSystem", b =>
+            modelBuilder.Entity("CSMPMLib.Organization", b =>
                 {
+                    b.HasOne("CSMPMLib.Organization", "ParentOrganization")
+                        .WithMany("ChildOrganizations")
+                        .HasForeignKey("ParentOrganizationId");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToIrrigationSystem", b =>
+                {
+                    b.HasOne("CSMPMLib.IrrigationSystem", "IrrigationSystem")
+                        .WithMany("OrganizationToIrrigationSystem")
+                        .HasForeignKey("IrrigationSystemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("CSMPMLib.Organization", "Organization")
-                        .WithMany("IrrigationSystems")
+                        .WithMany("OrganizationToIrrigationSystem")
                         .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMLib.OrganizationToSystemRelationType", "OrganizationToSystemRelationType")
+                        .WithMany()
+                        .HasForeignKey("OrganizationToSystemRelationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMWeb.Models.AppUserToOrganization", b =>
+                {
+                    b.HasOne("CSMPMWeb.Models.AppUser", "AppUser")
+                        .WithMany("AppUserToOrganizationWithAppUserPermissions")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("CSMPMLib.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMWeb.Models.AssignedPermission", b =>
+                {
+                    b.HasOne("CSMPMWeb.Models.AppUserToOrganization", "AppUserToOrganization")
+                        .WithMany("AssignedPermissions")
+                        .HasForeignKey("AppUserToOrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMWeb.Models.SystemModule", "SystemModule")
+                        .WithMany("AssignedPermissions")
+                        .HasForeignKey("SystemModuleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMWeb.Models.SystemRole", "SystemRole")
+                        .WithMany("AssignedPermissions")
+                        .HasForeignKey("SystemRoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -1,0 +1,26 @@
+﻿@model CSMPMWeb.Models.SystemRole
+
+@{
+    ViewData["Title"] = "Редактирование";
+}
+
+<h1>Редактирование ролей пользователя при использовании модулей системы</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SystemRoleId" />
+            <div class="form-group">
+                <label asp-for="SystemRoleName" class="control-label"></label>
+                <input asp-for="SystemRoleName" class="form-control" />
+                <span asp-validation-for="SystemRoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>

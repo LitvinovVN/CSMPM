@@ -6,10 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190717054822_init.cs" />
+    <Compile Remove="Migrations\20190717054822_init.Designer.cs" />
     <Compile Remove="Migrations\20190720041513_CropGroups.cs" />
     <Compile Remove="Migrations\20190720041513_CropGroups.Designer.cs" />
     <Compile Remove="Migrations\20190720042658_Crops.cs" />
     <Compile Remove="Migrations\20190720042658_Crops.Designer.cs" />
+    <Compile Remove="Migrations\20190720042831_Crops.cs" />
+    <Compile Remove="Migrations\20190720042831_Crops.Designer.cs" />
     <Compile Remove="Migrations\20190721154859_IrrigationGridsAndIrrigationCanals.cs" />
     <Compile Remove="Migrations\20190721154859_IrrigationGridsAndIrrigationCanals.Designer.cs" />
     <Compile Remove="Migrations\20190721193232_OrganizationsIrrigationSystems.cs" />
@@ -18,10 +22,52 @@
     <Compile Remove="Migrations\20190721193501_OrganizationsIrrigationSystems.Designer.cs" />
     <Compile Remove="Migrations\20190721194009_OrganizationsIrrigationSystems.cs" />
     <Compile Remove="Migrations\20190721194009_OrganizationsIrrigationSystems.Designer.cs" />
+    <Compile Remove="Migrations\20190721194301_IrrigationSystems.cs" />
+    <Compile Remove="Migrations\20190721194301_IrrigationSystems.Designer.cs" />
+    <Compile Remove="Migrations\20190721203422_ConnectionPoints.cs" />
+    <Compile Remove="Migrations\20190721203422_ConnectionPoints.Designer.cs" />
     <Compile Remove="Migrations\20190722042519_permissions.cs" />
     <Compile Remove="Migrations\20190722042519_permissions.Designer.cs" />
     <Compile Remove="Migrations\20190722044311_permissions.cs" />
     <Compile Remove="Migrations\20190722044311_permissions.Designer.cs" />
+    <Compile Remove="Migrations\20190722054238_permissions.cs" />
+    <Compile Remove="Migrations\20190722054238_permissions.Designer.cs" />
+    <Compile Remove="Migrations\20190722121504_t.cs" />
+    <Compile Remove="Migrations\20190722121504_t.Designer.cs" />
+    <Compile Remove="Migrations\20190722121540_t.cs" />
+    <Compile Remove="Migrations\20190722121540_t.Designer.cs" />
+    <Compile Remove="Migrations\20190722121822_t.cs" />
+    <Compile Remove="Migrations\20190722121822_t.Designer.cs" />
+    <Compile Remove="Migrations\20190722122152_t2.cs" />
+    <Compile Remove="Migrations\20190722122152_t2.Designer.cs" />
+    <Compile Remove="Migrations\20190722122355_t2.cs" />
+    <Compile Remove="Migrations\20190722122355_t2.Designer.cs" />
+    <Compile Remove="Migrations\20190722124857_t2.cs" />
+    <Compile Remove="Migrations\20190722124857_t2.Designer.cs" />
+    <Compile Remove="Migrations\20190722130426_organizations.cs" />
+    <Compile Remove="Migrations\20190722130426_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190722130707_organizations.cs" />
+    <Compile Remove="Migrations\20190722130707_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190722130848_organizations.cs" />
+    <Compile Remove="Migrations\20190722130848_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190722130947_organizations.cs" />
+    <Compile Remove="Migrations\20190722130947_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190722183307_t.cs" />
+    <Compile Remove="Migrations\20190722183307_t.Designer.cs" />
+    <Compile Remove="Migrations\20190722183704_organizations.cs" />
+    <Compile Remove="Migrations\20190722183704_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190722191706_organizations.cs" />
+    <Compile Remove="Migrations\20190722191706_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190722191846_organizations.cs" />
+    <Compile Remove="Migrations\20190722191846_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190722192009_organizations.cs" />
+    <Compile Remove="Migrations\20190722192009_organizations.Designer.cs" />
+    <Compile Remove="Migrations\20190723121157_init.cs" />
+    <Compile Remove="Migrations\20190723121157_init.Designer.cs" />
+    <Compile Remove="Migrations\20190723121747_init.cs" />
+    <Compile Remove="Migrations\20190723121747_init.Designer.cs" />
+    <Compile Remove="Migrations\20190723125834_init.cs" />
+    <Compile Remove="Migrations\20190723125834_init.Designer.cs" />
   </ItemGroup>
 
 

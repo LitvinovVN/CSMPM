@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CSMPMLib.IrrigationSystem>
+
+@{
+    ViewData["Title"] = "Оросительные системы";
+}
+
+<h1>Оросительные системы</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IrrigationSystemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationToIrrigationSystem)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IrrigationSystemName)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.OrganizationToIrrigationSystem)*@
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IrrigationSystemId" class="btn btn-primary">Редактировать</a> 
+                <a asp-action="Delete" asp-route-id="@item.IrrigationSystemId" class="btn btn-danger">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

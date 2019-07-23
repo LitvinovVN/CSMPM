@@ -53,6 +53,11 @@ namespace CSMPMWeb
 
             services.AddTransient<ICropGroupRepository, CropGroupRepositoryEf>();
             services.AddTransient<ICropRepository, CropRepositoryEf>();
+            services.AddTransient<ISystemRoleRepository, SystemRoleRepositoryEf>();
+            services.AddTransient<ISystemModuleRepository, SystemModuleRepositoryEf>();
+            services.AddTransient<IOrganizationRepository, OrganizationRepositoryEf>();
+            services.AddTransient<SelectListRepository>();
+            services.AddTransient<IIrrigationSystemRepository, IrrigationSystemRepositoryEf>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

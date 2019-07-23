@@ -8,9 +8,14 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a asp-controller="UserAdmin" class="dropdown-item">Аккаунты пользователей</a>
             <a asp-controller="RoleAdmin" class="dropdown-item">Роли</a>
+            <a asp-controller="SystemRoles" class="dropdown-item">Роли пользователей системы</a>
+            <a asp-controller="SystemModules" class="dropdown-item">Модули системы</a>
+            <a asp-controller="Organizations" class="dropdown-item">Организации</a>
             <div class="dropdown-divider"></div>
             <a asp-controller="CropGroups" asp-action="Index" class="dropdown-item">Группы с/х культур</a>
             <a asp-controller="Crops" asp-action="Index" class="dropdown-item">С/х культуры</a>
+            <div class="dropdown-divider"></div>
+            <a asp-controller="IrrigationSystems" asp-action="Index" class="dropdown-item">Оросительные системы</a>
             <div class="dropdown-divider"></div>
             <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Выйти</a>
         </div>

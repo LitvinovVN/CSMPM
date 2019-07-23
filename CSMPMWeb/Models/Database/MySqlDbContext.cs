@@ -28,7 +28,12 @@ namespace CSMPMWeb.Models
         /// <returns></returns>
         public static async Task InitDatabase(IServiceProvider serviceProvider, IConfiguration configuration)
         {
+            await InitDatabaseSystemRoles.CreateSystemRoles(serviceProvider, configuration);
+            await InitDatabaseSystemModules.CreateSystemModules(serviceProvider, configuration);
+
             await InitDatabaseCropGroupsCrops.CreateCropsData(serviceProvider, configuration);
+
+            await InitDatabaseOrganizations.CreateOrganizationsData(serviceProvider, configuration);
 
             await InitDatabaseRoles.CreateRoles(serviceProvider, configuration);
             await InitDatabaseAdminAccount.CreateAdminAccount(serviceProvider, configuration);
@@ -54,6 +59,16 @@ namespace CSMPMWeb.Models
         /// Организации
         /// </summary>
         public DbSet<Organization> Organizations { get; set; }
+
+        /// <summary>
+        /// Таблица сопоставления организации и оросительной системы с указанием типа взаимосвязи
+        /// </summary>
+        public DbSet<OrganizationToIrrigationSystem> OrganizationToIrrigationSystems { get; set; }
+
+        /// <summary>
+        /// Типы взаимосвязей организации и технической системы
+        /// </summary>
+        public DbSet<OrganizationToSystemRelationType> OrganizationToSystemRelationTypes { get; set; }
 
         /// <summary>
         /// Привязки пользователей к организациям

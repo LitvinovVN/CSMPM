@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CSMPMLib
@@ -8,11 +9,15 @@ namespace CSMPMLib
     /// </summary>
     public class Organization
     {
+        #region Закрытые поля
+        #endregion
+
+        #region Открытые свойства
         /// <summary>
         /// УИД организации
         /// </summary>
         public int OrganizationId { get; set; }
-
+        
         /// <summary>
         /// Наименование организации
         /// </summary>
@@ -22,12 +27,34 @@ namespace CSMPMLib
         /// <summary>
         /// УИД головной организации
         /// </summary>
+        [Display(Name = "Головная организация")]
         public int? ParentOrganizationId { get; set; }
-        
+
+        /// <summary>
+        /// Головная организация
+        /// </summary>
+        [Display(Name = "Головная организация")]
+        public Organization ParentOrganization { get; set; }
+
         /// <summary>
         /// Оросительные системы, находящиеся в ведении организации
         /// </summary>
-        public List<IrrigationSystem> IrrigationSystems { get; set; }
+        public List<OrganizationToIrrigationSystem> OrganizationToIrrigationSystem { get; set; }
+
+        /// <summary>
+        /// Возвращает список дочерних организаций
+        /// </summary>
+        public List<Organization> ChildOrganizations { get; set; } = new List<Organization>();                
+        #endregion
+
+        /// <summary>
+        /// Добавляет дочернюю организацию
+        /// </summary>
+        /// <param name="organisation"></param>
+        //public void AddChildOrganization(Organization organization)
+        //{
+        //    ChildOrganizations.Add(organization);
+        //}
 
         /// <summary>
         /// Пользователи системы с назначенными разрешениями на использование отдельных модулей системы

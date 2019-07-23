@@ -26,15 +26,8 @@ namespace CSMPMLib
 
 
         /// <summary>
-        /// Организация, выполняющая эксплуатационное обслуживание оросительной системы
-        /// </summary>
-        [Display(Name = "Организация, выполняющая эксплуатационное обслуживание оросительной системы")]
-        public int OrganizationId { get; set; }
-
-        /// <summary>
-        /// Организация, выполняющая эксплуатационное обслуживание оросительной системы
-        /// </summary>
-        [Display(Name = "Организация, выполняющая эксплуатационное обслуживание оросительной системы")]
-        public Organization Organization { get; set; }        
+        /// Организации, связанные с оросительной системой
+        /// </summary>        
+        public List<OrganizationToIrrigationSystem> OrganizationToIrrigationSystem { get; set; }
     }
 }

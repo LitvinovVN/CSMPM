@@ -12,23 +12,23 @@ namespace CSMPMWeb.Models
     /// <summary>
     /// Инициализация справочников групп с\х культур и с\х культур
     /// </summary>
-    public static class InitDatabaseCropGroupsCrops
+    public static class InitDatabaseOrganizations
     {
         /// <summary>
-        /// Инициализация справочников групп с\х культур и с\х культур
+        /// Инициализация справочника организаций
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static async Task CreateCropsData(IServiceProvider serviceProvider, IConfiguration configuration)
+        public static async Task CreateOrganizationsData(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 MySqlDbContext context = serviceScope.ServiceProvider.GetService<MySqlDbContext>();
                 
-                if(!context.CropGroups.Any())
+                if(!context.Organizations.Any())
                 {
-                    var data = InitData.GetCropGroups_Crops();
+                    var data = InitData.GetOrganizations();
 
                     await context.AddRangeAsync(data);
                     await context.SaveChangesAsync();

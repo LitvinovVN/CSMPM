@@ -136,11 +136,7 @@ namespace CSMPMWeb.Migrations
 
                     b.Property<string>("IrrigationSystemName");
 
-                    b.Property<int>("OrganizationId");
-
                     b.HasKey("IrrigationSystemId");
-
-                    b.HasIndex("OrganizationId");
 
                     b.ToTable("IrrigationSystems");
                 });
@@ -156,7 +152,43 @@ namespace CSMPMWeb.Migrations
 
                     b.HasKey("OrganizationId");
 
+                    b.HasIndex("ParentOrganizationId");
+
                     b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToIrrigationSystem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IrrigationSystemId");
+
+                    b.Property<int>("OrganizationId");
+
+                    b.Property<int>("OrganizationToSystemRelationTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IrrigationSystemId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("OrganizationToSystemRelationTypeId");
+
+                    b.ToTable("OrganizationToIrrigationSystems");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToSystemRelationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrganizationToSystemRelationTypes");
                 });
 
             modelBuilder.Entity("CSMPMWeb.Models.AppUser", b =>
@@ -430,11 +462,28 @@ namespace CSMPMWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CSMPMLib.IrrigationSystem", b =>
+            modelBuilder.Entity("CSMPMLib.Organization", b =>
                 {
+                    b.HasOne("CSMPMLib.Organization", "ParentOrganization")
+                        .WithMany("ChildOrganizations")
+                        .HasForeignKey("ParentOrganizationId");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToIrrigationSystem", b =>
+                {
+                    b.HasOne("CSMPMLib.IrrigationSystem", "IrrigationSystem")
+                        .WithMany("OrganizationToIrrigationSystem")
+                        .HasForeignKey("IrrigationSystemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("CSMPMLib.Organization", "Organization")
-                        .WithMany("IrrigationSystems")
+                        .WithMany("OrganizationToIrrigationSystem")
                         .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMLib.OrganizationToSystemRelationType", "OrganizationToSystemRelationType")
+                        .WithMany()
+                        .HasForeignKey("OrganizationToSystemRelationTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

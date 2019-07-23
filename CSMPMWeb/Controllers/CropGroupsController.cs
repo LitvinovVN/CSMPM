@@ -31,7 +31,7 @@ namespace CSMPMWeb.Controllers
             {
                 cropGroup = await _cropGroupRepository.GetCropGroupAsync(id);
                 if (cropGroup == null)
-                    return RedirectToAction(nameof(Index));
+                    return NotFound();
             }
 
             return View(cropGroup);
