@@ -58,6 +58,7 @@ namespace CSMPMWeb
             services.AddTransient<IOrganizationRepository, OrganizationRepositoryEf>();
             services.AddTransient<SelectListRepository>();
             services.AddTransient<IIrrigationSystemRepository, IrrigationSystemRepositoryEf>();
+            services.AddTransient<IIrrigationPlanRepository, IrrigationPlanRepositoryEf>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

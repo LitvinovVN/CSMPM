@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSMPMWeb.Migrations
 {
     [DbContext(typeof(MySqlDbContext))]
-    [Migration("20190723130410_init")]
+    [Migration("20190725075212_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,6 +131,108 @@ namespace CSMPMWeb.Migrations
                     b.ToTable("IrrigationGrids");
                 });
 
+            modelBuilder.Entity("CSMPMLib.IrrigationPlan", b =>
+                {
+                    b.Property<int>("IrrigationPlanId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("OrganizationDocumentationPlansId");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("IrrigationPlanId");
+
+                    b.HasIndex("OrganizationDocumentationPlansId");
+
+                    b.ToTable("IrrigationPlans");
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem", b =>
+                {
+                    b.Property<int>("IrrigationPlanItemId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IrrigationPlanId");
+
+                    b.Property<string>("IrrigationSystemName");
+
+                    b.Property<double>("LandAreaAgriculturalUse");
+
+                    b.Property<double>("LandAreaIncludedInIrrigationPlan");
+
+                    b.Property<double>("LandAreaOnBeginningOfYear");
+
+                    b.Property<double>("LandAreaSowing");
+
+                    b.HasKey("IrrigationPlanItemId");
+
+                    b.HasIndex("IrrigationPlanId");
+
+                    b.ToTable("IrrigationPlanItems");
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_CropSowingAndIrrigation", b =>
+                {
+                    b.Property<int>("IrrigationPlanItem_CropSowingAndIrrigationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CropId");
+
+                    b.Property<double>("Irrigation");
+
+                    b.Property<int>("IrrigationPlanItemId");
+
+                    b.Property<double>("Sowing");
+
+                    b.HasKey("IrrigationPlanItem_CropSowingAndIrrigationId");
+
+                    b.HasIndex("CropId");
+
+                    b.HasIndex("IrrigationPlanItemId");
+
+                    b.ToTable("IrrigationPlanItem_CropSowingAndIrrigations");
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_LandAreaNotAgriculturalReason", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Area");
+
+                    b.Property<int?>("IrrigationPlanItemId");
+
+                    b.Property<int>("ReasonId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IrrigationPlanItemId");
+
+                    b.HasIndex("ReasonId");
+
+                    b.ToTable("IrrigationPlanItem_LandAreaNotAgriculturalReasons");
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_LandAreaNotIrrigationReason", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Area");
+
+                    b.Property<int?>("IrrigationPlanItemId");
+
+                    b.Property<int>("ReasonId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IrrigationPlanItemId");
+
+                    b.HasIndex("ReasonId");
+
+                    b.ToTable("IrrigationPlanItem_LandAreaNotIrrigationReasons");
+                });
+
             modelBuilder.Entity("CSMPMLib.IrrigationSystem", b =>
                 {
                     b.Property<int>("IrrigationSystemId")
@@ -157,6 +259,38 @@ namespace CSMPMWeb.Migrations
                     b.HasIndex("ParentOrganizationId");
 
                     b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationDocumentationItem", b =>
+                {
+                    b.Property<int>("OrganizationDocumentationItemId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("OrganizationDocumentationItemName");
+
+                    b.Property<int>("OrganizationId");
+
+                    b.HasKey("OrganizationDocumentationItemId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("OrganizationDocumentation");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationDocumentationPlans", b =>
+                {
+                    b.Property<int>("OrganizationDocumentationPlansId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("OrganizationDocumentationId");
+
+                    b.Property<string>("OrganizationDocumentationPlansName");
+
+                    b.HasKey("OrganizationDocumentationPlansId");
+
+                    b.HasIndex("OrganizationDocumentationId");
+
+                    b.ToTable("OrganizationDocumentationPlans");
                 });
 
             modelBuilder.Entity("CSMPMLib.OrganizationToIrrigationSystem", b =>
@@ -191,6 +325,52 @@ namespace CSMPMWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OrganizationToSystemRelationTypes");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToTypeOfActivity", b =>
+                {
+                    b.Property<int>("OrganizationToTypeOfActivityId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("OrganizationId");
+
+                    b.Property<int>("TypeOfActivityId");
+
+                    b.HasKey("OrganizationToTypeOfActivityId");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("TypeOfActivityId");
+
+                    b.ToTable("OrganizationToTypeOfActivities");
+                });
+
+            modelBuilder.Entity("CSMPMLib.Reason", b =>
+                {
+                    b.Property<int>("ReasonId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ReasonName");
+
+                    b.HasKey("ReasonId");
+
+                    b.ToTable("Reasons");
+                });
+
+            modelBuilder.Entity("CSMPMLib.TypeOfActivity", b =>
+                {
+                    b.Property<int>("TypeOfActivityId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("RootTypeOfActivityId");
+
+                    b.Property<string>("TypeOfActivityName");
+
+                    b.HasKey("TypeOfActivityId");
+
+                    b.HasIndex("RootTypeOfActivityId");
+
+                    b.ToTable("TypeOfActivities");
                 });
 
             modelBuilder.Entity("CSMPMWeb.Models.AppUser", b =>
@@ -464,11 +644,80 @@ namespace CSMPMWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("CSMPMLib.IrrigationPlan", b =>
+                {
+                    b.HasOne("CSMPMLib.OrganizationDocumentationPlans", "OrganizationDocumentationPlans")
+                        .WithMany("IrrigationPlans")
+                        .HasForeignKey("OrganizationDocumentationPlansId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem", b =>
+                {
+                    b.HasOne("CSMPMLib.IrrigationPlan", "IrrigationPlan")
+                        .WithMany("IrrigationPlanItems")
+                        .HasForeignKey("IrrigationPlanId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_CropSowingAndIrrigation", b =>
+                {
+                    b.HasOne("CSMPMLib.Crop", "Crop")
+                        .WithMany()
+                        .HasForeignKey("CropId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMLib.IrrigationPlanItem", "IrrigationPlanItem")
+                        .WithMany("IrrigationPlanItem_CropSowingAndIrrigations")
+                        .HasForeignKey("IrrigationPlanItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_LandAreaNotAgriculturalReason", b =>
+                {
+                    b.HasOne("CSMPMLib.IrrigationPlanItem")
+                        .WithMany("IrrigationPlanItem_LandAreaNotAgriculturalReasons")
+                        .HasForeignKey("IrrigationPlanItemId");
+
+                    b.HasOne("CSMPMLib.Reason", "Reason")
+                        .WithMany()
+                        .HasForeignKey("ReasonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_LandAreaNotIrrigationReason", b =>
+                {
+                    b.HasOne("CSMPMLib.IrrigationPlanItem")
+                        .WithMany("IrrigationPlanItem_LandAreaNotIrrigationReasons")
+                        .HasForeignKey("IrrigationPlanItemId");
+
+                    b.HasOne("CSMPMLib.Reason", "Reason")
+                        .WithMany()
+                        .HasForeignKey("ReasonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("CSMPMLib.Organization", b =>
                 {
                     b.HasOne("CSMPMLib.Organization", "ParentOrganization")
                         .WithMany("ChildOrganizations")
                         .HasForeignKey("ParentOrganizationId");
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationDocumentationItem", b =>
+                {
+                    b.HasOne("CSMPMLib.Organization", "Organization")
+                        .WithMany("OrganizationDocumentation")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationDocumentationPlans", b =>
+                {
+                    b.HasOne("CSMPMLib.OrganizationDocumentationItem", "OrganizationDocumentation")
+                        .WithMany("OrganizationDocumentationPlans")
+                        .HasForeignKey("OrganizationDocumentationId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CSMPMLib.OrganizationToIrrigationSystem", b =>
@@ -487,6 +736,26 @@ namespace CSMPMWeb.Migrations
                         .WithMany()
                         .HasForeignKey("OrganizationToSystemRelationTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.OrganizationToTypeOfActivity", b =>
+                {
+                    b.HasOne("CSMPMLib.Organization", "Organization")
+                        .WithMany("OrganizationToTypeOfActivities")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMLib.TypeOfActivity", "TypeOfActivity")
+                        .WithMany()
+                        .HasForeignKey("TypeOfActivityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CSMPMLib.TypeOfActivity", b =>
+                {
+                    b.HasOne("CSMPMLib.TypeOfActivity", "RootTypeOfActivity")
+                        .WithMany("ChildTypeOfActivities")
+                        .HasForeignKey("RootTypeOfActivityId");
                 });
 
             modelBuilder.Entity("CSMPMWeb.Models.AppUserToOrganization", b =>

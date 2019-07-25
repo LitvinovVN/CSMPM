@@ -136,6 +136,19 @@ namespace CSMPMWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reasons",
+                columns: table => new
+                {
+                    ReasonId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ReasonName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reasons", x => x.ReasonId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SystemModules",
                 columns: table => new
                 {
@@ -159,6 +172,26 @@ namespace CSMPMWeb.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SystemRoles", x => x.SystemRoleId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TypeOfActivities",
+                columns: table => new
+                {
+                    TypeOfActivityId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TypeOfActivityName = table.Column<string>(nullable: true),
+                    RootTypeOfActivityId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TypeOfActivities", x => x.TypeOfActivityId);
+                    table.ForeignKey(
+                        name: "FK_TypeOfActivities_TypeOfActivities_RootTypeOfActivityId",
+                        column: x => x.RootTypeOfActivityId,
+                        principalTable: "TypeOfActivities",
+                        principalColumn: "TypeOfActivityId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -336,6 +369,26 @@ namespace CSMPMWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrganizationDocumentation",
+                columns: table => new
+                {
+                    OrganizationDocumentationItemId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    OrganizationDocumentationItemName = table.Column<string>(nullable: true),
+                    OrganizationId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationDocumentation", x => x.OrganizationDocumentationItemId);
+                    table.ForeignKey(
+                        name: "FK_OrganizationDocumentation_Organizations_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organizations",
+                        principalColumn: "OrganizationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrganizationToIrrigationSystems",
                 columns: table => new
                 {
@@ -365,6 +418,32 @@ namespace CSMPMWeb.Migrations
                         column: x => x.OrganizationToSystemRelationTypeId,
                         principalTable: "OrganizationToSystemRelationTypes",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrganizationToTypeOfActivities",
+                columns: table => new
+                {
+                    OrganizationToTypeOfActivityId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    OrganizationId = table.Column<int>(nullable: false),
+                    TypeOfActivityId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationToTypeOfActivities", x => x.OrganizationToTypeOfActivityId);
+                    table.ForeignKey(
+                        name: "FK_OrganizationToTypeOfActivities_Organizations_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organizations",
+                        principalColumn: "OrganizationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrganizationToTypeOfActivities_TypeOfActivities_TypeOfActivi~",
+                        column: x => x.TypeOfActivityId,
+                        principalTable: "TypeOfActivities",
+                        principalColumn: "TypeOfActivityId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -422,6 +501,26 @@ namespace CSMPMWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrganizationDocumentationPlans",
+                columns: table => new
+                {
+                    OrganizationDocumentationPlansId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    OrganizationDocumentationPlansName = table.Column<string>(nullable: true),
+                    OrganizationDocumentationId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationDocumentationPlans", x => x.OrganizationDocumentationPlansId);
+                    table.ForeignKey(
+                        name: "FK_OrganizationDocumentationPlans_OrganizationDocumentation_Org~",
+                        column: x => x.OrganizationDocumentationId,
+                        principalTable: "OrganizationDocumentation",
+                        principalColumn: "OrganizationDocumentationItemId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IrrigationCanalConnectionPointToIrrigationCanals",
                 columns: table => new
                 {
@@ -451,6 +550,132 @@ namespace CSMPMWeb.Migrations
                         column: x => x.IrrigationCanalId,
                         principalTable: "IrrigationCanals",
                         principalColumn: "IrrigationCanalId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IrrigationPlans",
+                columns: table => new
+                {
+                    IrrigationPlanId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Year = table.Column<int>(nullable: false),
+                    OrganizationDocumentationPlansId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IrrigationPlans", x => x.IrrigationPlanId);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlans_OrganizationDocumentationPlans_OrganizationD~",
+                        column: x => x.OrganizationDocumentationPlansId,
+                        principalTable: "OrganizationDocumentationPlans",
+                        principalColumn: "OrganizationDocumentationPlansId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IrrigationPlanItems",
+                columns: table => new
+                {
+                    IrrigationPlanItemId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IrrigationPlanId = table.Column<int>(nullable: false),
+                    IrrigationSystemName = table.Column<string>(nullable: true),
+                    LandAreaOnBeginningOfYear = table.Column<double>(nullable: false),
+                    LandAreaAgriculturalUse = table.Column<double>(nullable: false),
+                    LandAreaIncludedInIrrigationPlan = table.Column<double>(nullable: false),
+                    LandAreaSowing = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IrrigationPlanItems", x => x.IrrigationPlanItemId);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItems_IrrigationPlans_IrrigationPlanId",
+                        column: x => x.IrrigationPlanId,
+                        principalTable: "IrrigationPlans",
+                        principalColumn: "IrrigationPlanId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IrrigationPlanItem_CropSowingAndIrrigations",
+                columns: table => new
+                {
+                    IrrigationPlanItem_CropSowingAndIrrigationId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IrrigationPlanItemId = table.Column<int>(nullable: false),
+                    CropId = table.Column<int>(nullable: false),
+                    Sowing = table.Column<double>(nullable: false),
+                    Irrigation = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IrrigationPlanItem_CropSowingAndIrrigations", x => x.IrrigationPlanItem_CropSowingAndIrrigationId);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItem_CropSowingAndIrrigations_Crops_CropId",
+                        column: x => x.CropId,
+                        principalTable: "Crops",
+                        principalColumn: "CropId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItem_CropSowingAndIrrigations_IrrigationPlanIt~",
+                        column: x => x.IrrigationPlanItemId,
+                        principalTable: "IrrigationPlanItems",
+                        principalColumn: "IrrigationPlanItemId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IrrigationPlanItem_LandAreaNotAgriculturalReasons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Area = table.Column<double>(nullable: false),
+                    ReasonId = table.Column<int>(nullable: false),
+                    IrrigationPlanItemId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IrrigationPlanItem_LandAreaNotAgriculturalReasons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItem_LandAreaNotAgriculturalReasons_Irrigation~",
+                        column: x => x.IrrigationPlanItemId,
+                        principalTable: "IrrigationPlanItems",
+                        principalColumn: "IrrigationPlanItemId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItem_LandAreaNotAgriculturalReasons_Reasons_Re~",
+                        column: x => x.ReasonId,
+                        principalTable: "Reasons",
+                        principalColumn: "ReasonId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IrrigationPlanItem_LandAreaNotIrrigationReasons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Area = table.Column<double>(nullable: false),
+                    ReasonId = table.Column<int>(nullable: false),
+                    IrrigationPlanItemId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IrrigationPlanItem_LandAreaNotIrrigationReasons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItem_LandAreaNotIrrigationReasons_IrrigationPl~",
+                        column: x => x.IrrigationPlanItemId,
+                        principalTable: "IrrigationPlanItems",
+                        principalColumn: "IrrigationPlanItemId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItem_LandAreaNotIrrigationReasons_Reasons_Reas~",
+                        column: x => x.ReasonId,
+                        principalTable: "Reasons",
+                        principalColumn: "ReasonId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -547,6 +772,56 @@ namespace CSMPMWeb.Migrations
                 column: "IrrigationSystemId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItem_CropSowingAndIrrigations_CropId",
+                table: "IrrigationPlanItem_CropSowingAndIrrigations",
+                column: "CropId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItem_CropSowingAndIrrigations_IrrigationPlanIt~",
+                table: "IrrigationPlanItem_CropSowingAndIrrigations",
+                column: "IrrigationPlanItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItem_LandAreaNotAgriculturalReasons_Irrigation~",
+                table: "IrrigationPlanItem_LandAreaNotAgriculturalReasons",
+                column: "IrrigationPlanItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItem_LandAreaNotAgriculturalReasons_ReasonId",
+                table: "IrrigationPlanItem_LandAreaNotAgriculturalReasons",
+                column: "ReasonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItem_LandAreaNotIrrigationReasons_IrrigationPl~",
+                table: "IrrigationPlanItem_LandAreaNotIrrigationReasons",
+                column: "IrrigationPlanItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItem_LandAreaNotIrrigationReasons_ReasonId",
+                table: "IrrigationPlanItem_LandAreaNotIrrigationReasons",
+                column: "ReasonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItems_IrrigationPlanId",
+                table: "IrrigationPlanItems",
+                column: "IrrigationPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlans_OrganizationDocumentationPlansId",
+                table: "IrrigationPlans",
+                column: "OrganizationDocumentationPlansId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationDocumentation_OrganizationId",
+                table: "OrganizationDocumentation",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationDocumentationPlans_OrganizationDocumentationId",
+                table: "OrganizationDocumentationPlans",
+                column: "OrganizationDocumentationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Organizations_ParentOrganizationId",
                 table: "Organizations",
                 column: "ParentOrganizationId");
@@ -565,6 +840,21 @@ namespace CSMPMWeb.Migrations
                 name: "IX_OrganizationToIrrigationSystems_OrganizationToSystemRelation~",
                 table: "OrganizationToIrrigationSystems",
                 column: "OrganizationToSystemRelationTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationToTypeOfActivities_OrganizationId",
+                table: "OrganizationToTypeOfActivities",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationToTypeOfActivities_TypeOfActivityId",
+                table: "OrganizationToTypeOfActivities",
+                column: "TypeOfActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TypeOfActivities_RootTypeOfActivityId",
+                table: "TypeOfActivities",
+                column: "RootTypeOfActivityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -588,13 +878,22 @@ namespace CSMPMWeb.Migrations
                 name: "AssignedPermissions");
 
             migrationBuilder.DropTable(
-                name: "Crops");
-
-            migrationBuilder.DropTable(
                 name: "IrrigationCanalConnectionPointToIrrigationCanals");
 
             migrationBuilder.DropTable(
+                name: "IrrigationPlanItem_CropSowingAndIrrigations");
+
+            migrationBuilder.DropTable(
+                name: "IrrigationPlanItem_LandAreaNotAgriculturalReasons");
+
+            migrationBuilder.DropTable(
+                name: "IrrigationPlanItem_LandAreaNotIrrigationReasons");
+
+            migrationBuilder.DropTable(
                 name: "OrganizationToIrrigationSystems");
+
+            migrationBuilder.DropTable(
+                name: "OrganizationToTypeOfActivities");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -609,9 +908,6 @@ namespace CSMPMWeb.Migrations
                 name: "SystemRoles");
 
             migrationBuilder.DropTable(
-                name: "CropGroups");
-
-            migrationBuilder.DropTable(
                 name: "IrrigationCanalConnectionPoints");
 
             migrationBuilder.DropTable(
@@ -621,19 +917,43 @@ namespace CSMPMWeb.Migrations
                 name: "IrrigationCanals");
 
             migrationBuilder.DropTable(
+                name: "Crops");
+
+            migrationBuilder.DropTable(
+                name: "IrrigationPlanItems");
+
+            migrationBuilder.DropTable(
+                name: "Reasons");
+
+            migrationBuilder.DropTable(
                 name: "OrganizationToSystemRelationTypes");
+
+            migrationBuilder.DropTable(
+                name: "TypeOfActivities");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Organizations");
-
-            migrationBuilder.DropTable(
                 name: "IrrigationGrids");
 
             migrationBuilder.DropTable(
+                name: "CropGroups");
+
+            migrationBuilder.DropTable(
+                name: "IrrigationPlans");
+
+            migrationBuilder.DropTable(
                 name: "IrrigationSystems");
+
+            migrationBuilder.DropTable(
+                name: "OrganizationDocumentationPlans");
+
+            migrationBuilder.DropTable(
+                name: "OrganizationDocumentation");
+
+            migrationBuilder.DropTable(
+                name: "Organizations");
         }
     }
 }

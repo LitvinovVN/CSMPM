@@ -31,7 +31,12 @@ namespace CSMPMWeb.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var crop = await _cropRepository.GetCropAsync(id);
+            Crop crop;
+            if (id == 0)
+                crop = new Crop();
+            else
+                crop = await _cropRepository.GetCropAsync(id);
+
             if (crop == null) return NotFound();
 
             ViewBag.CropGroups = new SelectList(await _cropGroupRepository.GetCropGroupsAsync(),

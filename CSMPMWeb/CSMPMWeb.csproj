@@ -68,6 +68,26 @@
     <Compile Remove="Migrations\20190723121747_init.Designer.cs" />
     <Compile Remove="Migrations\20190723125834_init.cs" />
     <Compile Remove="Migrations\20190723125834_init.Designer.cs" />
+    <Compile Remove="Migrations\20190723130410_init.cs" />
+    <Compile Remove="Migrations\20190723130410_init.Designer.cs" />
+    <Compile Remove="Migrations\20190724035059_t.cs" />
+    <Compile Remove="Migrations\20190724035059_t.Designer.cs" />
+    <Compile Remove="Migrations\20190724035522_t.cs" />
+    <Compile Remove="Migrations\20190724035522_t.Designer.cs" />
+    <Compile Remove="Migrations\20190724040330_t.cs" />
+    <Compile Remove="Migrations\20190724040330_t.Designer.cs" />
+    <Compile Remove="Migrations\20190724040646_t.cs" />
+    <Compile Remove="Migrations\20190724040646_t.Designer.cs" />
+    <Compile Remove="Migrations\20190724045933_t2.cs" />
+    <Compile Remove="Migrations\20190724045933_t2.Designer.cs" />
+    <Compile Remove="Migrations\20190724094923_t.cs" />
+    <Compile Remove="Migrations\20190724094923_t.Designer.cs" />
+    <Compile Remove="Migrations\20190724110653_init.cs" />
+    <Compile Remove="Migrations\20190724110653_init.Designer.cs" />
+    <Compile Remove="Migrations\20190725053440_t.cs" />
+    <Compile Remove="Migrations\20190725053440_t.Designer.cs" />
+    <Compile Remove="Migrations\20190725075059_t2.cs" />
+    <Compile Remove="Migrations\20190725075059_t2.Designer.cs" />
   </ItemGroup>
 
 

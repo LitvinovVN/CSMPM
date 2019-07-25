@@ -135,7 +135,46 @@ namespace CSMPMLib
 
             return data;
         }
-              
+
+        /// <summary>
+        /// Возвращает справочник видов деятельности
+        /// </summary>
+        /// <returns></returns>
+        public static List<TypeOfActivity> GetTypeOfActivities()
+        {
+            var types = new List<TypeOfActivity>();
+
+            types.Add(new TypeOfActivity { TypeOfActivityId = 1, TypeOfActivityName = "Мелиорация", RootTypeOfActivityId = null });
+            types.Add(new TypeOfActivity { TypeOfActivityId = 2, TypeOfActivityName = "Использование оросительных систем", RootTypeOfActivityId = 1 });
+            types.Add(new TypeOfActivity { TypeOfActivityId = 3, TypeOfActivityName = "Обслуживание оросительных систем", RootTypeOfActivityId = 1 });
+
+            return types;
+        }
+
+        /// <summary>
+        /// Возвращает список причин невыполнения чего-либо
+        /// </summary>
+        /// <returns></returns>
+        public static List<Reason> GetReasons()
+        {
+            var reasons = new List<Reason>();
+
+            reasons.Add(new Reason { ReasonId = 1, ReasonName = "Реконструкция" } );
+            reasons.Add(new Reason { ReasonId = 2, ReasonName = "Мелиополя" });
+            reasons.Add(new Reason { ReasonId = 3, ReasonName = "Близкий УГВ" });
+            reasons.Add(new Reason { ReasonId = 4, ReasonName = "Залежи" });
+            reasons.Add(new Reason { ReasonId = 5, ReasonName = "Пары" });
+            reasons.Add(new Reason { ReasonId = 6, ReasonName = "Раскорчевка" });
+            reasons.Add(new Reason { ReasonId = 7, ReasonName = "Неиспр. в/х сети" });
+            reasons.Add(new Reason { ReasonId = 8, ReasonName = "Другие причины" });
+            reasons.Add(new Reason { ReasonId = 9, ReasonName = "Капит. планиров." });
+            reasons.Add(new Reason { ReasonId = 10, ReasonName = "Неисправ НС" });
+            reasons.Add(new Reason { ReasonId = 11, ReasonName = "Недостат. воды в источнике" });
+            reasons.Add(new Reason { ReasonId = 12, ReasonName = "Отсуствие исправн.  ДМ" });            
+
+            return reasons;
+        }
+
 
         /// <summary>
         /// Возвращает список организаций
@@ -145,7 +184,7 @@ namespace CSMPMLib
         {
             var organizations = new List<Organization>();
             organizations.Add(new Organization { OrganizationId = 1, OrganizationName = "ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = null });
-            organizations.Add(new Organization { OrganizationId = 2, OrganizationName = "Азовский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
+            organizations.Add(new Organization { OrganizationId = 2, OrganizationName = "Азовский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1, OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } } });
             organizations.Add(new Organization { OrganizationId = 3, OrganizationName = "Аксайский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 4, OrganizationName = "Багаевский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 5, OrganizationName = "Базковский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
@@ -157,6 +196,45 @@ namespace CSMPMLib
             organizations.Add(new Organization { OrganizationId = 11, OrganizationName = "Пролетарский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 12, OrganizationName = "Сальский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 13, OrganizationName = "Семикаракорский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
+            organizations.Add(new Organization { OrganizationId = 14, OrganizationName = "«50 лет ОКТЯБРЯ» СПК", ParentOrganizationId = null, OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 2 } }, OrganizationDocumentation = new List<OrganizationDocumentationItem> { new OrganizationDocumentationItem { OrganizationDocumentationItemName = "Документация по мелиорации", OrganizationDocumentationPlans = new List<OrganizationDocumentationPlans> { new OrganizationDocumentationPlans { IrrigationPlans = new List<IrrigationPlan> { new IrrigationPlan { Year = 2019, IrrigationPlanItems = new List<IrrigationPlanItem> { new IrrigationPlanItem { IrrigationSystemName = "1 ор Азовская" } } } } } } } } } );
+            organizations.Add(new Organization { OrganizationId = 15, OrganizationName = "«АВАНГАРД» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 16, OrganizationName = "«АГРАРНОЕ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 17, OrganizationName = "«АГРОКОМ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 18, OrganizationName = "«АГРОКОМПЛЕКС» КОЛХОЗ", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 19, OrganizationName = "«АГРОСЕРВИС» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 20, OrganizationName = "«АЗОВСКОЕ» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 21, OrganizationName = "«АКСАЙАГРОИНВЕСТ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 22, OrganizationName = "«АКСАЙСКАЯ ЗЕМЛЯ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 23, OrganizationName = "«АКСАЙСКАЯ НИВА» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 24, OrganizationName = "«АКСАЙСКИЕ ОВОЩИ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 25, OrganizationName = "«АКСАЙСКОЕ МОЛОКО» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 26, OrganizationName = "«АЛЕКСАНДРОВСКИЙ» СПК", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 27, OrganizationName = "«АНТОНОВСКОЕ» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 28, OrganizationName = "«АНТРАЦИТ-А» ОАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 29, OrganizationName = "«АТОММАШЕВЕЦ» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 30, OrganizationName = "«АКСАЙСКАЯ» ПТИЦЕВОДЧЕСКАЯ ФАБРИКА (ЗАО)", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 31, OrganizationName = "«БАЗКОВСКИЙ» КОЛХОЗ", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 32, OrganizationName = "«БАКЛАННИКОВСКОЕ» ОАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 33, OrganizationName = "«БАРАНИКОВСКИЙ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 34, OrganizationName = "«БЕЛОЗЕРНОЕ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 35, OrganizationName = "«БЕЛОКАЛИТВИНСКАЯ» ПТИЦЕФАБРИКА (ОАО)", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 36, OrganizationName = "«БЕРЕЗКА» КОЛХОЗ", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 37, OrganizationName = "«БЕРЕЗОВСКОЕ» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 38, OrganizationName = "«БЕРЕЗОВЫЙ» СПК", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 39, OrganizationName = "«БЕССЕРГЕНЕВСКОЕ» АГРОПРОМЫШЛЕННОЕ ПРЕДПРИЯТИЕ (ООО)", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 40, OrganizationName = "БИРЮЧЕКУТСКАЯ ОВОЩНАЯ СЕЛЕКЦИОННАЯ ОПЫТНАЯ СТАНЦИЯ", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 41, OrganizationName = "«БОЛЬШИНСКОЕ» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 42, OrganizationName = "«БОНДАРЕНКО» КОЛХОЗ", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 43, OrganizationName = "«БОРЕЦ» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 44, OrganizationName = "«БРАТСКОЕ» ЗАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 45, OrganizationName = "«БЫСТРЯНСКИЙ» СПК", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 46, OrganizationName = "«БРОЙЛЕР ДОН» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 47, OrganizationName = "«ВАНТА» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 48, OrganizationName = "«ВЕДЕРНИКИ» ОАО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 49, OrganizationName = "«ВЕЛЕС» ООО", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 50, OrganizationName = "«ВЕРА» СВИНОКОМПЛЕКС (ООО)", ParentOrganizationId = null });
+
+            // Справочник сх производителей: http://www.kubanmakler.ru/9/Spisok_selhozpredpriyatiy/Spisok_selhozpredpriyatiy_Rostovskoy_oblasti.htm
 
             return organizations;
         }
