@@ -184,9 +184,406 @@ namespace CSMPMLib
         {
             var organizations = new List<Organization>();
             organizations.Add(new Organization { OrganizationId = 1, OrganizationName = "ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = null });
-            organizations.Add(new Organization { OrganizationId = 2, OrganizationName = "Азовский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1, OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } } });
-            organizations.Add(new Organization { OrganizationId = 3, OrganizationName = "Аксайский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
-            organizations.Add(new Organization { OrganizationId = 4, OrganizationName = "Багаевский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
+            organizations.Add(new Organization
+            {
+                OrganizationId = 2,
+                OrganizationName = "Азовский филиал ФГБУ «Ростовмелиоводхоз»",
+                ParentOrganizationId = 1,
+                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
+                OrganizationDocumentation = new List<OrganizationDocumentationItem>
+                {
+                    new OrganizationDocumentationItem
+                    {
+                        OrganizationDocumentationItemName = "Документация по мелиорации",
+                        OrganizationDocumentationPlans = new List<OrganizationDocumentationPlans>
+                        {
+                            new OrganizationDocumentationPlans
+                            {
+                                OrganizationDocumentationPlansName = "Планы поливов",
+                                IrrigationPlans = new List<IrrigationPlan>
+                                {
+                                    new IrrigationPlan
+                                    {
+                                        Year = 2019,
+                                        IrrigationPlanItems = new List<IrrigationPlanItem>
+                                        {
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 12,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3, 
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            },
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 27,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            organizations.Add(new Organization { OrganizationId = 3, OrganizationName = "Аксайский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1,
+                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
+                OrganizationDocumentation = new List<OrganizationDocumentationItem>
+                {
+                    new OrganizationDocumentationItem
+                    {
+                        OrganizationDocumentationItemName = "Документация по мелиорации",
+                        OrganizationDocumentationPlans = new List<OrganizationDocumentationPlans>
+                        {
+                            new OrganizationDocumentationPlans
+                            {
+                                OrganizationDocumentationPlansName = "Планы поливов",
+                                IrrigationPlans = new List<IrrigationPlan>
+                                {
+                                    new IrrigationPlan
+                                    {
+                                        Year = 2019,
+                                        IrrigationPlanItems = new List<IrrigationPlanItem>
+                                        {
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 1,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            },
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 25,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            },
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 28,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            organizations.Add(new Organization
+            {
+                OrganizationId = 4,
+                OrganizationName = "Багаевский филиал ФГБУ «Ростовмелиоводхоз»",
+                ParentOrganizationId = 1,
+                OrganizationDocumentation = new List<OrganizationDocumentationItem>
+                {
+                    new OrganizationDocumentationItem
+                    {
+                        OrganizationDocumentationItemName = "Документация по мелиорации",
+                        OrganizationDocumentationPlans = new List<OrganizationDocumentationPlans>
+                        {
+                            new OrganizationDocumentationPlans
+                            {
+                                OrganizationDocumentationPlansName = "Планы поливов",
+                                IrrigationPlans = new List<IrrigationPlan>
+                                {
+                                    new IrrigationPlan
+                                    {
+                                        Year = 2019,
+                                        IrrigationPlanItems = new List<IrrigationPlanItem>
+                                        {
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 1,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            },
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 2,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            },
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 10,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
             organizations.Add(new Organization { OrganizationId = 5, OrganizationName = "Базковский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 6, OrganizationName = "Веселовский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 7, OrganizationName = "Волгодонской филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
@@ -196,7 +593,16 @@ namespace CSMPMLib
             organizations.Add(new Organization { OrganizationId = 11, OrganizationName = "Пролетарский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 12, OrganizationName = "Сальский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
             organizations.Add(new Organization { OrganizationId = 13, OrganizationName = "Семикаракорский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1 });
-            organizations.Add(new Organization { OrganizationId = 14, OrganizationName = "«50 лет ОКТЯБРЯ» СПК", ParentOrganizationId = null, OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 2 } }, OrganizationDocumentation = new List<OrganizationDocumentationItem> { new OrganizationDocumentationItem { OrganizationDocumentationItemName = "Документация по мелиорации", OrganizationDocumentationPlans = new List<OrganizationDocumentationPlans> { new OrganizationDocumentationPlans { IrrigationPlans = new List<IrrigationPlan> { new IrrigationPlan { Year = 2019, IrrigationPlanItems = new List<IrrigationPlanItem> { new IrrigationPlanItem { IrrigationSystemName = "1 ор Азовская" } } } } } } } } } );
+            organizations.Add(new Organization
+            {
+                OrganizationId = 14,
+                OrganizationName = "«50 лет ОКТЯБРЯ» СПК",
+                ParentOrganizationId = null,
+                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity>
+                {
+                    new OrganizationToTypeOfActivity { TypeOfActivityId = 2 }
+                }                
+            } );
             organizations.Add(new Organization { OrganizationId = 15, OrganizationName = "«АВАНГАРД» ЗАО", ParentOrganizationId = null });
             organizations.Add(new Organization { OrganizationId = 16, OrganizationName = "«АГРАРНОЕ» ООО", ParentOrganizationId = null });
             organizations.Add(new Organization { OrganizationId = 17, OrganizationName = "«АГРОКОМ» ООО", ParentOrganizationId = null });
@@ -243,56 +649,46 @@ namespace CSMPMLib
         {
             var irrigationSystems = new List<IrrigationSystem>();
 
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 1,  IrrigationSystemName = "12 ор Приморская",        OrganizationId = 2 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 2,  IrrigationSystemName = "29 ос Зерногрдская",      OrganizationId = 2 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 3,  IrrigationSystemName = "1 ор Азовская",           OrganizationId = 3 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 4,  IrrigationSystemName = "27 ор Темерницкая",       OrganizationId = 3 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 5,  IrrigationSystemName = "31 ос Аксайская",         OrganizationId = 3 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 6,  IrrigationSystemName = "1 ор Азовская",           OrganizationId = 4 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 7,  IrrigationSystemName = "2 ор Багаевская",         OrganizationId = 4 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 8,  IrrigationSystemName = "10 ор Нижне-Манычская",   OrganizationId = 4 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 9,  IrrigationSystemName = "21 ор Чирская",               OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 10, IrrigationSystemName = "36 ор Струя",                 OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 11, IrrigationSystemName = "37 ор Вяжа",                  OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 12, IrrigationSystemName = "38 ор Поднятая Целина",       OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 13, IrrigationSystemName = "39 ор БКНС Первомайская-1",   OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 14, IrrigationSystemName = "40 ор БКНС Первомайская-2",   OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 15, IrrigationSystemName = "41 ор БКНС Земцовская",       OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 16, IrrigationSystemName = "42 ор БКНС Малаховская",      OrganizationId = 5 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 17, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 18, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 19, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 20, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 21, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 22, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 23, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 24, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 25, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 26, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 27, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 28, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 29, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 30, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 31, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 32, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 33, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 34, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 35, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 36, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 37, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 38, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 39, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 40, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 41, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 42, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 43, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 44, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 45, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 46, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 47, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 48, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 49, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
-            //irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 50, IrrigationSystemName = "12 ор Примор-ская", OrganizationId = 1 });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 1, IrrigationSystemName = "1 ор Азовская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 2, IrrigationSystemName = "2 ор Багаевская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 3, IrrigationSystemName = "3 ор Садковская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 4, IrrigationSystemName = "4 ор Верхне-Сальская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 5, IrrigationSystemName = "5 ор Донская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 6, IrrigationSystemName = "6 ор Мартыновск." });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 7, IrrigationSystemName = "7 ор Маныческая-1" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 8, IrrigationSystemName = "8 ор Маныческая-2" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 9, IrrigationSystemName = "9 ор Нижне-Донская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 10, IrrigationSystemName = "10 ор Нижне-Манычская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 11, IrrigationSystemName = "11 ор Константиновская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 12, IrrigationSystemName = "12 ор Приморская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 13, IrrigationSystemName = "14 ор Пролетарск." });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 14, IrrigationSystemName = "15 ор Право-Егорлыкская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 15, IrrigationSystemName = "17 ор Цимлянская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 16, IrrigationSystemName = "18 ор Миусская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 17, IrrigationSystemName = "19 ор Приазовск." });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 18, IrrigationSystemName = "21 ор Чирская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 19, IrrigationSystemName = "21 ор Болыловск." });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 20, IrrigationSystemName = "22 ор Троицк.-1" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 21, IrrigationSystemName = "23 ор Троицк.-2" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 22, IrrigationSystemName = "24 ор Краснополянская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 23, IrrigationSystemName = "25 ор Зубовская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 24, IrrigationSystemName = "26 ор Летниковская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 25,  IrrigationSystemName = "27 ор Темерницкая" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 26, IrrigationSystemName = "28 вх ДМК" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 27, IrrigationSystemName = "29 ос Зерногрдская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 28,  IrrigationSystemName = "31 ос Аксайская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 29, IrrigationSystemName = "31 ор Зерноградская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 30, IrrigationSystemName = "32 ор Веселовская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 31, IrrigationSystemName = "32 ос Веселовская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 32, IrrigationSystemName = "33 ос Целинская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 33, IrrigationSystemName = "35 ор Нептун" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 34, IrrigationSystemName = "36 ор Струя" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 35, IrrigationSystemName = "37 ор Вяжа" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 36, IrrigationSystemName = "38 ор Поднятая Целина" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 37, IrrigationSystemName = "39 ор БКНС Первомайская-1" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 38, IrrigationSystemName = "40 ор БКНС Первомайская-2" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 39, IrrigationSystemName = "41 ор БКНС Земцовская" });
+            irrigationSystems.Add(new IrrigationSystem { IrrigationSystemId = 40, IrrigationSystemName = "42 ор БКНС Малаховская" });            
 
             return irrigationSystems;
         }

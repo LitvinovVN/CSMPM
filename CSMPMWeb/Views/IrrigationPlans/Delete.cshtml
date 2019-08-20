@@ -1,0 +1,32 @@
+﻿@model CSMPMLib.IrrigationPlan
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Удалить</h1>
+
+<h3>Вы действительно хотите удалить запись?</h3>
+<div>    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrganizationDocumentationPlans)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrganizationDocumentationPlans.OrganizationDocumentationPlansName)
+        </dd class>
+    </dl>
+    
+    <form asp-action="DeleteConfirmed">
+        <input type="hidden" asp-for="IrrigationPlanId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

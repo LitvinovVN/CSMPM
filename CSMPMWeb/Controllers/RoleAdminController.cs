@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CSMPMWeb.Controllers
 {
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Администраторы")]
     public class RoleAdminController : Controller
     {
         private RoleManager<IdentityRole> roleManager;

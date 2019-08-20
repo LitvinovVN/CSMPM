@@ -29,7 +29,10 @@ namespace CSMPMWeb.Models
 
                 List<SystemModule> systemModules = new List<SystemModule>
                 {                    
-                    new SystemModule{ SystemModuleName = "Мелиорация" }
+                    new SystemModule{ SystemModuleId = 1, SystemModuleName = "Мелиорация" },
+                    new SystemModule{ SystemModuleId = 2, SystemModuleName = "Электроснабжение" },
+                    new SystemModule{ SystemModuleId = 3, SystemModuleName = "Теплоснабжение" },
+                    new SystemModule{ SystemModuleId = 4, SystemModuleName = "Моделирование" }
                 };
 
                 await context.SystemModules.AddRangeAsync(systemModules);

@@ -13,7 +13,7 @@ namespace CSMPMWeb.Controllers
     /// <summary>
     /// Контроллер управления учётными записями пользователей
     /// </summary>
-    //[Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Администраторы")]
     public class UserAdminController : Controller
     {
         #region Закрытые поля

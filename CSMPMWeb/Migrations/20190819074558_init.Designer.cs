@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSMPMWeb.Migrations
 {
     [DbContext(typeof(MySqlDbContext))]
-    [Migration("20190725075212_init")]
+    [Migration("20190819074558_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,7 +154,7 @@ namespace CSMPMWeb.Migrations
 
                     b.Property<int>("IrrigationPlanId");
 
-                    b.Property<string>("IrrigationSystemName");
+                    b.Property<int>("IrrigationSystemId");
 
                     b.Property<double>("LandAreaAgriculturalUse");
 
@@ -167,6 +167,8 @@ namespace CSMPMWeb.Migrations
                     b.HasKey("IrrigationPlanItemId");
 
                     b.HasIndex("IrrigationPlanId");
+
+                    b.HasIndex("IrrigationSystemId");
 
                     b.ToTable("IrrigationPlanItems");
                 });
@@ -200,7 +202,7 @@ namespace CSMPMWeb.Migrations
 
                     b.Property<double>("Area");
 
-                    b.Property<int?>("IrrigationPlanItemId");
+                    b.Property<int>("IrrigationPlanItemId");
 
                     b.Property<int>("ReasonId");
 
@@ -220,7 +222,7 @@ namespace CSMPMWeb.Migrations
 
                     b.Property<double>("Area");
 
-                    b.Property<int?>("IrrigationPlanItemId");
+                    b.Property<int>("IrrigationPlanItemId");
 
                     b.Property<int>("ReasonId");
 
@@ -658,6 +660,11 @@ namespace CSMPMWeb.Migrations
                         .WithMany("IrrigationPlanItems")
                         .HasForeignKey("IrrigationPlanId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CSMPMLib.IrrigationSystem", "IrrigationSystem")
+                        .WithMany()
+                        .HasForeignKey("IrrigationSystemId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_CropSowingAndIrrigation", b =>
@@ -675,9 +682,10 @@ namespace CSMPMWeb.Migrations
 
             modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_LandAreaNotAgriculturalReason", b =>
                 {
-                    b.HasOne("CSMPMLib.IrrigationPlanItem")
+                    b.HasOne("CSMPMLib.IrrigationPlanItem", "IrrigationPlanItem")
                         .WithMany("IrrigationPlanItem_LandAreaNotAgriculturalReasons")
-                        .HasForeignKey("IrrigationPlanItemId");
+                        .HasForeignKey("IrrigationPlanItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CSMPMLib.Reason", "Reason")
                         .WithMany()
@@ -687,9 +695,10 @@ namespace CSMPMWeb.Migrations
 
             modelBuilder.Entity("CSMPMLib.IrrigationPlanItem_LandAreaNotIrrigationReason", b =>
                 {
-                    b.HasOne("CSMPMLib.IrrigationPlanItem")
+                    b.HasOne("CSMPMLib.IrrigationPlanItem", "IrrigationPlanItem")
                         .WithMany("IrrigationPlanItem_LandAreaNotIrrigationReasons")
-                        .HasForeignKey("IrrigationPlanItemId");
+                        .HasForeignKey("IrrigationPlanItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CSMPMLib.Reason", "Reason")
                         .WithMany()

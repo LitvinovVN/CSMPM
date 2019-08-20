@@ -1,0 +1,51 @@
+﻿@model CSMPMLib.IrrigationPlanItem
+
+@{
+    ViewData["Title"] = "CropSowingAndIrrigations";
+}
+
+<h1>Посев, полив</h1>
+<h4>@Model.IrrigationPlan.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName</h4>
+<h4>@Model.IrrigationPlan.Year</h4>
+<h4>@Model.IrrigationSystem.IrrigationSystemName</h4>
+
+<p>
+    <a asp-action="CropSowingAndIrrigationCreate" asp-route-irrigationPlanItemId="@Model.IrrigationPlanItemId" class="btn btn-primary">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>            
+            <th>
+                С\х культура
+            </th>
+            <th>
+                Посев, тыс. га
+            </th>
+            <th>
+                Полив, тыс. га
+            </th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.IrrigationPlanItem_CropSowingAndIrrigations) {
+        <tr>            
+            <td>
+                @Html.DisplayFor(modelItem => item.Crop.CropName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sowing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Irrigation)
+            </td>
+            <td>
+                <a asp-action="CropSowingAndIrrigationEdit" asp-route-irrigationPlanItem_CropSowingAndIrrigationId="@item.IrrigationPlanItem_CropSowingAndIrrigationId">Редактировать</a> |                
+                <a asp-action="CropSowingAndIrrigationDelete" asp-route-irrigationPlanItem_CropSowingAndIrrigationId="@item.IrrigationPlanItem_CropSowingAndIrrigationId" class="text-danger">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<a asp-action="IrrigationPlanItems" asp-route-irrigationPlanId="@Model.IrrigationPlanId" class="btn btn-primary">Назад</a>

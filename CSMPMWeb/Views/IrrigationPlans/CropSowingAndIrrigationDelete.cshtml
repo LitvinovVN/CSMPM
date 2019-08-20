@@ -1,0 +1,50 @@
+﻿@model CSMPMLib.IrrigationPlanItem_CropSowingAndIrrigation
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удаление</h1>
+
+<h3>Вы действительно хотите удалить запись?</h3>
+<div>    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IrrigationPlanItem.IrrigationPlan.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IrrigationPlanItem.IrrigationPlan.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IrrigationPlanItem.IrrigationPlan.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IrrigationPlanItem.IrrigationPlan.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CropId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Crop.CropId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sowing)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sowing)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Irrigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Irrigation)
+        </dd>
+    </dl>
+    
+    <form asp-action="CropSowingAndIrrigationDeleteConfirmed">
+        <input type="hidden" asp-for="IrrigationPlanItem_CropSowingAndIrrigationId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-action="CropSowingAndIrrigations" asp-route-irrigationPlanItemId="@Model.IrrigationPlanItemId" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

@@ -1,4 +1,5 @@
 ﻿using CSMPMWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CSMPMWeb.Controllers
 {
+    [Authorize(Roles = "Администраторы")]
     public class SystemRolesController : Controller
     {
         ISystemRoleRepository _systemRoleRepository;

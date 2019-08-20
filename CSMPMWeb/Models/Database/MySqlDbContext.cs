@@ -31,16 +31,17 @@ namespace CSMPMWeb.Models
             await InitDatabaseSystemRoles.CreateSystemRoles(serviceProvider, configuration);
             await InitDatabaseSystemModules.CreateSystemModules(serviceProvider, configuration);
             await InitDatabaseTypeOfActivities.CreateTypeOfActivitiesData(serviceProvider, configuration);
+            await InitDatabaseReasons.CreateReasonsData(serviceProvider, configuration);
 
             await InitDatabaseCropGroupsCrops.CreateCropsData(serviceProvider, configuration);
 
+            await InitDatabaseIrrigationSystems.CreateIrrigationSystemsData(serviceProvider, configuration);
             await InitDatabaseOrganizations.CreateOrganizationsData(serviceProvider, configuration);            
-
-            await InitDatabaseReasons.CreateReasonsData(serviceProvider, configuration);
+                       
 
             await InitDatabaseRoles.CreateRoles(serviceProvider, configuration);
             await InitDatabaseAdminAccount.CreateAdminAccount(serviceProvider, configuration);
-            //await InitDatabaseUserData.CreateUserData(serviceProvider, configuration);            
+            await InitDatabaseUserData.CreateUserData(serviceProvider, configuration);            
         }
         #endregion
 

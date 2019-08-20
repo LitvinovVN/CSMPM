@@ -40,6 +40,25 @@ namespace CSMPMWeb.Models
             return selectList;
         }
 
+        /// <summary>
+        /// Возвращает список планов из документации организаций
+        /// </summary>
+        /// <param name="organizationDocumentationPlansId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListOrganizationDocumentationPlans(int selectedId = 0)
+        {
+            var items = await _context.OrganizationDocumentationPlans
+                .Include(p => p.OrganizationDocumentation.Organization)                
+                .OrderBy(p => p.OrganizationDocumentation.Organization.OrganizationName)
+                .ToListAsync();
+
+            var selectList = new SelectList(items,
+                nameof(OrganizationDocumentationPlans.OrganizationDocumentationId),
+                nameof(OrganizationDocumentationPlans.OrganizationDocumentationPlansNameFull),
+                selectedId);
+            return selectList;
+        }
+
         public static void HieararchyWalk(List<Organization> hierarchy, int level, List<Organization> items)
         {
             if (hierarchy != null)
@@ -52,6 +71,52 @@ namespace CSMPMWeb.Models
                 }
             }
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Возвращает список с/х культур
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListCrops(int selectedId = 0)
+        {
+            var items = await _context.Crops.Include(c => c.CropGroup)
+                .OrderBy(c => c.CropGroup.CropGroupName)
+                .OrderBy(c => c.CropName)
+                .ToListAsync();
+
+            var selectList = new SelectList(items, nameof(Crop.CropId), nameof(Crop.CropName), selectedId);
+            return selectList;
+        }
+
+        /// <summary>
+        /// Возвращает список всех зарегистрированных в системе оросительных систем
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListIrrigationSystems(int selectedId = 0)
+        {
+            var items = await _context.IrrigationSystems
+                .OrderBy(i=>i.IrrigationSystemName)
+                .ToListAsync();
+            var selectList = new SelectList(items,
+                nameof(IrrigationSystem.IrrigationSystemId),
+                nameof(IrrigationSystem.IrrigationSystemName),
+                selectedId);
+            return selectList;
+        }
+
+        /// <summary>
+        /// Возвращает причины невыполнения чего-либо
+        /// </summary>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListReasons(int selectedId = 0)
+        {
+            var items = await _context.Reasons
+                .OrderBy(r => r.ReasonName)
+                .ToListAsync();
+            var selectList = new SelectList(items, nameof(Reason.ReasonId), nameof(Reason.ReasonName), selectedId);
+            return selectList;
         }
     }
 }

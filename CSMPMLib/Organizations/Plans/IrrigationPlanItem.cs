@@ -17,29 +17,38 @@ namespace CSMPMLib
         /// Оросительная система, для которой формируется запись плана полива
         /// </summary>        
         [Display(Name = "Оросительная система")]
-        public string IrrigationSystemName { get; set; }
+        public int IrrigationSystemId { get; set; }
+        /// <summary>
+        /// Оросительная система, для которой формируется запись плана полива
+        /// </summary>        
+        [Display(Name = "Оросительная система")]
+        public IrrigationSystem IrrigationSystem { get; set; }
 
         /// <summary>
-        /// Наличие земельной площади на начало года
+        /// Наличие земельной площади на начало года, га
         /// </summary>
+        [Display(Name = "Наличие земельной площади на начало года, га")]
         public double LandAreaOnBeginningOfYear { get; set; }
 
         /// <summary>
-        /// Наличие земельной площади с/х назначения
+        /// Наличие земельной площади с/х назначения, га
         /// (сельхоз. использовано)
         /// </summary>
+        [Display(Name = "Наличие земельной площади с/х назначения, га")]
         public double LandAreaAgriculturalUse { get; set; }
 
         /// <summary>
-        /// Земельная площадь, включённая в план полива
+        /// Земельная площадь, включённая в план полива, га
         /// (включено в план полива)
         /// </summary>
+        [Display(Name = "Земельная площадь, включённая в план полива, га")]
         public double LandAreaIncludedInIrrigationPlan { get; set; }
 
         /// <summary>
-        /// Земельная площадь, включённая в план посева
+        /// Земельная площадь, включённая в план посева, га
         /// (посевная площадь)
         /// </summary>
+        [Display(Name = "Земельная площадь, включённая в план посева, га")]
         public double LandAreaSowing { get; set; }
 
         /// <summary>

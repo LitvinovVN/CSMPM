@@ -1,0 +1,39 @@
+﻿@model CSMPMLib.IrrigationPlanItem_LandAreaNotIrrigationReason
+
+@{
+    ViewData["Title"] = "Причины отсутствия поливов";
+}
+
+@if (Model.Id == 0)
+{
+    <h1>Добавление причины отсутствия поливов</h1>
+}
+else
+{
+    <h1>Редактирование причины отсутствия поливов</h1>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="LandAreaNotIrrigationReasonEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />            
+            <div class="form-group">
+                <label asp-for="Area" class="control-label"></label>
+                <input asp-for="Area" class="form-control" />
+                <span asp-validation-for="Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReasonId" class="control-label"></label>
+                <select asp-for="ReasonId" class="form-control" asp-items="ViewBag.Reasons"></select>
+                <span asp-validation-for="ReasonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="IrrigationPlanItemId" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <a asp-action="LandAreaNotIrrigationReasons" asp-route-irrigationPlanItemId="@Model.IrrigationPlanItemId" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>

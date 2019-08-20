@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSMPMLib
 {
@@ -17,5 +18,18 @@ namespace CSMPMLib
         /// Планы поливов
         /// </summary>
         public List<IrrigationPlan> IrrigationPlans { get; set; }
+
+        [Display(Name = "Организация - Документация - Планы")]
+        public string OrganizationDocumentationPlansNameFull
+        {
+            get
+            {
+                return OrganizationDocumentation?.Organization?.OrganizationName +
+                    " - " +
+                    OrganizationDocumentation?.OrganizationDocumentationItemName +
+                    " - " +
+                    OrganizationDocumentationPlansName;
+            }
+        }
     }
 }

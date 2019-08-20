@@ -580,7 +580,7 @@ namespace CSMPMWeb.Migrations
                     IrrigationPlanItemId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IrrigationPlanId = table.Column<int>(nullable: false),
-                    IrrigationSystemName = table.Column<string>(nullable: true),
+                    IrrigationSystemId = table.Column<int>(nullable: false),
                     LandAreaOnBeginningOfYear = table.Column<double>(nullable: false),
                     LandAreaAgriculturalUse = table.Column<double>(nullable: false),
                     LandAreaIncludedInIrrigationPlan = table.Column<double>(nullable: false),
@@ -594,6 +594,12 @@ namespace CSMPMWeb.Migrations
                         column: x => x.IrrigationPlanId,
                         principalTable: "IrrigationPlans",
                         principalColumn: "IrrigationPlanId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_IrrigationPlanItems_IrrigationSystems_IrrigationSystemId",
+                        column: x => x.IrrigationSystemId,
+                        principalTable: "IrrigationSystems",
+                        principalColumn: "IrrigationSystemId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -631,9 +637,9 @@ namespace CSMPMWeb.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IrrigationPlanItemId = table.Column<int>(nullable: false),
                     Area = table.Column<double>(nullable: false),
-                    ReasonId = table.Column<int>(nullable: false),
-                    IrrigationPlanItemId = table.Column<int>(nullable: true)
+                    ReasonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -643,7 +649,7 @@ namespace CSMPMWeb.Migrations
                         column: x => x.IrrigationPlanItemId,
                         principalTable: "IrrigationPlanItems",
                         principalColumn: "IrrigationPlanItemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_IrrigationPlanItem_LandAreaNotAgriculturalReasons_Reasons_Re~",
                         column: x => x.ReasonId,
@@ -658,9 +664,9 @@ namespace CSMPMWeb.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IrrigationPlanItemId = table.Column<int>(nullable: false),
                     Area = table.Column<double>(nullable: false),
-                    ReasonId = table.Column<int>(nullable: false),
-                    IrrigationPlanItemId = table.Column<int>(nullable: true)
+                    ReasonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -670,7 +676,7 @@ namespace CSMPMWeb.Migrations
                         column: x => x.IrrigationPlanItemId,
                         principalTable: "IrrigationPlanItems",
                         principalColumn: "IrrigationPlanItemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_IrrigationPlanItem_LandAreaNotIrrigationReasons_Reasons_Reas~",
                         column: x => x.ReasonId,
@@ -805,6 +811,11 @@ namespace CSMPMWeb.Migrations
                 name: "IX_IrrigationPlanItems_IrrigationPlanId",
                 table: "IrrigationPlanItems",
                 column: "IrrigationPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IrrigationPlanItems_IrrigationSystemId",
+                table: "IrrigationPlanItems",
+                column: "IrrigationSystemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IrrigationPlans_OrganizationDocumentationPlansId",
