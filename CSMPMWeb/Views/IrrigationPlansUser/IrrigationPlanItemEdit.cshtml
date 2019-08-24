@@ -1,0 +1,49 @@
+﻿@model CSMPMLib.IrrigationPlanItem
+
+@{
+    ViewData["Title"] = "Редактирование";
+}
+
+<h1>Редактирование плана полива. Основная часть</h1>
+
+<h4>@Model.IrrigationPlan.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName</h4>
+<h4>@Model.IrrigationPlan.Year</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="IrrigationPlanItemEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IrrigationPlanItemId" />
+            <input type="hidden" asp-for="IrrigationPlanId" />
+            <div class="form-group">
+                <label asp-for="IrrigationSystemId" class="control-label"></label>
+                <select asp-for="IrrigationSystemId" class="form-control" asp-items="ViewBag.IrrigationSystems"></select>
+                <span asp-validation-for="IrrigationSystemId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LandAreaOnBeginningOfYear" class="control-label"></label>
+                <input asp-for="LandAreaOnBeginningOfYear" class="form-control" />
+                <span asp-validation-for="LandAreaOnBeginningOfYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LandAreaAgriculturalUse" class="control-label"></label>
+                <input asp-for="LandAreaAgriculturalUse" class="form-control" />
+                <span asp-validation-for="LandAreaAgriculturalUse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LandAreaIncludedInIrrigationPlan" class="control-label"></label>
+                <input asp-for="LandAreaIncludedInIrrigationPlan" class="form-control" />
+                <span asp-validation-for="LandAreaIncludedInIrrigationPlan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LandAreaSowing" class="control-label"></label>
+                <input asp-for="LandAreaSowing" class="form-control" />
+                <span asp-validation-for="LandAreaSowing" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <a asp-action="IrrigationPlanItems" asp-route-irrigationPlanId="@Model.IrrigationPlanId" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>

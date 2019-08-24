@@ -11,11 +11,15 @@ namespace CSMPMWeb.Controllers
     {
         private UserManager<AppUser> userManager;
         private SignInManager<AppUser> signInManager;
+        private AppUserRepository _appUserRepository;
 
-        public AccountController(UserManager<AppUser> userMgr, SignInManager<AppUser> signInMagr)
+        public AccountController(UserManager<AppUser> userMgr,
+            SignInManager<AppUser> signInMagr,
+            AppUserRepository appUserRepository)
         {
             userManager = userMgr;
             signInManager = signInMagr;
+            _appUserRepository = appUserRepository;
         }
 
         [AllowAnonymous]
@@ -63,6 +67,20 @@ namespace CSMPMWeb.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        /// <summary>
+        /// Выбор активным пользователем текущей организации
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> SelectCurrentOrganization(int id)
+        {
+            if(id != 0)
+            {
+                await _appUserRepository.SelectCurrentOrganizationAsync(User.Identity.Name, id);
+            }
+            var appUserToOrganizations = await _appUserRepository.GetAppUserToOrganizationsAsync(User.Identity.Name);
+            return View(appUserToOrganizations);
         }
     }
 }

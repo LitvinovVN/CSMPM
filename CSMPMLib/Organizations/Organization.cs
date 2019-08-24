@@ -44,7 +44,7 @@ namespace CSMPMLib
         /// <summary>
         /// Оросительные системы, находящиеся в ведении организации
         /// </summary>
-        public List<OrganizationToIrrigationSystem> OrganizationToIrrigationSystem { get; set; }
+        public List<OrganizationToIrrigationSystem> OrganizationToIrrigationSystems { get; set; }
 
         /// <summary>
         /// Возвращает список дочерних организаций

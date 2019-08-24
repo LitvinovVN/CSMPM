@@ -26,10 +26,12 @@ namespace CSMPMWeb.Models
 
         public async Task<Organization> GetOrganizationAsync(int organizationId)
         {
-            var organizations = await _context.Organizations.ToListAsync();
-            var organization = organizations
-                .FirstOrDefault(o => o.OrganizationId == organizationId);
-            
+            var organization = await _context.Organizations
+                .Include(o => o.OrganizationDocumentation)
+                    .ThenInclude(od=>od.OrganizationDocumentationPlans)
+                        .ThenInclude(odp => odp.IrrigationPlans)
+                .FirstOrDefaultAsync(o => o.OrganizationId == organizationId);
+                        
             return organization;
         }
 

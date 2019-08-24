@@ -183,13 +183,167 @@ namespace CSMPMLib
         public static List<Organization> GetOrganizations()
         {
             var organizations = new List<Organization>();
-            organizations.Add(new Organization { OrganizationId = 1, OrganizationName = "ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = null });
+            organizations.Add(new Organization { OrganizationId = 1,
+                OrganizationName = "ФГБУ «Ростовмелиоводхоз»",
+                ParentOrganizationId = null,
+                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
+                //OrganizationToIrrigationSystems = new List<OrganizationToIrrigationSystem>
+                //{
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 1},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 2},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 3},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 4},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 5},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 6},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 7},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 8},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 9},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 10},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 11},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 12},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 13},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 14},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 15},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 16},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 17},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 18},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 19},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 20},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 21},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 22},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 23},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 24},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 25},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 26},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 27},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 28},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 29},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 30},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 31},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 32},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 33},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 34},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 35},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 36},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 37},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 38},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 39},
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 40}
+                //},
+                OrganizationDocumentation = new List<OrganizationDocumentationItem>
+                {
+                    new OrganizationDocumentationItem
+                    {
+                        OrganizationDocumentationItemName = "Документация по мелиорации",
+                        OrganizationDocumentationPlans = new List<OrganizationDocumentationPlans>
+                        {
+                            new OrganizationDocumentationPlans
+                            {
+                                OrganizationDocumentationPlansName = "Планы поливов",
+                                IrrigationPlans = new List<IrrigationPlan>
+                                {
+                                    new IrrigationPlan
+                                    {
+                                        Year = 2019,
+                                        IrrigationPlanItems = new List<IrrigationPlanItem>
+                                        {
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 12,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            },
+                                            new IrrigationPlanItem
+                                            {
+                                                IrrigationSystemId = 27,
+                                                LandAreaOnBeginningOfYear = 1000,
+                                                LandAreaAgriculturalUse = 950,
+                                                LandAreaIncludedInIrrigationPlan = 500,
+                                                LandAreaSowing =750,
+                                                IrrigationPlanItem_CropSowingAndIrrigations = new List<IrrigationPlanItem_CropSowingAndIrrigation>
+                                                {
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 2, Sowing = 150, Irrigation = 100 },
+                                                    new IrrigationPlanItem_CropSowingAndIrrigation{ CropId = 3, Sowing = 250, Irrigation = 220 }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotIrrigationReasons = new List<IrrigationPlanItem_LandAreaNotIrrigationReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 3,
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotIrrigationReason
+                                                    {
+                                                        Area = 30,
+                                                        ReasonId = 4
+                                                    }
+                                                },
+                                                IrrigationPlanItem_LandAreaNotAgriculturalReasons = new List<IrrigationPlanItem_LandAreaNotAgriculturalReason>
+                                                {
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 50,
+                                                        ReasonId = 4
+                                                    },
+                                                    new IrrigationPlanItem_LandAreaNotAgriculturalReason
+                                                    {
+                                                        Area = 80,
+                                                        ReasonId = 5
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
             organizations.Add(new Organization
             {
                 OrganizationId = 2,
                 OrganizationName = "Азовский филиал ФГБУ «Ростовмелиоводхоз»",
                 ParentOrganizationId = 1,
                 OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
+                //OrganizationToIrrigationSystems = new List<OrganizationToIrrigationSystem>
+                //{
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 1, OrganizationToSystemRelationTypeId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 12, OrganizationToSystemRelationTypeId = 1 }
+                //},
                 OrganizationDocumentation = new List<OrganizationDocumentationItem>
                 {
                     new OrganizationDocumentationItem
@@ -293,8 +447,14 @@ namespace CSMPMLib
                     }
                 }
             });
-            organizations.Add(new Organization { OrganizationId = 3, OrganizationName = "Аксайский филиал ФГБУ «Ростовмелиоводхоз»", ParentOrganizationId = 1,
+            organizations.Add(new Organization { OrganizationId = 3,
+                OrganizationName = "Аксайский филиал ФГБУ «Ростовмелиоводхоз»",
+                ParentOrganizationId = 1,
                 OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
+                //OrganizationToIrrigationSystems = new List<OrganizationToIrrigationSystem>
+                //{                    
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 28}
+                //},
                 OrganizationDocumentation = new List<OrganizationDocumentationItem>
                 {
                     new OrganizationDocumentationItem

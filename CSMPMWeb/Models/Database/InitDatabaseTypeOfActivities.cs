@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace CSMPMWeb.Models
 {
     /// <summary>
-    /// Инициализация справочника причин невыполнения каких-либо мероприятий, показателей и пр.
+    /// Инициализация справочника видов деятельности
     /// </summary>
     public static class InitDatabaseTypeOfActivities
     {
         /// <summary>
-        /// Инициализация справочника причин невыполнения
+        /// Инициализация справочника видов деятельности
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <param name="configuration"></param>

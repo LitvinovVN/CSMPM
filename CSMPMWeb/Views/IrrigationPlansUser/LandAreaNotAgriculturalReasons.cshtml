@@ -1,0 +1,46 @@
+﻿@model CSMPMLib.IrrigationPlanItem
+
+@{
+    ViewData["Title"] = "Причины не с/х использования земель";
+}
+
+<h1>Причины не с/х использования земель</h1>
+<h4>@Model.IrrigationPlan.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName</h4>
+<h4>@Model.IrrigationPlan.Year</h4>
+<h4>@Model.IrrigationSystem.IrrigationSystemName</h4>
+
+<p>
+    <a asp-action="LandAreaNotAgriculturalReasonCreate" asp-route-irrigationPlanItemId="@Model.IrrigationPlanItemId" class="btn btn-primary">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Площадь, га
+            </th>
+            <th>
+                Причина не с/х использования земель
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.IrrigationPlanItem_LandAreaNotAgriculturalReasons)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Area)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason.ReasonName)
+                </td>
+                <td>
+                    <a asp-action="LandAreaNotAgriculturalReasonEdit" asp-route-irrigationPlanItem_LandAreaNotAgriculturalReasonId="@item.Id">Редактировать</a> |
+                    <a asp-action="LandAreaNotAgriculturalReasonDelete" asp-route-irrigationPlanItem_LandAreaNotAgriculturalReasonId="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="IrrigationPlanItems" asp-route-irrigationPlanId="@Model.IrrigationPlanId" class="btn btn-primary">Назад</a>

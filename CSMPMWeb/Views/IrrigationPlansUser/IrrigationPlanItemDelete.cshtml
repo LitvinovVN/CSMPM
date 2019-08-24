@@ -1,0 +1,53 @@
+﻿@model CSMPMLib.IrrigationPlanItem
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удаление</h1>
+
+<h3>Вы действительно хотите удалить подраздел плана поливов?</h3>
+<h4>@Model.IrrigationPlan.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName</h4>
+<h4>@Model.IrrigationPlan.Year</h4>
+<div>    
+    <hr />
+    <dl class="row">        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IrrigationSystem)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IrrigationSystem.IrrigationSystemName)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LandAreaOnBeginningOfYear)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LandAreaOnBeginningOfYear)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LandAreaAgriculturalUse)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LandAreaAgriculturalUse)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LandAreaIncludedInIrrigationPlan)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LandAreaIncludedInIrrigationPlan)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LandAreaSowing)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LandAreaSowing)
+        </dd>
+    </dl>
+    
+    <form asp-action="IrrigationPlanItemDeleteConfirmed">
+        <input type="hidden" asp-for="IrrigationPlanItemId" />
+        <input type="hidden" asp-for="IrrigationPlanId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-action="IrrigationPlanItems" asp-route-irrigationPlanId="@Model.IrrigationPlanId" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

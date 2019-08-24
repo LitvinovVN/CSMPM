@@ -35,7 +35,7 @@ namespace CSMPMWeb.Models
                 string password = "test1";
 
                 if (await userManager.FindByNameAsync(username) == null)
-                {                    
+                {
                     AppUser user = new AppUser
                     {
                         UserName = username,
@@ -54,10 +54,12 @@ namespace CSMPMWeb.Models
                              },
                              new AppUserToOrganization
                              {
-                                  OrganizationId = 2, AssignedPermissions = new List<AssignedPermission>
-                                  {
+                                 OrganizationId = 2,
+                                 AssignedPermissions = new List<AssignedPermission>
+                                 {
                                       new AssignedPermission{ SystemModuleId = 1, SystemRoleId = 2}
-                                  }
+                                 },
+                                 IsUserSelectedAsCurrent = true
                              }
                         }
                     };

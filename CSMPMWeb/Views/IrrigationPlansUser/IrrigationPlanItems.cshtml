@@ -1,0 +1,82 @@
+﻿@model CSMPMLib.IrrigationPlan
+
+@{
+    ViewData["Title"] = "План полива";
+}
+
+<h1>План полива</h1>
+<h4>@Model.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName</h4>
+<h4>@Model.Year</h4>
+
+<p>
+    <a asp-action="IrrigationPlanItemCreate" asp-route-irrigationPlanId="@Model.IrrigationPlanId" class="btn btn-primary">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Оросительная система
+            </th>
+            <th>
+                Наличие земель на начало года, га
+            </th>
+            <th>
+                Использовано по с/х назначению, га
+            </th>
+            <th>
+                Включено в план полива, га
+            </th>
+            <th>
+                Посевная площадь, га
+            </th>
+            <th>
+                Посев, полив
+            </th>
+            <th>
+                Причины отсутствия поливов
+            </th>
+            <th>
+                Причины не с/х использования земель
+            </th>
+            <th>
+                Действия
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.IrrigationPlanItems) {
+        <tr>            
+            <td>
+                @Html.DisplayFor(modelItem => item.IrrigationSystem.IrrigationSystemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandAreaOnBeginningOfYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandAreaAgriculturalUse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandAreaIncludedInIrrigationPlan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandAreaSowing)
+            </td>
+            <td>
+                <a asp-action="CropSowingAndIrrigations" asp-route-irrigationPlanItemId="@item.IrrigationPlanItemId">Открыть</a>
+            </td>
+            <td>
+                <a asp-action="LandAreaNotIrrigationReasons" asp-route-irrigationPlanItemId="@item.IrrigationPlanItemId">Открыть</a>
+            </td>
+            <td>
+                <a asp-action="LandAreaNotAgriculturalReasons" asp-route-irrigationPlanItemId="@item.IrrigationPlanItemId">Открыть</a>
+            </td>
+            <td>
+                <a asp-action="IrrigationPlanItemEdit" asp-route-id="@item.IrrigationPlanItemId">Редактировать</a> |                
+                <a asp-action="IrrigationPlanItemDelete" asp-route-id="@item.IrrigationPlanItemId" class="text-danger">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-primary">Назад</a>

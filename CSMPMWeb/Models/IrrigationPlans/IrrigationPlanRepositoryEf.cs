@@ -13,10 +13,13 @@ namespace CSMPMWeb.Models
     public class IrrigationPlanRepositoryEf : IIrrigationPlanRepository
     {
         MySqlDbContext _context;
+        AppUserRepository _appUserRepository;
 
-        public IrrigationPlanRepositoryEf(MySqlDbContext context)
+        public IrrigationPlanRepositoryEf(MySqlDbContext context,
+            AppUserRepository appUserRepository)
         {
             _context = context;
+            _appUserRepository = appUserRepository;
         }
 
         public async Task<IrrigationPlan> AddIrrigationPlanAsync(IrrigationPlan irrigationPlan)
@@ -117,6 +120,7 @@ namespace CSMPMWeb.Models
                 .OrderBy(ip => ip.Year)
                 .ToListAsync();
         }
+               
 
         public async Task RemoveIrrigationPlanAsync(IrrigationPlan irrigationPlan)
         {
@@ -175,6 +179,90 @@ namespace CSMPMWeb.Models
         public async Task UpdateIrrigationPlanItemLandAreaNotIrrigationReasonAsync(IrrigationPlanItem_LandAreaNotIrrigationReason entry)
         {
             _context.Update(entry);
+            await _context.SaveChangesAsync();
+        }
+
+
+
+        /// <summary>
+        /// Возвращает перечень планов текущей организации для указанного пользователя
+        /// </summary>        
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public async Task<List<IrrigationPlan>> GetIrrigationPlansOfCurrentOrganizationAsync(string userName)
+        {
+            var currentOrganization = await _appUserRepository.GetCurrentOrganizationAsync(userName);
+
+            return await _context.IrrigationPlans
+                .Include(ip => ip.OrganizationDocumentationPlans.OrganizationDocumentation.Organization)
+                .Include(ip=>ip.IrrigationPlanItems)
+                    .ThenInclude(ipi => ipi.IrrigationPlanItem_CropSowingAndIrrigations)
+                        .ThenInclude(ipic => ipic.Crop)
+                .Include(ip => ip.IrrigationPlanItems)
+                    .ThenInclude(ipi => ipi.IrrigationPlanItem_LandAreaNotAgriculturalReasons)
+                        .ThenInclude(ipil => ipil.Reason)
+                .Include(ip => ip.IrrigationPlanItems)
+                    .ThenInclude(ipi => ipi.IrrigationPlanItem_LandAreaNotIrrigationReasons)
+                        .ThenInclude(ipil => ipil.Reason)
+                .Include(ip => ip.IrrigationPlanItems)
+                    .ThenInclude(ipi => ipi.IrrigationSystem)               
+                    
+                .Where(ip => ip.OrganizationDocumentationPlans.OrganizationDocumentation.OrganizationId == currentOrganization.OrganizationId)
+                .OrderBy(ip => ip.Year)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Возвращает план полива, если он доступен пользователю
+        /// </summary>
+        /// <param name="irrigationPlanId"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public async Task<IrrigationPlan> GetIrrigationPlanAsync(int irrigationPlanId, string userName)
+        {
+            var plans = await GetIrrigationPlansOfCurrentOrganizationAsync(userName);
+            var plan = plans.FirstOrDefault(p => p.IrrigationPlanId == irrigationPlanId);
+            return plan;
+        }
+
+        /// <summary>
+        /// Добавляет план полива, если он доступен пользователю
+        /// </summary>
+        /// <param name="irrigationPlan"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public async Task<IrrigationPlan> AddIrrigationPlanAsync(IrrigationPlan irrigationPlan, string userName)
+        {
+            await _context.IrrigationPlans.AddAsync(irrigationPlan);
+            await _context.SaveChangesAsync();
+            return irrigationPlan;
+        }
+
+        /// <summary>
+        /// Удаляет план полива, если он доступен пользователю
+        /// </summary>
+        /// <param name="irrigationPlan"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public Task RemoveIrrigationPlanAsync(IrrigationPlan irrigationPlan, string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Обновляет план полива, если он доступен пользователю
+        /// </summary>
+        /// <param name="irrigationPlan"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public async Task UpdateIrrigationPlanAsync(IrrigationPlan irrigationPlan, string userName)
+        {
+            var plan = await GetIrrigationPlanAsync(irrigationPlan.IrrigationPlanId, userName);
+
+            if (plan == null) return;
+
+            plan.Year = irrigationPlan.Year;
+            plan.OrganizationDocumentationPlansId = irrigationPlan.OrganizationDocumentationPlansId;
             await _context.SaveChangesAsync();
         }
     }

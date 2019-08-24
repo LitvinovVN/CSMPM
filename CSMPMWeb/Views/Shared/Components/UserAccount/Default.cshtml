@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model AppUser
 
 @if (Model == null)
 {
@@ -9,11 +9,50 @@ else
 {
     <div class="dropdown" role="navigation">
         <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            @Model
+            @if (string.IsNullOrWhiteSpace(Model.LastName))
+            {
+                @Model.UserName
+            }
+            else
+            {
+                @Model.GetFullName
+            }
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
+            @if (Model.AppUserToOrganizationWithAppUserPermissions.Where(i => i.IsUserSelectedAsCurrent).Count() == 0)
+            {
+                <a class="dropdown-item text-danger" asp-controller="Account" asp-action="SelectCurrentOrganization">Выбрать организацию</a>
+                <div class="dropdown-divider"></div>
+            }
+            @foreach (var appUserToOrganization in Model.AppUserToOrganizationWithAppUserPermissions.Where(i => i.IsUserSelectedAsCurrent))
+            {
+                <a class="dropdown-item" asp-controller="Account" asp-action="SelectCurrentOrganization">@appUserToOrganization.Organization.OrganizationName</a>
+                <div class="dropdown-divider"></div>
+
+                @foreach (var assignedPermission in appUserToOrganization.AssignedPermissions)
+                {
+                    switch (assignedPermission.SystemModuleId)
+                    {
+                        case 1:
+                            if (assignedPermission.SystemRoleId == 1)
+                            {
+                                <a class="dropdown-item" href="#">1 @assignedPermission.SystemModule.SystemModuleName (@assignedPermission.SystemRole.SystemRoleName)</a>
+                                <a class="dropdown-item" href="#">Управление пользователями</a>
+                            }
+                                <a class="dropdown-item" asp-controller="IrrigationPlansUser" asp-action="Index">Планы поливов</a>
+
+                            break;
+                        default:
+                            break;
+                    }
+
+
+                }
+            }
+
+
+
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
             <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Выйти</a>

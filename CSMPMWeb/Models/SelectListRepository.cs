@@ -15,12 +15,15 @@ namespace CSMPMWeb.Models
     {
         MySqlDbContext _context;
         IOrganizationRepository _organizationRepository;
+        AppUserRepository _appUserRepository;
 
         public SelectListRepository(MySqlDbContext context,
-            IOrganizationRepository organizationRepository)
+            IOrganizationRepository organizationRepository,
+            AppUserRepository appUserRepository)
         {
             _context = context;
             _organizationRepository = organizationRepository;
+            _appUserRepository = appUserRepository;
         }
 
         /// <summary>
@@ -40,6 +43,7 @@ namespace CSMPMWeb.Models
             return selectList;
         }
 
+        
         /// <summary>
         /// Возвращает список планов из документации организаций
         /// </summary>
@@ -58,6 +62,60 @@ namespace CSMPMWeb.Models
                 selectedId);
             return selectList;
         }
+
+        /// <summary>
+        /// Возвращает список планов из документации организаций, доступных пользователю
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="selectedId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListOrganizationDocumentationPlans(string userName,
+            int selectedId = 0)
+        {
+            var organizations = await _appUserRepository.GetAppUserOrganizationsAsync(userName);
+
+            var items = new List<OrganizationDocumentationPlans>();
+            foreach (var organization in organizations)
+            {
+                foreach (var organizationDocumentation in organization.OrganizationDocumentation)
+                {
+                    items.AddRange(organizationDocumentation.OrganizationDocumentationPlans);
+                }
+            }            
+
+            var selectList = new SelectList(items,
+                nameof(OrganizationDocumentationPlans.OrganizationDocumentationId),
+                nameof(OrganizationDocumentationPlans.OrganizationDocumentationPlansNameFull),
+                selectedId);
+            return selectList;
+        }
+
+        /// <summary>
+        /// Возвращает список планов из документации текущей организации пользователя
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="organizationDocumentationPlansId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListCurrentOrganizationDocumentationPlans(string userName,
+            int organizationDocumentationPlansId,
+            int selectedId = 0)
+        {
+            var organization = await _appUserRepository.GetCurrentOrganizationAsync(userName);
+            organization = await _organizationRepository.GetOrganizationAsync(organization.OrganizationId);
+
+            var items = new List<OrganizationDocumentationPlans>();
+            foreach (var organizationDocumentation in organization.OrganizationDocumentation)
+            {
+                items.AddRange(organizationDocumentation.OrganizationDocumentationPlans);
+            }
+
+            var selectList = new SelectList(items,
+                nameof(OrganizationDocumentationPlans.OrganizationDocumentationId),
+                nameof(OrganizationDocumentationPlans.OrganizationDocumentationPlansNameFull),
+                selectedId);
+            return selectList;
+        }
+                
 
         public static void HieararchyWalk(List<Organization> hierarchy, int level, List<Organization> items)
         {
@@ -99,6 +157,19 @@ namespace CSMPMWeb.Models
             var items = await _context.IrrigationSystems
                 .OrderBy(i=>i.IrrigationSystemName)
                 .ToListAsync();
+            var selectList = new SelectList(items,
+                nameof(IrrigationSystem.IrrigationSystemId),
+                nameof(IrrigationSystem.IrrigationSystemName),
+                selectedId);
+            return selectList;
+        }
+
+        public async Task<SelectList> GetSelectListIrrigationSystems(string userName, int selectedId = 0)
+        {
+            var currentOrganization = await _appUserRepository.GetCurrentOrganizationAsync(userName);
+            var items = new List<IrrigationSystem>();
+            currentOrganization.OrganizationToIrrigationSystems.ForEach(a => items.Add(a.IrrigationSystem));
+
             var selectList = new SelectList(items,
                 nameof(IrrigationSystem.IrrigationSystemId),
                 nameof(IrrigationSystem.IrrigationSystemName),

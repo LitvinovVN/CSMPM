@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CSMPMWeb.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,18 @@ namespace CSMPMWeb.Components
 {
     public class UserAccountViewComponent : ViewComponent
     {
-        public UserAccountViewComponent()
-        {
+        AppUserRepository _appUserRepository;
 
+        public UserAccountViewComponent(AppUserRepository appUserRepository)
+        {
+            _appUserRepository = appUserRepository;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            string userName = User.Identity.Name;
+            var appUser = await _appUserRepository.GetAppUserAsync(User.Identity.Name);
 
-            return View((object)userName);
+            return View(appUser);
         }
     }
 }

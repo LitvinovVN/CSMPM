@@ -21,17 +21,23 @@ namespace CSMPMLib
 
         Task<IrrigationPlanItem_CropSowingAndIrrigation> AddIrrigationPlanItemCropSowingAndIrrigationAsync(IrrigationPlanItem_CropSowingAndIrrigation irrigationPlanItem_CropSowingAndIrrigation);
         Task<IrrigationPlanItem_CropSowingAndIrrigation> GetIrrigationPlanItemCropSowingAndIrrigationAsync(int irrigationPlanItem_CropSowingAndIrrigationId);
-        Task UpdateIrrigationPlanItemCropSowingAndIrrigationAsync(IrrigationPlanItem_CropSowingAndIrrigation entry);
+        Task UpdateIrrigationPlanItemCropSowingAndIrrigationAsync(IrrigationPlanItem_CropSowingAndIrrigation entry);        
         Task RemoveIrrigationPlanItemCropSowingAndIrrigationAsync(IrrigationPlanItem_CropSowingAndIrrigation entry);
 
         Task<IrrigationPlanItem_LandAreaNotIrrigationReason> AddIrrigationPlanItemLandAreaNotIrrigationReasonAsync(IrrigationPlanItem_LandAreaNotIrrigationReason irrigationPlanItem_LandAreaNotIrrigationReason);
-        Task<IrrigationPlanItem_LandAreaNotIrrigationReason> GetIrrigationPlanItemLandAreaNotIrrigationReasonAsync(int irrigationPlanItem_LandAreaNotIrrigationReasonId);
+        Task<IrrigationPlanItem_LandAreaNotIrrigationReason> GetIrrigationPlanItemLandAreaNotIrrigationReasonAsync(int irrigationPlanItem_LandAreaNotIrrigationReasonId);        
         Task UpdateIrrigationPlanItemLandAreaNotIrrigationReasonAsync(IrrigationPlanItem_LandAreaNotIrrigationReason entry);
         Task RemoveIrrigationPlanItemLandAreaNotIrrigationReasonAsync(IrrigationPlanItem_LandAreaNotIrrigationReason entry);
 
         Task<IrrigationPlanItem_LandAreaNotAgriculturalReason> AddIrrigationPlanItemLandAreaNotAgriculturalReasonAsync(IrrigationPlanItem_LandAreaNotAgriculturalReason irrigationPlanItem_LandAreaNotAgriculturalReason);
         Task<IrrigationPlanItem_LandAreaNotAgriculturalReason> GetIrrigationPlanItemLandAreaNotAgriculturalReasonAsync(int irrigationPlanItem_LandAreaNotAgriculturalReasonId);
         Task UpdateIrrigationPlanItemLandAreaNotAgriculturalReasonAsync(IrrigationPlanItem_LandAreaNotAgriculturalReason entry);
-        Task RemoveIrrigationPlanItemLandAreaNotAgriculturalReasonAsync(IrrigationPlanItem_LandAreaNotAgriculturalReason entry);        
+        Task RemoveIrrigationPlanItemLandAreaNotAgriculturalReasonAsync(IrrigationPlanItem_LandAreaNotAgriculturalReason entry);
+
+        Task<List<IrrigationPlan>> GetIrrigationPlansOfCurrentOrganizationAsync(string userName);
+        Task<IrrigationPlan> GetIrrigationPlanAsync(int id, string userName);
+        Task<IrrigationPlan> AddIrrigationPlanAsync(IrrigationPlan irrigationPlan, string name);
+        Task RemoveIrrigationPlanAsync(IrrigationPlan irrigationPlan, string name);
+        Task UpdateIrrigationPlanAsync(IrrigationPlan irrigationPlan, string name);
     }
 }

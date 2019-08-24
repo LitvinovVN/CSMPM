@@ -1,6 +1,5 @@
 ﻿using CSMPMLib;
 using CSMPMWeb.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace CSMPMWeb.Controllers
 {
-    [Authorize(Roles = "Администраторы")]
-    public class IrrigationPlansController : Controller
+    public class IrrigationPlansUserController : Controller
     {
         IIrrigationPlanRepository _irrigationPlanRepository;
         SelectListRepository _selectListRepository;
-        public IrrigationPlansController(IIrrigationPlanRepository irrigationPlanRepository,
+        public IrrigationPlansUserController(IIrrigationPlanRepository irrigationPlanRepository,
             SelectListRepository selectListRepository)
         {
             _irrigationPlanRepository = irrigationPlanRepository;
@@ -23,8 +21,8 @@ namespace CSMPMWeb.Controllers
 
         #region Перечень планов водопотребления        
         public async Task<IActionResult> Index()
-        {
-            var irrigationPlans = await _irrigationPlanRepository.GetIrrigationPlansAsync();
+        {            
+            var irrigationPlans = await _irrigationPlanRepository.GetIrrigationPlansOfCurrentOrganizationAsync(User.Identity.Name);
             return View(irrigationPlans);
         }                
 
@@ -32,17 +30,17 @@ namespace CSMPMWeb.Controllers
         {
             IrrigationPlan irrigationPlan;
 
-            if (id==0)
+            if (id == 0)
             {
                 irrigationPlan = new IrrigationPlan { Year = DateTime.Now.Year };
             }
             else
             {
-                irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(id);
+                irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(id, User.Identity.Name);
             }
 
-            ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListOrganizationDocumentationPlans(irrigationPlan.OrganizationDocumentationPlansId);
-            
+            ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListCurrentOrganizationDocumentationPlans(User.Identity.Name, irrigationPlan.OrganizationDocumentationPlansId);
+
             return View(irrigationPlan);
         }
 
@@ -52,17 +50,28 @@ namespace CSMPMWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListOrganizationDocumentationPlans(irrigationPlan.OrganizationDocumentationPlansId);
+                ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListOrganizationDocumentationPlans(User.Identity.Name, irrigationPlan.OrganizationDocumentationPlansId);
                 return View(irrigationPlan);
-            }
+            }                
 
-            await _irrigationPlanRepository.UpdateIrrigationPlanAsync(irrigationPlan);
+            if(irrigationPlan.IrrigationPlanId == 0)
+            {
+                await _irrigationPlanRepository.AddIrrigationPlanAsync(irrigationPlan, User.Identity.Name);
+            }
+            else
+            {
+                await _irrigationPlanRepository.UpdateIrrigationPlanAsync(irrigationPlan, User.Identity.Name);
+            }
+                        
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(id);
+            var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(id, User.Identity.Name);
+
+            if (irrigationPlan == null) return NotFound();
+
             return View(irrigationPlan);
         }
 
@@ -78,14 +87,14 @@ namespace CSMPMWeb.Controllers
         #region Содержимое плана
         public async Task<IActionResult> IrrigationPlanItems(int irrigationPlanId)
         {
-            var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(irrigationPlanId);
-            
+            var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(irrigationPlanId, User.Identity.Name);
+
             return View(irrigationPlan);
         }
 
         public async Task<IActionResult> IrrigationPlanItemCreate(int irrigationPlanId)
         {
-            var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(irrigationPlanId);
+            var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(irrigationPlanId, User.Identity.Name);
 
             var irrigationPlanItem = new IrrigationPlanItem
             {
@@ -94,14 +103,14 @@ namespace CSMPMWeb.Controllers
             };
 
             ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystems();
-            return View(nameof(IrrigationPlanItemEdit),irrigationPlanItem);
+            return View(nameof(IrrigationPlanItemEdit), irrigationPlanItem);
         }
 
         public async Task<IActionResult> IrrigationPlanItemEdit(int id)
         {
             var irrigationPlanItem = await _irrigationPlanRepository.GetIrrigationPlanItemAsync(id);
 
-            ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystems();
+            ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystems(User.Identity.Name);
             return View(irrigationPlanItem);
         }
 
@@ -115,7 +124,7 @@ namespace CSMPMWeb.Controllers
                 irrigationPlanItem.IrrigationPlan = irrigationPlan;
                 ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystems();
                 return View(irrigationPlanItem);
-            }                
+            }
 
             await _irrigationPlanRepository.UpdateIrrigationPlanItemAsync(irrigationPlanItem);
             return RedirectToAction(nameof(IrrigationPlanItems), new { irrigationPlanItem.IrrigationPlanId });
@@ -165,7 +174,7 @@ namespace CSMPMWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CropSowingAndIrrigationCreate(IrrigationPlanItem_CropSowingAndIrrigation irrigationPlanItem_CropSowingAndIrrigation)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 await _irrigationPlanRepository.AddIrrigationPlanItemCropSowingAndIrrigationAsync(irrigationPlanItem_CropSowingAndIrrigation);
 
@@ -191,7 +200,7 @@ namespace CSMPMWeb.Controllers
             var entry = await _irrigationPlanRepository.GetIrrigationPlanItemCropSowingAndIrrigationAsync(irrigationPlanItem_CropSowingAndIrrigation.IrrigationPlanItem_CropSowingAndIrrigationId);
             if (entry == null) return NotFound();
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 entry.CropId = irrigationPlanItem_CropSowingAndIrrigation.CropId;
                 entry.Sowing = irrigationPlanItem_CropSowingAndIrrigation.Sowing;
@@ -211,7 +220,7 @@ namespace CSMPMWeb.Controllers
         {
             var entry = await _irrigationPlanRepository.GetIrrigationPlanItemCropSowingAndIrrigationAsync(irrigationPlanItem_CropSowingAndIrrigationId);
             if (entry == null) return NotFound();
-                        
+
             return View(entry);
         }
 
@@ -250,7 +259,7 @@ namespace CSMPMWeb.Controllers
             ViewBag.Reasons = await _selectListRepository.GetSelectListReasons();
 
             return View(nameof(LandAreaNotIrrigationReasonEdit), newItem);
-        }                
+        }
 
         public async Task<IActionResult> LandAreaNotIrrigationReasonEdit(int irrigationPlanItem_LandAreaNotIrrigationReasonId)
         {
@@ -271,7 +280,7 @@ namespace CSMPMWeb.Controllers
                 return View(irrigationPlanItem_LandAreaNotIrrigationReason);
             }
 
-            if(irrigationPlanItem_LandAreaNotIrrigationReason.Id==0)
+            if (irrigationPlanItem_LandAreaNotIrrigationReason.Id == 0)
             {
                 await _irrigationPlanRepository.UpdateIrrigationPlanItemLandAreaNotIrrigationReasonAsync(irrigationPlanItem_LandAreaNotIrrigationReason);
             }
@@ -283,7 +292,7 @@ namespace CSMPMWeb.Controllers
                 entry.Area = irrigationPlanItem_LandAreaNotIrrigationReason.Area;
                 entry.ReasonId = irrigationPlanItem_LandAreaNotIrrigationReason.ReasonId;
 
-                await _irrigationPlanRepository.UpdateIrrigationPlanItemLandAreaNotIrrigationReasonAsync(entry);                                
+                await _irrigationPlanRepository.UpdateIrrigationPlanItemLandAreaNotIrrigationReasonAsync(entry);
             }
 
             return RedirectToAction(nameof(LandAreaNotIrrigationReasons), new { irrigationPlanItem_LandAreaNotIrrigationReason.IrrigationPlanItemId });
