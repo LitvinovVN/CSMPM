@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CSMPMWeb.Models.AppUserToOrganization>
+
+@{
+    ViewData["Title"] = "Пользователи";
+}
+
+<h1>Пользователи</h1>
+<h4>@ViewBag.Organization.OrganizationName</h4>
+<p>
+    <a asp-action="CreateAppUser" class="btn btn-primary">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsUserSelectedAsCurrent)
+            </th>
+            <th>Модуль - Роль в системе</th>            
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>            
+            <td>
+                @Html.DisplayFor(modelItem => item.AppUser.GetFullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsUserSelectedAsCurrent)
+            </td>
+            <td>
+                @foreach (var assignedPermission in item.AssignedPermissions)
+                {
+                <span>@assignedPermission.OrganizationToSystemModule.SystemModule.SystemModuleName - @assignedPermission.SystemRole.SystemRoleName</span>
+                }
+            </td>            
+            <td>
+                <a asp-controller="UserAdmin" asp-action="Edit" asp-route-id="@item.AppUserId" class="btn btn-primary">Редактировать</a>
+                <a asp-action="AppUserAssignedPermissions" asp-route-appUserToOrganizationId="@item.AppUserToOrganizationId" class="btn btn-primary">Редактировать роли</a>
+                <a asp-action="DeleteAppUser" asp-route-id="@item.AppUserToOrganizationId" class="btn btn-danger">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

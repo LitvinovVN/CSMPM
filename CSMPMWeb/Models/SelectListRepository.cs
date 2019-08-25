@@ -42,14 +42,64 @@ namespace CSMPMWeb.Models
             var selectList = new SelectList(items, "OrganizationId", "OrganizationName", selectedId);
             return selectList;
         }
+              
 
-        
+        /// <summary>
+        /// Возвращает список видов деятельности организации 
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListTypeOfActivitiesAsync(int selectedId = 0)
+        {
+            var items = await _context.TypeOfActivities.ToListAsync();
+
+            var selectList = new SelectList(items,
+                nameof(TypeOfActivity.TypeOfActivityId),
+                nameof(TypeOfActivity.TypeOfActivityName),
+                selectedId);
+            return selectList;
+        }
+
+        /// <summary>
+        /// Возвращает список видов деятельности организации по мелиорации
+        /// </summary>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListTypeOfActivitiesMeliorationAsync(int selectedId = 0)
+        {
+            var items = await _context.TypeOfActivities
+                .Where(ta=>ta.RootTypeOfActivityId == 1)
+                .ToListAsync();
+
+            var selectList = new SelectList(items,
+                nameof(TypeOfActivity.TypeOfActivityId),
+                nameof(TypeOfActivity.TypeOfActivityName),
+                selectedId);
+            return selectList;
+        }
+
+        /// <summary>
+        /// Возвращает список модулей системы
+        /// </summary>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListSystemModulesAsync(int selectedId = 0)
+        {
+            var items = await _context.SystemModules               
+                .ToListAsync();
+
+            var selectList = new SelectList(items,
+                nameof(SystemModule.SystemModuleId),
+                nameof(SystemModule.SystemModuleName),
+                selectedId);
+            return selectList;
+        }
+
+
         /// <summary>
         /// Возвращает список планов из документации организаций
         /// </summary>
         /// <param name="organizationDocumentationPlansId"></param>
         /// <returns></returns>
-        public async Task<SelectList> GetSelectListOrganizationDocumentationPlans(int selectedId = 0)
+        public async Task<SelectList> GetSelectListOrganizationDocumentationPlansAsync(int selectedId = 0)
         {
             var items = await _context.OrganizationDocumentationPlans
                 .Include(p => p.OrganizationDocumentation.Organization)                
@@ -69,7 +119,7 @@ namespace CSMPMWeb.Models
         /// <param name="userName"></param>
         /// <param name="selectedId"></param>
         /// <returns></returns>
-        public async Task<SelectList> GetSelectListOrganizationDocumentationPlans(string userName,
+        public async Task<SelectList> GetSelectListOrganizationDocumentationPlansAsync(string userName,
             int selectedId = 0)
         {
             var organizations = await _appUserRepository.GetAppUserOrganizationsAsync(userName);
@@ -96,7 +146,7 @@ namespace CSMPMWeb.Models
         /// <param name="userName"></param>
         /// <param name="organizationDocumentationPlansId"></param>
         /// <returns></returns>
-        public async Task<SelectList> GetSelectListCurrentOrganizationDocumentationPlans(string userName,
+        public async Task<SelectList> GetSelectListCurrentOrganizationDocumentationPlansAsync(string userName,
             int organizationDocumentationPlansId,
             int selectedId = 0)
         {
@@ -136,7 +186,7 @@ namespace CSMPMWeb.Models
         /// </summary>
         /// <param name="selectedId"></param>
         /// <returns></returns>
-        public async Task<SelectList> GetSelectListCrops(int selectedId = 0)
+        public async Task<SelectList> GetSelectListCropsAsync(int selectedId = 0)
         {
             var items = await _context.Crops.Include(c => c.CropGroup)
                 .OrderBy(c => c.CropGroup.CropGroupName)
@@ -152,7 +202,7 @@ namespace CSMPMWeb.Models
         /// </summary>
         /// <param name="selectedId"></param>
         /// <returns></returns>
-        public async Task<SelectList> GetSelectListIrrigationSystems(int selectedId = 0)
+        public async Task<SelectList> GetSelectListIrrigationSystemsAsync(int selectedId = 0)
         {
             var items = await _context.IrrigationSystems
                 .OrderBy(i=>i.IrrigationSystemName)
@@ -164,12 +214,21 @@ namespace CSMPMWeb.Models
             return selectList;
         }
 
-        public async Task<SelectList> GetSelectListIrrigationSystems(string userName, int selectedId = 0)
+        public async Task<SelectList> GetSelectListIrrigationSystemsAsync(string userName, int selectedId = 0)
         {
-            var currentOrganization = await _appUserRepository.GetCurrentOrganizationAsync(userName);
             var items = new List<IrrigationSystem>();
-            currentOrganization.OrganizationToIrrigationSystems.ForEach(a => items.Add(a.IrrigationSystem));
 
+            var currentOrganization = await _appUserRepository.GetCurrentOrganizationAsync(userName);
+
+            var organizationToTypeOfActivity = currentOrganization
+                .OrganizationToTypeOfActivities
+                .FirstOrDefault(ota => ota.TypeOfActivityId == 3);
+                        
+            foreach (var organizationToTypeOfActivitiesToIrrigationSystem in organizationToTypeOfActivity.OrganizationToTypeOfActivitiesToIrrigationSystems)
+            {
+                items.Add(organizationToTypeOfActivitiesToIrrigationSystem.IrrigationSystem);
+            }
+            
             var selectList = new SelectList(items,
                 nameof(IrrigationSystem.IrrigationSystemId),
                 nameof(IrrigationSystem.IrrigationSystemName),
@@ -181,7 +240,7 @@ namespace CSMPMWeb.Models
         /// Возвращает причины невыполнения чего-либо
         /// </summary>
         /// <returns></returns>
-        public async Task<SelectList> GetSelectListReasons(int selectedId = 0)
+        public async Task<SelectList> GetSelectListReasonsAsync(int selectedId = 0)
         {
             var items = await _context.Reasons
                 .OrderBy(r => r.ReasonName)

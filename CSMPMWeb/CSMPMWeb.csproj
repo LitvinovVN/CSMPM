@@ -92,6 +92,20 @@
     <Compile Remove="Migrations\20190725075212_init.Designer.cs" />
     <Compile Remove="Migrations\20190819025736_planItem.cs" />
     <Compile Remove="Migrations\20190819025736_planItem.Designer.cs" />
+    <Compile Remove="Migrations\20190819074558_init.cs" />
+    <Compile Remove="Migrations\20190819074558_init.Designer.cs" />
+    <Compile Remove="Migrations\20190820041049_curorg.cs" />
+    <Compile Remove="Migrations\20190820041049_curorg.Designer.cs" />
+    <Compile Remove="Migrations\20190824060730_init.cs" />
+    <Compile Remove="Migrations\20190824060730_init.Designer.cs" />
+    <Compile Remove="Migrations\20190824064328_init.cs" />
+    <Compile Remove="Migrations\20190824064328_init.Designer.cs" />
+    <Compile Remove="Migrations\20190824093543_init.cs" />
+    <Compile Remove="Migrations\20190824093543_init.Designer.cs" />
+    <Compile Remove="Migrations\20190825093630_om.cs" />
+    <Compile Remove="Migrations\20190825093630_om.Designer.cs" />
+    <Compile Remove="Migrations\20190825094532_init.cs" />
+    <Compile Remove="Migrations\20190825094532_init.Designer.cs" />
   </ItemGroup>
 
 

@@ -1,0 +1,38 @@
+﻿@model CSMPMLib.OrganizationToTypeOfActivitiesToIrrigationSystem
+
+@{
+    ViewData["Title"] = "Удаление";
+}
+
+<h1>Удаление</h1>
+
+<h3>Вы действительно хотите удалить запись?</h3>
+<div>    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IrrigationSystemId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IrrigationSystem.IrrigationSystemName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrganizationToTypeOfActivity.Organization.OrganizationName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrganizationToTypeOfActivity.Organization.OrganizationName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrganizationToTypeOfActivity.TypeOfActivity.TypeOfActivityName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrganizationToTypeOfActivity.TypeOfActivity.TypeOfActivityName)
+        </dd>
+    </dl>
+    
+    <form asp-action="OrganizationsDeleteConfirmed">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-action="Organizations" asp-route-id="@Model.IrrigationSystemId" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

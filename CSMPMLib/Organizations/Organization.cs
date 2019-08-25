@@ -40,12 +40,7 @@ namespace CSMPMLib
         /// Виды деятельности организации
         /// </summary>
         public List<OrganizationToTypeOfActivity> OrganizationToTypeOfActivities { get; set; }
-
-        /// <summary>
-        /// Оросительные системы, находящиеся в ведении организации
-        /// </summary>
-        public List<OrganizationToIrrigationSystem> OrganizationToIrrigationSystems { get; set; }
-
+        
         /// <summary>
         /// Возвращает список дочерних организаций
         /// </summary>

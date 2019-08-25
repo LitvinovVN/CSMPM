@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CSMPMLib
 {
@@ -9,6 +10,7 @@ namespace CSMPMLib
     {
         public int TypeOfActivityId { get; set; }
 
+        [Display(Name = "Вид деятельности")]
         public string TypeOfActivityName { get; set; }
 
         public int? RootTypeOfActivityId { get; set; }

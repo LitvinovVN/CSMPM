@@ -41,7 +41,7 @@ namespace CSMPMWeb.Controllers
                 irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(id);
             }
 
-            ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListOrganizationDocumentationPlans(irrigationPlan.OrganizationDocumentationPlansId);
+            ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListOrganizationDocumentationPlansAsync(irrigationPlan.OrganizationDocumentationPlansId);
             
             return View(irrigationPlan);
         }
@@ -52,7 +52,7 @@ namespace CSMPMWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListOrganizationDocumentationPlans(irrigationPlan.OrganizationDocumentationPlansId);
+                ViewBag.OrganizationDocumentationPlans = await _selectListRepository.GetSelectListOrganizationDocumentationPlansAsync(irrigationPlan.OrganizationDocumentationPlansId);
                 return View(irrigationPlan);
             }
 
@@ -93,7 +93,7 @@ namespace CSMPMWeb.Controllers
                 IrrigationPlanId = irrigationPlanId
             };
 
-            ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystems();
+            ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystemsAsync();
             return View(nameof(IrrigationPlanItemEdit),irrigationPlanItem);
         }
 
@@ -101,7 +101,7 @@ namespace CSMPMWeb.Controllers
         {
             var irrigationPlanItem = await _irrigationPlanRepository.GetIrrigationPlanItemAsync(id);
 
-            ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystems();
+            ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystemsAsync();
             return View(irrigationPlanItem);
         }
 
@@ -113,7 +113,7 @@ namespace CSMPMWeb.Controllers
             {
                 var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(irrigationPlanItem.IrrigationPlanId);
                 irrigationPlanItem.IrrigationPlan = irrigationPlan;
-                ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystems();
+                ViewBag.IrrigationSystems = await _selectListRepository.GetSelectListIrrigationSystemsAsync();
                 return View(irrigationPlanItem);
             }                
 
@@ -156,7 +156,7 @@ namespace CSMPMWeb.Controllers
                 IrrigationPlanItemId = irrigationPlanItem.IrrigationPlanItemId
             };
 
-            ViewBag.Crops = await _selectListRepository.GetSelectListCrops();
+            ViewBag.Crops = await _selectListRepository.GetSelectListCropsAsync();
 
             return View(newItem);
         }
@@ -180,7 +180,7 @@ namespace CSMPMWeb.Controllers
             var entry = await _irrigationPlanRepository.GetIrrigationPlanItemCropSowingAndIrrigationAsync(irrigationPlanItem_CropSowingAndIrrigationId);
             if (entry == null) return NotFound();
 
-            ViewBag.Crops = await _selectListRepository.GetSelectListCrops(entry.CropId);
+            ViewBag.Crops = await _selectListRepository.GetSelectListCropsAsync(entry.CropId);
             return View(entry);
         }
 
@@ -202,7 +202,7 @@ namespace CSMPMWeb.Controllers
                 return RedirectToAction(nameof(CropSowingAndIrrigations), new { irrigationPlanItem_CropSowingAndIrrigation.IrrigationPlanItemId });
             }
 
-            ViewBag.Crops = await _selectListRepository.GetSelectListCrops(entry.CropId);
+            ViewBag.Crops = await _selectListRepository.GetSelectListCropsAsync(entry.CropId);
             return View(entry);
         }
 
@@ -247,7 +247,7 @@ namespace CSMPMWeb.Controllers
                 IrrigationPlanItemId = irrigationPlanItem.IrrigationPlanItemId
             };
 
-            ViewBag.Reasons = await _selectListRepository.GetSelectListReasons();
+            ViewBag.Reasons = await _selectListRepository.GetSelectListReasonsAsync();
 
             return View(nameof(LandAreaNotIrrigationReasonEdit), newItem);
         }                
@@ -257,7 +257,7 @@ namespace CSMPMWeb.Controllers
             var entry = await _irrigationPlanRepository.GetIrrigationPlanItemLandAreaNotIrrigationReasonAsync(irrigationPlanItem_LandAreaNotIrrigationReasonId);
             if (entry == null) return NotFound();
 
-            ViewBag.Reasons = await _selectListRepository.GetSelectListReasons(entry.ReasonId);
+            ViewBag.Reasons = await _selectListRepository.GetSelectListReasonsAsync(entry.ReasonId);
             return View(entry);
         }
 
@@ -267,7 +267,7 @@ namespace CSMPMWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Reasons = await _selectListRepository.GetSelectListReasons(irrigationPlanItem_LandAreaNotIrrigationReason.ReasonId);
+                ViewBag.Reasons = await _selectListRepository.GetSelectListReasonsAsync(irrigationPlanItem_LandAreaNotIrrigationReason.ReasonId);
                 return View(irrigationPlanItem_LandAreaNotIrrigationReason);
             }
 
@@ -330,7 +330,7 @@ namespace CSMPMWeb.Controllers
                 IrrigationPlanItemId = irrigationPlanItem.IrrigationPlanItemId
             };
 
-            ViewBag.Reasons = await _selectListRepository.GetSelectListReasons();
+            ViewBag.Reasons = await _selectListRepository.GetSelectListReasonsAsync();
 
             return View(nameof(LandAreaNotAgriculturalReasonEdit), newItem);
         }
@@ -340,7 +340,7 @@ namespace CSMPMWeb.Controllers
             var entry = await _irrigationPlanRepository.GetIrrigationPlanItemLandAreaNotAgriculturalReasonAsync(irrigationPlanItem_LandAreaNotAgriculturalReasonId);
             if (entry == null) return NotFound();
 
-            ViewBag.Reasons = await _selectListRepository.GetSelectListReasons(entry.ReasonId);
+            ViewBag.Reasons = await _selectListRepository.GetSelectListReasonsAsync(entry.ReasonId);
             return View(entry);
         }
 
@@ -350,7 +350,7 @@ namespace CSMPMWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Reasons = await _selectListRepository.GetSelectListReasons(irrigationPlanItem_LandAreaNotAgriculturalReason.ReasonId);
+                ViewBag.Reasons = await _selectListRepository.GetSelectListReasonsAsync(irrigationPlanItem_LandAreaNotAgriculturalReason.ReasonId);
                 return View(irrigationPlanItem_LandAreaNotAgriculturalReason);
             }
 

@@ -49,7 +49,7 @@ namespace CSMPMWeb.Models
                              {
                                   OrganizationId = 1, AssignedPermissions = new List<AssignedPermission>
                                   {
-                                      new AssignedPermission{ SystemModuleId = 1, SystemRoleId = 1}
+                                      new AssignedPermission{ OrganizationToSystemModuleId = 1, SystemRoleId = 1}
                                   }
                              },
                              new AppUserToOrganization
@@ -57,7 +57,7 @@ namespace CSMPMWeb.Models
                                  OrganizationId = 2,
                                  AssignedPermissions = new List<AssignedPermission>
                                  {
-                                      new AssignedPermission{ SystemModuleId = 1, SystemRoleId = 2}
+                                      new AssignedPermission{ OrganizationToSystemModuleId = 1, SystemRoleId = 2}
                                  },
                                  IsUserSelectedAsCurrent = true
                              }
@@ -90,14 +90,14 @@ namespace CSMPMWeb.Models
                              {
                                   OrganizationId = 1, AssignedPermissions = new List<AssignedPermission>
                                   {
-                                      new AssignedPermission{ SystemModuleId = 1, SystemRoleId = 2}
+                                      new AssignedPermission{ OrganizationToSystemModuleId = 1, SystemRoleId = 2}
                                   }
                              },
                              new AppUserToOrganization
                              {
                                   OrganizationId = 3, AssignedPermissions = new List<AssignedPermission>
                                   {
-                                      new AssignedPermission{ SystemModuleId = 1, SystemRoleId = 1}
+                                      new AssignedPermission{ OrganizationToSystemModuleId = 1, SystemRoleId = 1}
                                   }
                              }
                         }
@@ -129,14 +129,14 @@ namespace CSMPMWeb.Models
                              {
                                   OrganizationId = 1, AssignedPermissions = new List<AssignedPermission>
                                   {
-                                      new AssignedPermission{ SystemModuleId = 1, SystemRoleId = 2}
+                                      new AssignedPermission{ OrganizationToSystemModuleId = 1, SystemRoleId = 2}
                                   }
                              },
                              new AppUserToOrganization
                              {
                                   OrganizationId = 3, AssignedPermissions = new List<AssignedPermission>
                                   {
-                                      new AssignedPermission{ SystemModuleId = 1, SystemRoleId = 2}
+                                      new AssignedPermission{ OrganizationToSystemModuleId = 1, SystemRoleId = 2}
                                   }
                              }
                         }

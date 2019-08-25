@@ -41,7 +41,7 @@
             <td>
                 @foreach (var assignedPermission in item.AssignedPermissions)
                 {
-                    <p>@assignedPermission.SystemModule.SystemModuleName - @assignedPermission.SystemRole.SystemRoleName</p>
+                    <p>@assignedPermission.OrganizationToSystemModule.SystemModule.SystemModuleName - @assignedPermission.SystemRole.SystemRoleName</p>
                 }
             </td>
             <td>

@@ -1,4 +1,6 @@
-﻿namespace CSMPMLib
+﻿using System.Collections.Generic;
+
+namespace CSMPMLib
 {
     /// <summary>
     /// Сопоставление организации и вида деятельности
@@ -12,5 +14,7 @@
 
         public int TypeOfActivityId { get; set; }
         public TypeOfActivity TypeOfActivity { get; set; }
+
+        public List<OrganizationToTypeOfActivitiesToIrrigationSystem> OrganizationToTypeOfActivitiesToIrrigationSystems { get; set; }
 }
 }

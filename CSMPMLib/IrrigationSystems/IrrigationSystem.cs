@@ -28,6 +28,6 @@ namespace CSMPMLib
         /// <summary>
         /// Организации, связанные с оросительной системой
         /// </summary>        
-        public List<OrganizationToIrrigationSystem> OrganizationToIrrigationSystem { get; set; }
+        public List<OrganizationToTypeOfActivitiesToIrrigationSystem> OrganizationToTypeOfActivitiesToIrrigationSystems { get; set; }
     }
 }

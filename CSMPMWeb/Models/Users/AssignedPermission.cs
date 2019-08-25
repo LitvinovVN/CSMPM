@@ -22,10 +22,10 @@ namespace CSMPMWeb.Models
         public AppUserToOrganization AppUserToOrganization { get; set; }
         
         /// <summary>
-        /// УИД модуля системы
+        /// УИД модуля системы, доступного организации
         /// </summary>
-        public int SystemModuleId { get; set; }
-        public SystemModule SystemModule { get; set; }
+        public int OrganizationToSystemModuleId { get; set; }
+        public OrganizationToSystemModule OrganizationToSystemModule { get; set; }
 
         /// <summary>
         /// УИД роли 

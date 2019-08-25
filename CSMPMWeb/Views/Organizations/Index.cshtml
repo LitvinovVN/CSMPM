@@ -16,7 +16,10 @@
                 @Html.DisplayNameFor(model => model.OrganizationName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ParentOrganizationId)
+                Модули
+            </th>
+            <th>
+                Пользователи
             </th>
             <th>Действия</th>
         </tr>
@@ -26,12 +29,22 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.OrganizationName)
+
+                @if (item.ParentOrganizationId != null && item.ParentOrganization != null)
+                {
+                    <br>
+                    <text>(головная организация: @item.ParentOrganization.OrganizationName)</text>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParentOrganization.OrganizationName)
+                <a asp-action="SystemModules" asp-route-id="@item.OrganizationId" class="btn btn-primary">Модули</a>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OrganizationId" class="btn btn-primary">Редактировать</a>                
+                <a asp-action="AppUsers" asp-route-id="@item.OrganizationId" class="btn btn-primary">Пользователи</a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrganizationId" class="btn btn-primary">Редактировать</a>
+
                 <a asp-action="Delete" asp-route-id="@item.OrganizationId" class="btn btn-danger">Удалить</a>
             </td>
         </tr>

@@ -32,12 +32,12 @@ else
 
                 @foreach (var assignedPermission in appUserToOrganization.AssignedPermissions)
                 {
-                    switch (assignedPermission.SystemModuleId)
+                    switch (assignedPermission.OrganizationToSystemModule.SystemModuleId)
                     {
                         case 1:
                             if (assignedPermission.SystemRoleId == 1)
                             {
-                                <a class="dropdown-item" href="#">1 @assignedPermission.SystemModule.SystemModuleName (@assignedPermission.SystemRole.SystemRoleName)</a>
+                                <a class="dropdown-item" href="#">1 @assignedPermission.OrganizationToSystemModule.SystemModule.SystemModuleName (@assignedPermission.SystemRole.SystemRoleName)</a>
                                 <a class="dropdown-item" href="#">Управление пользователями</a>
                             }
                                 <a class="dropdown-item" asp-controller="IrrigationPlansUser" asp-action="Index">Планы поливов</a>

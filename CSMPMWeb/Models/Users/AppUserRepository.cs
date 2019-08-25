@@ -1,5 +1,6 @@
 ﻿using CSMPMLib;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,23 @@ namespace CSMPMWeb.Models
             _context = context;
         }
 
+        IIncludableQueryable<AppUserToOrganization, SystemRole> GetAppUserToOrganizations
+        {
+            get
+            {
+                return _context.AppUserToOrganizations
+                        .Include(a => a.AppUser)
+                        .Include(a => a.Organization)
+                        .ThenInclude(o => o.OrganizationToTypeOfActivities)
+                        .ThenInclude(ot => ot.OrganizationToTypeOfActivitiesToIrrigationSystems)
+                        .ThenInclude(oti => oti.IrrigationSystem)
+                        .Include(a => a.AssignedPermissions)
+                        .ThenInclude(p => p.OrganizationToSystemModule.SystemModule)
+                        .Include(a => a.AssignedPermissions)
+                        .ThenInclude(p => p.SystemRole);
+            }
+        }
+
         /// <summary>
         /// Возвращает привязки пользователя к организациям
         /// </summary>
@@ -26,18 +44,24 @@ namespace CSMPMWeb.Models
         /// <returns></returns>
         public async Task<List<AppUserToOrganization>> GetAppUserToOrganizationsAsync(string userName)
         {
-            var userId = GetAppUserId(userName);
+            var userId = GetAppUserId(userName);            
 
-            var items = await _context.AppUserToOrganizations
-                .Include(a => a.AppUser)
-                .Include(a => a.Organization)
-                    .ThenInclude(o => o.OrganizationToIrrigationSystems)
-                        .ThenInclude(oi => oi.IrrigationSystem)
-                .Include(a => a.AssignedPermissions)
-                    .ThenInclude(p => p.SystemModule)
-                .Include(a => a.AssignedPermissions)
-                    .ThenInclude(p => p.SystemRole)
+            var items = await GetAppUserToOrganizations
                 .Where(a => a.AppUser.UserName == userName)
+                .ToListAsync();
+
+            return items;
+        }
+
+        /// <summary>
+        /// Возвращает привязки пользователей к указанной организации 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public async Task<List<AppUserToOrganization>> GetAppUserToOrganizationsAsync(int organizationId)
+        {
+            var items = await GetAppUserToOrganizations
+                .Where(a => a.OrganizationId == organizationId)
                 .ToListAsync();
 
             return items;
@@ -46,7 +70,7 @@ namespace CSMPMWeb.Models
         public string GetAppUserId(string userName)
         {
             var appUser = _context.Users
-                .FirstOrDefault(u=>u.UserName == userName);
+                .FirstOrDefault(u => u.UserName == userName);
             return appUser.Id;
         }
 
@@ -64,7 +88,7 @@ namespace CSMPMWeb.Models
                             .ThenInclude(od => od.OrganizationDocumentationPlans)
                 .Include(u => u.AppUserToOrganizationWithAppUserPermissions)
                     .ThenInclude(a => a.AssignedPermissions)
-                        .ThenInclude(p => p.SystemModule)
+                        .ThenInclude(p => p.OrganizationToSystemModule)
                 .Include(u => u.AppUserToOrganizationWithAppUserPermissions)
                     .ThenInclude(a => a.AssignedPermissions)
                         .ThenInclude(p => p.SystemRole)
@@ -107,6 +131,18 @@ namespace CSMPMWeb.Models
         }
 
         /// <summary>
+        /// Возвращает объект привязки пользователя к организации
+        /// </summary>
+        /// <param name="appUserToOrganizationId"></param>
+        /// <returns></returns>
+        public async Task<AppUserToOrganization> GetAppUserToOrganizationAsync(int appUserToOrganizationId)
+        {
+            var result = await GetAppUserToOrganizations
+                .FirstOrDefaultAsync(ao => ao.AppUserToOrganizationId == appUserToOrganizationId);
+            return result;
+        }
+
+        /// <summary>
         /// Возвращает организации, доступные пользователю
         /// </summary>
         /// <param name="userName"></param>
@@ -121,6 +157,7 @@ namespace CSMPMWeb.Models
             }
             return result;
         }
+                
 
         /// <summary>
         /// Возвращает текущую выбранную пользователем организацию

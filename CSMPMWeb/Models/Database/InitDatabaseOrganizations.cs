@@ -35,5 +35,27 @@ namespace CSMPMWeb.Models
                 }                
             }
         }
+
+        public static async Task CreateOrganizationToSystemModulesData(IServiceProvider serviceProvider, IConfiguration configuration)
+        {
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                MySqlDbContext context = serviceScope.ServiceProvider.GetService<MySqlDbContext>();
+
+                if (!context.OrganizationToSystemModules.Any())
+                {
+                    foreach (var organization in context.Organizations)
+                    {
+                        await context.OrganizationToSystemModules.AddAsync(new OrganizationToSystemModule
+                        {
+                            OrganizationId = organization.OrganizationId,
+                            SystemModuleId = 1
+                        });
+                    }
+                    
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
     }
 }

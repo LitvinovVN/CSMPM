@@ -36,8 +36,8 @@ namespace CSMPMWeb.Models
             await InitDatabaseCropGroupsCrops.CreateCropsData(serviceProvider, configuration);
 
             await InitDatabaseIrrigationSystems.CreateIrrigationSystemsData(serviceProvider, configuration);
-            await InitDatabaseOrganizations.CreateOrganizationsData(serviceProvider, configuration);            
-                       
+            await InitDatabaseOrganizations.CreateOrganizationsData(serviceProvider, configuration);
+            await InitDatabaseOrganizations.CreateOrganizationToSystemModulesData(serviceProvider, configuration);
 
             await InitDatabaseRoles.CreateRoles(serviceProvider, configuration);
             await InitDatabaseAdminAccount.CreateAdminAccount(serviceProvider, configuration);
@@ -75,15 +75,15 @@ namespace CSMPMWeb.Models
         public DbSet<OrganizationToTypeOfActivity> OrganizationToTypeOfActivities { get; set; }
 
         /// <summary>
-        /// Таблица сопоставления организации и оросительной системы с указанием типа взаимосвязи
+        /// Привязка организаций к модулям системы
         /// </summary>
-        public DbSet<OrganizationToIrrigationSystem> OrganizationToIrrigationSystems { get; set; }
+        public DbSet<OrganizationToSystemModule> OrganizationToSystemModules { get; set; }
 
         /// <summary>
-        /// Типы взаимосвязей организации и технической системы
+        /// Таблица сопоставления организации и оросительной системы с указанием типа взаимосвязи
         /// </summary>
-        public DbSet<OrganizationToSystemRelationType> OrganizationToSystemRelationTypes { get; set; }
-
+        public DbSet<OrganizationToTypeOfActivitiesToIrrigationSystem> OrganizationToTypeOfActivitiesToIrrigationSystem { get; set; }
+        
 
         #region Документация организации
         /// <summary>

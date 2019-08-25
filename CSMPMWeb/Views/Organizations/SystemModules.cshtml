@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CSMPMWeb.Models.OrganizationToSystemModule>
+
+@{
+    ViewData["Title"] = "Модули";
+    var organization = (CSMPMLib.Organization)ViewBag.Organization;
+}
+
+<h1>Модули системы, подключенные к организации</h1>
+<h4>@organization.OrganizationName</h4>
+
+<p>
+    <a asp-action="BindModule" asp-route-id="@organization.OrganizationId" class="btn btn-primary">Добавить модуль</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>            
+            <th>
+                @Html.DisplayNameFor(model => model.SystemModule)
+            </th>
+            <th>
+                Действия
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.SystemModule.SystemModuleName)
+            </td>
+            <td>                
+                <a asp-action="UnbindModule" asp-route-id="@organization.OrganizationId" asp-route-systemModuleId="@item.SystemModuleId" class="btn btn-danger">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-primary">Назад</a>

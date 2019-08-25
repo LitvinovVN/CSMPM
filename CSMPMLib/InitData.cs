@@ -189,46 +189,46 @@ namespace CSMPMLib
                 OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
                 //OrganizationToIrrigationSystems = new List<OrganizationToIrrigationSystem>
                 //{
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 1},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 2},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 3},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 4},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 5},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 6},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 7},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 8},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 9},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 10},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 11},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 12},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 13},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 14},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 15},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 16},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 17},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 18},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 19},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 20},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 21},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 22},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 23},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 24},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 25},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 26},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 27},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 28},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 29},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 30},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 31},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 32},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 33},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 34},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 35},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 36},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 37},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 38},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 39},
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 40}
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 1, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 2, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 3, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 4, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 5, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 6, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 7, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 8, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 9, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 10, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 11, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 12, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 13, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 14, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 15, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 16, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 17, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 18, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 19, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 20, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 21, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 22, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 23, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 24, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 25, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 26, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 27, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 28, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 29, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 30, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 31, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 32, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 33, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 34, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 35, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 36, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 37, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 38, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 39, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 40, OrganizationToTypeOfActivityId = 1 }
                 //},
                 OrganizationDocumentation = new List<OrganizationDocumentationItem>
                 {
@@ -338,11 +338,21 @@ namespace CSMPMLib
                 OrganizationId = 2,
                 OrganizationName = "Азовский филиал ФГБУ «Ростовмелиоводхоз»",
                 ParentOrganizationId = 1,
-                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
+                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity>
+                {
+                    new OrganizationToTypeOfActivity
+                    {
+                        TypeOfActivityId = 3,
+                        OrganizationToTypeOfActivitiesToIrrigationSystems = new List<OrganizationToTypeOfActivitiesToIrrigationSystem>
+                        {
+                            new OrganizationToTypeOfActivitiesToIrrigationSystem { IrrigationSystemId = 12 }
+                        }
+                    }
+                },
                 //OrganizationToIrrigationSystems = new List<OrganizationToIrrigationSystem>
                 //{
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 1, OrganizationToSystemRelationTypeId = 1 },
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 12, OrganizationToSystemRelationTypeId = 1 }
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 1, OrganizationToTypeOfActivityId = 1 },
+                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 12, OrganizationToTypeOfActivityId = 1 }
                 //},
                 OrganizationDocumentation = new List<OrganizationDocumentationItem>
                 {
@@ -449,12 +459,18 @@ namespace CSMPMLib
             });
             organizations.Add(new Organization { OrganizationId = 3,
                 OrganizationName = "Аксайский филиал ФГБУ «Ростовмелиоводхоз»",
-                ParentOrganizationId = 1,
-                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity> { new OrganizationToTypeOfActivity { TypeOfActivityId = 3 } },
-                //OrganizationToIrrigationSystems = new List<OrganizationToIrrigationSystem>
-                //{                    
-                //    new OrganizationToIrrigationSystem { IrrigationSystemId = 28}
-                //},
+                ParentOrganizationId = 1,                
+                OrganizationToTypeOfActivities = new List<OrganizationToTypeOfActivity>
+                {
+                    new OrganizationToTypeOfActivity
+                    {
+                        TypeOfActivityId = 3,
+                        OrganizationToTypeOfActivitiesToIrrigationSystems = new List<OrganizationToTypeOfActivitiesToIrrigationSystem>
+                        {
+                            new OrganizationToTypeOfActivitiesToIrrigationSystem { IrrigationSystemId = 28 }
+                        }
+                    }
+                },
                 OrganizationDocumentation = new List<OrganizationDocumentationItem>
                 {
                     new OrganizationDocumentationItem

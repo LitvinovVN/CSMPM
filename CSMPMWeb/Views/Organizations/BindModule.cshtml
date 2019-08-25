@@ -1,0 +1,26 @@
+﻿@model CSMPMWeb.Models.OrganizationToSystemModule
+
+@{
+    ViewData["Title"] = "BindModule";
+}
+
+<h1>Добавление модуля</h1>
+
+<h4>OrganizationToSystemModule</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BindModule">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrganizationId" />
+            <div class="form-group">
+                <label asp-for="SystemModuleId" class="control-label"></label>
+                <select asp-for="SystemModuleId" class ="form-control" asp-items="ViewBag.SystemModules"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+                <a asp-action="SystemModules" asp-route-id="@Model.OrganizationId" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>

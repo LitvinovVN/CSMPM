@@ -1,0 +1,42 @@
+﻿@model CSMPMLib.IrrigationSystem
+
+@{
+    ViewData["Title"] = "Организации - оросительная система";
+}
+
+<h1>Конфигурирование характера взаимодействия организаций с оросительной системой</h1>
+<h4>@Model.IrrigationSystemName</h4>
+
+<p>
+    <a asp-action="OrganizationsCreate" asp-route-irrigationSystemId ="@Model.IrrigationSystemId" class="btn btn-primary">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Организация
+            </th>
+            <th>
+                Тип взаимодействия
+            </th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrganizationToTypeOfActivitiesToIrrigationSystems) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationToTypeOfActivity.Organization.OrganizationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationToTypeOfActivity.TypeOfActivity.TypeOfActivityName)
+            </td>
+            <td>
+                <a asp-action="OrganizationsEdit" asp-route-organizationToTypeOfActivitiesToIrrigationSystemId="@item.Id">Редактировать</a> |                
+                <a asp-action="OrganizationsDelete" asp-route-organizationToTypeOfActivitiesToIrrigationSystemId="@item.Id" class="text-danger">Удалить</a>
+            </td>
+        </tr>}
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-primary">Назад</a>

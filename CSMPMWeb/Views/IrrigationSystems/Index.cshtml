@@ -16,9 +16,9 @@
                 @Html.DisplayNameFor(model => model.IrrigationSystemName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrganizationToIrrigationSystem)
+                Организации
             </th>
-            <th></th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.IrrigationSystemName)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.OrganizationToIrrigationSystem)*@
+                <a asp-action="Organizations" asp-route-id="@item.IrrigationSystemId" class="btn btn-primary">Настроить</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IrrigationSystemId" class="btn btn-primary">Редактировать</a> 

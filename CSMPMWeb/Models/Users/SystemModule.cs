@@ -20,8 +20,8 @@ namespace CSMPMWeb.Models
         public string SystemModuleName { get; set; }
 
         /// <summary>
-        /// Назначенные разрешения на использование модулей системы
+        /// Список сопоставлений модулей системы и организаций
         /// </summary>
-        public List<AssignedPermission> AssignedPermissions { get; set; }
+        public List<OrganizationToSystemModule> OrganizationToSystemModules { get; set; }
     }
 }

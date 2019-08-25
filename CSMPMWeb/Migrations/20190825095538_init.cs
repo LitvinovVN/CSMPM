@@ -123,19 +123,6 @@ namespace CSMPMWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrganizationToSystemRelationTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganizationToSystemRelationTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Reasons",
                 columns: table => new
                 {
@@ -349,7 +336,8 @@ namespace CSMPMWeb.Migrations
                     AppUserToOrganizationId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     OrganizationId = table.Column<int>(nullable: false),
-                    AppUserId = table.Column<string>(nullable: true)
+                    AppUserId = table.Column<string>(nullable: true),
+                    IsUserSelectedAsCurrent = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -389,35 +377,28 @@ namespace CSMPMWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrganizationToIrrigationSystems",
+                name: "OrganizationToSystemModules",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    OrganizationToSystemModuleId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     OrganizationId = table.Column<int>(nullable: false),
-                    IrrigationSystemId = table.Column<int>(nullable: false),
-                    OrganizationToSystemRelationTypeId = table.Column<int>(nullable: false)
+                    SystemModuleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrganizationToIrrigationSystems", x => x.Id);
+                    table.PrimaryKey("PK_OrganizationToSystemModules", x => x.OrganizationToSystemModuleId);
                     table.ForeignKey(
-                        name: "FK_OrganizationToIrrigationSystems_IrrigationSystems_Irrigation~",
-                        column: x => x.IrrigationSystemId,
-                        principalTable: "IrrigationSystems",
-                        principalColumn: "IrrigationSystemId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrganizationToIrrigationSystems_Organizations_OrganizationId",
+                        name: "FK_OrganizationToSystemModules_Organizations_OrganizationId",
                         column: x => x.OrganizationId,
                         principalTable: "Organizations",
                         principalColumn: "OrganizationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrganizationToIrrigationSystems_OrganizationToSystemRelation~",
-                        column: x => x.OrganizationToSystemRelationTypeId,
-                        principalTable: "OrganizationToSystemRelationTypes",
-                        principalColumn: "Id",
+                        name: "FK_OrganizationToSystemModules_SystemModules_SystemModuleId",
+                        column: x => x.SystemModuleId,
+                        principalTable: "SystemModules",
+                        principalColumn: "SystemModuleId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -468,39 +449,6 @@ namespace CSMPMWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssignedPermissions",
-                columns: table => new
-                {
-                    AssignedPermissionId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AppUserToOrganizationId = table.Column<int>(nullable: false),
-                    SystemModuleId = table.Column<int>(nullable: false),
-                    SystemRoleId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AssignedPermissions", x => x.AssignedPermissionId);
-                    table.ForeignKey(
-                        name: "FK_AssignedPermissions_AppUserToOrganizations_AppUserToOrganiza~",
-                        column: x => x.AppUserToOrganizationId,
-                        principalTable: "AppUserToOrganizations",
-                        principalColumn: "AppUserToOrganizationId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AssignedPermissions_SystemModules_SystemModuleId",
-                        column: x => x.SystemModuleId,
-                        principalTable: "SystemModules",
-                        principalColumn: "SystemModuleId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AssignedPermissions_SystemRoles_SystemRoleId",
-                        column: x => x.SystemRoleId,
-                        principalTable: "SystemRoles",
-                        principalColumn: "SystemRoleId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrganizationDocumentationPlans",
                 columns: table => new
                 {
@@ -517,6 +465,65 @@ namespace CSMPMWeb.Migrations
                         column: x => x.OrganizationDocumentationId,
                         principalTable: "OrganizationDocumentation",
                         principalColumn: "OrganizationDocumentationItemId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AssignedPermissions",
+                columns: table => new
+                {
+                    AssignedPermissionId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AppUserToOrganizationId = table.Column<int>(nullable: false),
+                    OrganizationToSystemModuleId = table.Column<int>(nullable: false),
+                    SystemRoleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignedPermissions", x => x.AssignedPermissionId);
+                    table.ForeignKey(
+                        name: "FK_AssignedPermissions_AppUserToOrganizations_AppUserToOrganiza~",
+                        column: x => x.AppUserToOrganizationId,
+                        principalTable: "AppUserToOrganizations",
+                        principalColumn: "AppUserToOrganizationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssignedPermissions_OrganizationToSystemModules_Organization~",
+                        column: x => x.OrganizationToSystemModuleId,
+                        principalTable: "OrganizationToSystemModules",
+                        principalColumn: "OrganizationToSystemModuleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssignedPermissions_SystemRoles_SystemRoleId",
+                        column: x => x.SystemRoleId,
+                        principalTable: "SystemRoles",
+                        principalColumn: "SystemRoleId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrganizationToTypeOfActivitiesToIrrigationSystem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IrrigationSystemId = table.Column<int>(nullable: false),
+                    OrganizationToTypeOfActivityId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationToTypeOfActivitiesToIrrigationSystem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganizationToTypeOfActivitiesToIrrigationSystem_IrrigationS~",
+                        column: x => x.IrrigationSystemId,
+                        principalTable: "IrrigationSystems",
+                        principalColumn: "IrrigationSystemId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrganizationToTypeOfActivitiesToIrrigationSystem_Organizatio~",
+                        column: x => x.OrganizationToTypeOfActivityId,
+                        principalTable: "OrganizationToTypeOfActivities",
+                        principalColumn: "OrganizationToTypeOfActivityId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -738,9 +745,9 @@ namespace CSMPMWeb.Migrations
                 column: "AppUserToOrganizationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssignedPermissions_SystemModuleId",
+                name: "IX_AssignedPermissions_OrganizationToSystemModuleId",
                 table: "AssignedPermissions",
-                column: "SystemModuleId");
+                column: "OrganizationToSystemModuleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AssignedPermissions_SystemRoleId",
@@ -838,19 +845,14 @@ namespace CSMPMWeb.Migrations
                 column: "ParentOrganizationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganizationToIrrigationSystems_IrrigationSystemId",
-                table: "OrganizationToIrrigationSystems",
-                column: "IrrigationSystemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrganizationToIrrigationSystems_OrganizationId",
-                table: "OrganizationToIrrigationSystems",
+                name: "IX_OrganizationToSystemModules_OrganizationId",
+                table: "OrganizationToSystemModules",
                 column: "OrganizationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganizationToIrrigationSystems_OrganizationToSystemRelation~",
-                table: "OrganizationToIrrigationSystems",
-                column: "OrganizationToSystemRelationTypeId");
+                name: "IX_OrganizationToSystemModules_SystemModuleId",
+                table: "OrganizationToSystemModules",
+                column: "SystemModuleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrganizationToTypeOfActivities_OrganizationId",
@@ -861,6 +863,16 @@ namespace CSMPMWeb.Migrations
                 name: "IX_OrganizationToTypeOfActivities_TypeOfActivityId",
                 table: "OrganizationToTypeOfActivities",
                 column: "TypeOfActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationToTypeOfActivitiesToIrrigationSystem_IrrigationS~",
+                table: "OrganizationToTypeOfActivitiesToIrrigationSystem",
+                column: "IrrigationSystemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizationToTypeOfActivitiesToIrrigationSystem_Organizatio~",
+                table: "OrganizationToTypeOfActivitiesToIrrigationSystem",
+                column: "OrganizationToTypeOfActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TypeOfActivities_RootTypeOfActivityId",
@@ -901,10 +913,7 @@ namespace CSMPMWeb.Migrations
                 name: "IrrigationPlanItem_LandAreaNotIrrigationReasons");
 
             migrationBuilder.DropTable(
-                name: "OrganizationToIrrigationSystems");
-
-            migrationBuilder.DropTable(
-                name: "OrganizationToTypeOfActivities");
+                name: "OrganizationToTypeOfActivitiesToIrrigationSystem");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -913,7 +922,7 @@ namespace CSMPMWeb.Migrations
                 name: "AppUserToOrganizations");
 
             migrationBuilder.DropTable(
-                name: "SystemModules");
+                name: "OrganizationToSystemModules");
 
             migrationBuilder.DropTable(
                 name: "SystemRoles");
@@ -937,13 +946,13 @@ namespace CSMPMWeb.Migrations
                 name: "Reasons");
 
             migrationBuilder.DropTable(
-                name: "OrganizationToSystemRelationTypes");
-
-            migrationBuilder.DropTable(
-                name: "TypeOfActivities");
+                name: "OrganizationToTypeOfActivities");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "SystemModules");
 
             migrationBuilder.DropTable(
                 name: "IrrigationGrids");
@@ -953,6 +962,9 @@ namespace CSMPMWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "IrrigationPlans");
+
+            migrationBuilder.DropTable(
+                name: "TypeOfActivities");
 
             migrationBuilder.DropTable(
                 name: "IrrigationSystems");
