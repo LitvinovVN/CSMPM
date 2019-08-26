@@ -1,0 +1,36 @@
+﻿@model CSMPMWeb.Models.AssignedPermission
+
+@{
+    ViewData["Title"] = "AppUserAssignedPermissionDelete";
+}
+
+<h1>Удаление назначения роли пользователю при использовании модуля системы</h1>
+
+<h3>Вы действительно хотите удалить запись?</h3>
+<h4>@Model.AppUserToOrganization.Organization.OrganizationName</h4>
+<h4>@Model.AppUserToOrganization.AppUser.GetFullName</h4>
+
+<div>
+    <hr />
+    <dl class="row">        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrganizationToSystemModule.SystemModule.SystemModuleName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrganizationToSystemModule.SystemModule.SystemModuleName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SystemRole.SystemRoleName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SystemRole.SystemRoleName)
+        </dd>
+    </dl>
+
+    <form asp-action="AppUserAssignedPermissionDelete">
+        <input type="hidden" asp-for="AssignedPermissionId" />
+        <input type="hidden" asp-for="AppUserToOrganizationId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" />
+        <a asp-action="AppUserAssignedPermissions" asp-route-appUserToOrganizationId="@Model.AppUserToOrganizationId" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

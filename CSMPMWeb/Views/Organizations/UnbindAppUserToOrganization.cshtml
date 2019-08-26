@@ -1,0 +1,40 @@
+﻿@model CSMPMWeb.Models.AppUserToOrganization
+
+@{
+    ViewData["Title"] = "Исключение пользователя из организации";
+}
+
+<h1>Исключение пользователя из организации</h1>
+
+<h3>Вы действительно хотите исключить пользователя из организации?</h3>
+<div>    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Organization)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Organization.OrganizationName)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AppUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AppUser.GetFullName)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsUserSelectedAsCurrent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsUserSelectedAsCurrent)
+        </dd>
+    </dl>
+    
+    <form asp-action="UnbindAppUserToOrganization">
+        <input type="hidden" asp-for="AppUserToOrganizationId" />
+        <input type="hidden" asp-for="OrganizationId" />
+        <input type="hidden" name="appUserToOrganizationToRedirectId" value="@ViewBag.appUserToOrganizationToRedirectId" />
+        <input type="submit" value="Исключить" class="btn btn-danger" />
+        <a asp-action="AppUserToOrganizations" asp-route-appUserToOrganizationId="@ViewBag.appUserToOrganizationToRedirectId" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

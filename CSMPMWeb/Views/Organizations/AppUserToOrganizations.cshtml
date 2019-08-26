@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CSMPMWeb.Models.AppUserToOrganization>
+
+@{
+    ViewData["Title"] = "AppUserToOrganizations";
+}
+
+<h1>Организации, ассоциированные с пользователем</h1>
+<h4>@ViewBag.AppUserToOrganization?.AppUser?.GetFullName</h4>
+
+<p>
+    <a asp-action="BindAppUserToOrganization" asp-route-appUserToOrganizationId="@ViewBag.AppUserToOrganization.AppUserToOrganizationId" class="btn btn-primary">Добавить пользователя к организации</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Organization)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.IsUserSelectedAsCurrent)
+            </th>
+            <th>
+                Действия
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organization.OrganizationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsUserSelectedAsCurrent)
+            </td>
+            <td>                
+                <a asp-action="UnbindAppUserToOrganization" asp-route-appUserToOrganizationId="@item.AppUserToOrganizationId" asp-route-appUserToOrganizationToRedirectId="@ViewBag.AppUserToOrganization.AppUserToOrganizationId" class="btn btn-danger">Исключить из организации</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<a asp-action="AppUsers" asp-route-id="@ViewBag.AppUserToOrganization.OrganizationId" class="btn btn-secondary">Назад</a>

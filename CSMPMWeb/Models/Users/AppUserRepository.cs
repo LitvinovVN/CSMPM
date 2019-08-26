@@ -138,6 +138,8 @@ namespace CSMPMWeb.Models
         public async Task<AppUserToOrganization> GetAppUserToOrganizationAsync(int appUserToOrganizationId)
         {
             var result = await GetAppUserToOrganizations
+                .Include(ao => ao.Organization)
+                .Include(ao => ao.AppUser)
                 .FirstOrDefaultAsync(ao => ao.AppUserToOrganizationId == appUserToOrganizationId);
             return result;
         }
@@ -157,6 +159,24 @@ namespace CSMPMWeb.Models
             }
             return result;
         }
+
+        /// <summary>
+        /// Возвращает назначение пользователю организации роли при использовании модуля системы
+        /// </summary>
+        /// <param name="assignedPermissionId"></param>
+        /// <returns></returns>
+        public async Task<AssignedPermission> GetAssignedPermissionAsync(int assignedPermissionId)
+        {
+            var entry = await _context.AssignedPermissions
+                .Include(ap => ap.AppUserToOrganization.Organization)
+                .Include(ap => ap.AppUserToOrganization.AppUser)
+                .Include(ap => ap.OrganizationToSystemModule.Organization)
+                .Include(ap => ap.OrganizationToSystemModule.SystemModule)
+                .Include(ap => ap.SystemRole)
+                .FirstOrDefaultAsync(ap => ap.AssignedPermissionId == assignedPermissionId);
+
+            return entry;
+        }
                 
 
         /// <summary>
@@ -169,6 +189,102 @@ namespace CSMPMWeb.Models
             return (await GetAppUserToOrganizationsAsync(userName))
                 .FirstOrDefault(o => o.IsUserSelectedAsCurrent)
                 .Organization;
+        }
+
+        
+        /// <summary>
+        /// Добавляет назначение роли при использовании модуля системы сотруднику организации
+        /// </summary>
+        /// <param name="assignedPermission"></param>
+        /// <returns></returns>
+        public async Task AddAssignedPermission(AssignedPermission assignedPermission)
+        {
+            bool isExists = IsExistsAssignedPermission(assignedPermission);
+            if (isExists) return;
+            await _context.AssignedPermissions.AddAsync(assignedPermission);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Обновляет назначение роли при использовании модуля системы сотруднику организации
+        /// </summary>
+        /// <param name="assignedPermission"></param>
+        /// <returns></returns>
+        public async Task UpdateAssignedPermission(AssignedPermission assignedPermission)
+        {
+            var sameEntry = await _context.AssignedPermissions
+                .FirstOrDefaultAsync(ap => ap.AppUserToOrganizationId == assignedPermission.AppUserToOrganizationId
+                && ap.OrganizationToSystemModuleId == assignedPermission.OrganizationToSystemModuleId
+                && ap.SystemRoleId == assignedPermission.SystemRoleId);
+            if (sameEntry != null)
+            {
+                _context.AssignedPermissions.Remove(sameEntry);
+            }
+            
+            _context.AssignedPermissions.Update(assignedPermission);
+            await _context.SaveChangesAsync();
+        }
+
+        
+        /// <summary>
+        /// Определяет существование объекта привязки "Модуль - Роль" пользователя организации
+        /// </summary>
+        /// <param name="assignedPermission"></param>
+        /// <returns></returns>
+        private bool IsExistsAssignedPermission(AssignedPermission assignedPermission)
+        {
+            return _context.AssignedPermissions
+                .Any(ap => ap.AppUserToOrganizationId == assignedPermission.AppUserToOrganizationId
+                && ap.OrganizationToSystemModuleId == assignedPermission.OrganizationToSystemModuleId
+                && ap.SystemRoleId == assignedPermission.SystemRoleId);
+        }
+
+        
+
+        /// <summary>
+        /// Удаляет назначение роли при использовании модуля системы сотруднику организации
+        /// </summary>
+        /// <param name="assignedPermission"></param>
+        /// <returns></returns>
+        public async Task RemoveAssignedPermission(AssignedPermission assignedPermission)
+        {
+            _context.AssignedPermissions.Remove(assignedPermission);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Привязывает пользователя к организации
+        /// </summary>
+        /// <param name="appUserId"></param>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public async Task BindAppUserToOrganization(string appUserId, int organizationId)
+        {
+            var entry = await _context.AppUserToOrganizations
+                .FirstOrDefaultAsync(auo => auo.AppUserId == appUserId && auo.OrganizationId == organizationId);
+
+            if (entry == null)
+            {
+                var newBinding = new AppUserToOrganization
+                {
+                    AppUserId = appUserId,
+                    OrganizationId = organizationId
+                };
+
+                await _context.AppUserToOrganizations.AddAsync(newBinding);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Удаляет привязку пользователя к организации
+        /// </summary>
+        /// <param name="appUserToOrganization"></param>
+        /// <returns></returns>
+        public async Task UnbindAppUserToOrganization(AppUserToOrganization appUserToOrganization)
+        {
+            _context.AppUserToOrganizations.Remove(appUserToOrganization);
+            await _context.SaveChangesAsync();
         }
     }
 }

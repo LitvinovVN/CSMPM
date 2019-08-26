@@ -114,8 +114,153 @@ namespace CSMPMWeb.Controllers
 
         public async Task<IActionResult> AppUserAssignedPermissions(int appUserToOrganizationId)
         {
-            var model = await _appUserRepository.GetAppUserToOrganizationAsync(appUserToOrganizationId);
+            var model = await _appUserRepository
+                .GetAppUserToOrganizationAsync(appUserToOrganizationId);
             return View(model);
+        }
+
+        public async Task<IActionResult> AppUserAssignedPermissionCreate(int appUserToOrganizationId)
+        {
+            var appUserToOrganization = await _appUserRepository
+                .GetAppUserToOrganizationAsync(appUserToOrganizationId);
+            var assignedPermission = new AssignedPermission
+            {
+                AppUserToOrganization = appUserToOrganization,
+                AppUserToOrganizationId = appUserToOrganizationId
+            };
+
+            ViewBag.OrganizationToSystemModules = await _selectListRepository
+                .GetSelectListOrganizationToSystemModulesAsync(appUserToOrganization.OrganizationId);
+            ViewBag.SystemRoles = await _selectListRepository
+                .GetSelectListSystemRolesAsync();
+            return View(assignedPermission);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AppUserAssignedPermissionCreate(AssignedPermission assignedPermission)
+        {
+            await _appUserRepository.AddAssignedPermission(assignedPermission);
+            return RedirectToAction(nameof(AppUserAssignedPermissions), new { appUserToOrganizationId = assignedPermission.AppUserToOrganizationId });
+        }
+
+
+        public async Task<IActionResult> AppUserAssignedPermissionEdit(int assignedPermissionId)
+        {
+            var assignedPermission = await _appUserRepository
+                .GetAssignedPermissionAsync(assignedPermissionId);            
+            
+            ViewBag.SystemRoles = await _selectListRepository
+                .GetSelectListSystemRolesAsync();
+            return View(assignedPermission);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AppUserAssignedPermissionEdit(AssignedPermission assignedPermission)
+        {
+            await _appUserRepository.UpdateAssignedPermission(assignedPermission);
+            return RedirectToAction(nameof(AppUserAssignedPermissions), new { appUserToOrganizationId = assignedPermission.AppUserToOrganizationId });
+
+        }
+
+
+        public async Task<IActionResult> AppUserAssignedPermissionDelete(int assignedPermissionId)
+        {
+            var assignedPermission = await _appUserRepository
+                .GetAssignedPermissionAsync(assignedPermissionId);
+            
+            return View(assignedPermission);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AppUserAssignedPermissionDelete(AssignedPermission assignedPermission)
+        {
+            await _appUserRepository.RemoveAssignedPermission(assignedPermission);
+            return RedirectToAction(nameof(AppUserAssignedPermissions), new { appUserToOrganizationId = assignedPermission.AppUserToOrganizationId });
+        }
+
+
+
+        public async Task<IActionResult> AppUserToOrganizations(int appUserToOrganizationId)
+        {
+            var appUserToOrganization = await _appUserRepository
+               .GetAppUserToOrganizationAsync(appUserToOrganizationId);
+
+            var appUserToOrganizations = await _appUserRepository.GetAppUserToOrganizationsAsync(appUserToOrganization.AppUser.UserName);
+
+            ViewBag.AppUserToOrganization = appUserToOrganization;
+            return View(appUserToOrganizations);
+        }
+
+        
+        public async Task<IActionResult> BindAppUserToOrganizationBindExistingAppUser(int id)
+        {
+            var organization = await _organizationRepository.GetOrganizationAsync(id);
+            var appUserToOrganization = new AppUserToOrganization
+            {
+                OrganizationId = id,
+                Organization = organization
+            };
+
+            ViewBag.AppUsers = await _selectListRepository.GetSelectListAppUsersAsync();
+
+            return View(appUserToOrganization);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BindAppUserToOrganizationBindExistingAppUser(AppUserToOrganization appUserToOrganization)
+        {
+            await _appUserRepository.BindAppUserToOrganization(appUserToOrganization.AppUserId, appUserToOrganization.OrganizationId);
+
+            return RedirectToAction(nameof(AppUsers), new { id = appUserToOrganization.OrganizationId });
+        }
+
+        public async Task<IActionResult> BindAppUserToOrganization(int appUserToOrganizationId)
+        {
+            var appUserToOrganization = await _appUserRepository
+               .GetAppUserToOrganizationAsync(appUserToOrganizationId);
+
+            ViewBag.Organizations = await _selectListRepository.GetSelectListOrganizationsAsync();
+
+            return View(appUserToOrganization);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BindAppUserToOrganization(AppUserToOrganization appUserToOrganization)
+        {
+            await _appUserRepository.BindAppUserToOrganization(appUserToOrganization.AppUserId, appUserToOrganization.OrganizationId);           
+
+            return RedirectToAction(nameof(AppUserToOrganizations), new { appUserToOrganization.AppUserToOrganizationId });
+        }
+
+        public async Task<IActionResult> UnbindAppUserToOrganization(int appUserToOrganizationId, int appUserToOrganizationToRedirectId)
+        {
+            var appUserToOrganization = await _appUserRepository
+               .GetAppUserToOrganizationAsync(appUserToOrganizationId);
+
+            ViewBag.appUserToOrganizationToRedirectId = appUserToOrganizationToRedirectId;
+            return View(appUserToOrganization);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UnbindAppUserToOrganization(AppUserToOrganization appUserToOrganization, int appUserToOrganizationToRedirectId)
+        {
+            await _appUserRepository.UnbindAppUserToOrganization(appUserToOrganization);
+
+            if(appUserToOrganization.AppUserToOrganizationId != appUserToOrganizationToRedirectId)
+            {
+                return RedirectToAction(nameof(AppUserToOrganizations), new { appUserToOrganizationId = appUserToOrganizationToRedirectId });
+            }
+            else
+            {
+                return RedirectToAction(nameof(AppUsers), new { id = appUserToOrganization.OrganizationId });
+            }
+            
         }
         #endregion
     }

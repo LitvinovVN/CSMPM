@@ -1,0 +1,27 @@
+﻿@model CSMPMWeb.Models.AppUserToOrganization
+
+@{
+    ViewData["Title"] = "BindAppUserToOrganization";
+}
+
+<h1>Добавление пользователя в организацию</h1>
+<h4>@Model.AppUser.GetFullName</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BindAppUserToOrganization">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OrganizationId" class="control-label"></label>
+                <select asp-for="OrganizationId" class ="form-control" asp-items="ViewBag.Organizations"></select>
+            </div>            
+            <div class="form-group">
+                <input type="hidden" asp-for="AppUserId" />
+                <input type="hidden" asp-for="AppUserToOrganizationId" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <a asp-action="AppUserToOrganizations" asp-route-appUserToOrganizationId="@Model.AppUserToOrganizationId" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>

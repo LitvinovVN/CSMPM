@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CSMPMWeb.Models
@@ -11,6 +12,7 @@ namespace CSMPMWeb.Models
         /// <summary>
         /// УИД
         /// </summary>
+        [Display(Name = "Роль пользователя при использовании модулей системы")]
         public int SystemRoleId { get; set; }
 
         [Display(Name = "Наименование роли пользователя при использовании модулей системы")]

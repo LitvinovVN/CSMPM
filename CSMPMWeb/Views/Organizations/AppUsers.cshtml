@@ -7,7 +7,7 @@
 <h1>Пользователи</h1>
 <h4>@ViewBag.Organization.OrganizationName</h4>
 <p>
-    <a asp-action="CreateAppUser" class="btn btn-primary">Добавить</a>
+    <a asp-action="BindAppUserToOrganizationBindExistingAppUser" asp-route-id="@ViewBag.Organization.OrganizationId" class="btn btn-primary">Добавить</a>
 </p>
 <table class="table">
     <thead>
@@ -32,17 +32,20 @@
                 @Html.DisplayFor(modelItem => item.IsUserSelectedAsCurrent)
             </td>
             <td>
-                @foreach (var assignedPermission in item.AssignedPermissions)
+                @foreach (var assignedPermission in item.AssignedPermissions.OrderBy(ap=>ap.OrganizationToSystemModule.SystemModule.SystemModuleName))
                 {
-                <span>@assignedPermission.OrganizationToSystemModule.SystemModule.SystemModuleName - @assignedPermission.SystemRole.SystemRoleName</span>
+                <p>@assignedPermission.OrganizationToSystemModule.SystemModule.SystemModuleName - @assignedPermission.SystemRole.SystemRoleName</p>
                 }
             </td>            
             <td>
                 <a asp-controller="UserAdmin" asp-action="Edit" asp-route-id="@item.AppUserId" class="btn btn-primary">Редактировать</a>
-                <a asp-action="AppUserAssignedPermissions" asp-route-appUserToOrganizationId="@item.AppUserToOrganizationId" class="btn btn-primary">Редактировать роли</a>
+                <a asp-action="AppUserAssignedPermissions" asp-route-appUserToOrganizationId="@item.AppUserToOrganizationId" class="btn btn-primary">Роли</a>
+                <a asp-action="AppUserToOrganizations" asp-route-appUserToOrganizationId="@item.AppUserToOrganizationId" class="btn btn-primary">Организации</a>
                 <a asp-action="DeleteAppUser" asp-route-id="@item.AppUserToOrganizationId" class="btn btn-danger">Удалить</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<a asp-action="Index" class="btn btn-primary">Назад</a>

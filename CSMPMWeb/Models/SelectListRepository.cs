@@ -141,6 +141,45 @@ namespace CSMPMWeb.Models
         }
 
         /// <summary>
+        /// Возвращает список системных ролей
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListSystemRolesAsync(int selectedId = 0)
+        {
+            var items = await _context.SystemRoles
+                .OrderBy(sr => sr.SystemRoleName)
+                .ToListAsync();
+
+            var selectList = new SelectList(items,
+                nameof(SystemRole.SystemRoleId),
+                nameof(SystemRole.SystemRoleName),
+                selectedId);
+            return selectList;
+        }
+
+        /// <summary>
+        /// Возвращает список привязок модулей к организациям
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <param name="selectedId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListOrganizationToSystemModulesAsync(int organizationId, int selectedId = 0)
+        {
+            var items = await _context.OrganizationToSystemModules
+                .Include(osm => osm.SystemModule)
+                .OrderBy(osm => osm.SystemModule.SystemModuleName)
+                .Where(osm => osm.OrganizationId == organizationId)
+                .ToListAsync();
+
+            var selectList = new SelectList(items,
+                nameof(OrganizationToSystemModule.OrganizationToSystemModuleId),
+                "SystemModule.SystemModuleName"/*nameof(OrganizationToSystemModule.SystemModule.SystemModuleName)*/,
+                selectedId);
+            return selectList;
+        }
+
+        /// <summary>
         /// Возвращает список планов из документации текущей организации пользователя
         /// </summary>
         /// <param name="userName"></param>
@@ -179,6 +218,19 @@ namespace CSMPMWeb.Models
                 }
             }
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Возвращает список зарегистрированных пользователей
+        /// </summary>
+        /// <param name="selectedId"></param>
+        /// <returns></returns>
+        public async Task<SelectList> GetSelectListAppUsersAsync(int selectedId = 0)
+        {
+            var items = await _context.Users.ToListAsync();
+
+            var selectList = new SelectList(items, nameof(AppUser.Id), nameof(AppUser.GetFullName), selectedId);
+            return selectList;
         }
 
         /// <summary>

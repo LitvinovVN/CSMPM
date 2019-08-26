@@ -30,6 +30,7 @@ namespace CSMPMWeb.Models
         /// <summary>
         /// УИД роли 
         /// </summary>
+        [Display(Name = "Роль пользователя при использовании модулей системы")]
         public int SystemRoleId { get; set; }
         public SystemRole SystemRole { get; set; }
 }

@@ -1,0 +1,31 @@
+﻿@model CSMPMWeb.Models.AssignedPermission
+
+@{
+    ViewData["Title"] = "Редактирование";
+}
+
+<h1>Редактирование назначенной пользователю роли</h1>
+<h4>@Model.AppUserToOrganization.Organization.OrganizationName</h4>
+<h4>@Model.AppUserToOrganization.AppUser.GetFullName</h4>
+<h4>@Model.OrganizationToSystemModule.SystemModule.SystemModuleName</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AppUserAssignedPermissionEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AssignedPermissionId" />
+            <div class="form-group">
+                <label asp-for="SystemRoleId" class="control-label"></label>
+                <select asp-for="SystemRoleId" class="form-control" asp-items="ViewBag.SystemRoles"></select>
+                <span asp-validation-for="SystemRoleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="AppUserToOrganizationId" />
+                <input type="hidden" asp-for="OrganizationToSystemModuleId" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+                <a asp-action="AppUserAssignedPermissions" asp-route-appUserToOrganizationId="@Model.AppUserToOrganizationId" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
