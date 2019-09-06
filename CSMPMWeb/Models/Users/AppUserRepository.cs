@@ -89,6 +89,7 @@ namespace CSMPMWeb.Models
                 .Include(u => u.AppUserToOrganizationWithAppUserPermissions)
                     .ThenInclude(a => a.AssignedPermissions)
                         .ThenInclude(p => p.OrganizationToSystemModule)
+                            .ThenInclude(osm => osm.SystemModule)
                 .Include(u => u.AppUserToOrganizationWithAppUserPermissions)
                     .ThenInclude(a => a.AssignedPermissions)
                         .ThenInclude(p => p.SystemRole)
