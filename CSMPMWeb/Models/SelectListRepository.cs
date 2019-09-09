@@ -111,7 +111,7 @@ namespace CSMPMWeb.Models
                 nameof(OrganizationDocumentationPlans.OrganizationDocumentationPlansNameFull),
                 selectedId);
             return selectList;
-        }
+        }        
 
         /// <summary>
         /// Возвращает список планов из документации организаций, доступных пользователю

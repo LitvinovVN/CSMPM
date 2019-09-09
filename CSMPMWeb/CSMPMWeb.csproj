@@ -121,4 +121,9 @@
     <ProjectReference Include="..\CSMPMLib\CSMPMLib.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Models\ElectricitySupply\" />
+  </ItemGroup>
+
 </Project>
