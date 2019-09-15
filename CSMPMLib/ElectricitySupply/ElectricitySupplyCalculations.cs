@@ -36,12 +36,15 @@ namespace CSMPMLib.ElectricitySupply
         /// </summary>
         /// <param name="U1">Напряжение на первичной обмотке трансформатора, В</param>
         /// <param name="U2">Напряжение на вторичной обмотке трансформатора, В</param>
-        /// <param name="Unadb">Сумма значений нерегулируемой и регулируемой надбавок трансформатора, В</param>
+        /// <param name="dUnadb">Сумма значений нерегулируемой и регулируемой надбавок трансформатора, %</param>
         /// <param name="Unom">Номинальное напряжение первичной обмотки трансформатора</param>
         /// <returns></returns>
-        public static double GetTpVoltageLoss(double U1, double U2, double Unadb, double Unom = 10_000)
+        public static double GetTpVoltageLoss(double U1, double U2, double dUnadb, double U1nom = 10_000, double U2nom=380)
         {
-            return (U1 - 25 * U2 + Unadb) * 100 / Unom;
+            double dU1 = GetVoltageDeviation(U1, U1nom);
+            double dU2 = GetVoltageDeviation(U2, U2nom);
+            double voltageLoss = dU1 + dU2 + dUnadb;
+            return voltageLoss;
         }
     }
 }
