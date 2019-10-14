@@ -198,6 +198,7 @@ namespace CSMPMWeb.Models
                 .Include(ip=>ip.IrrigationPlanItems)
                     .ThenInclude(ipi => ipi.IrrigationPlanItem_CropSowingAndIrrigations)
                         .ThenInclude(ipic => ipic.Crop)
+                            .ThenInclude(ipicc => ipicc.CropGroup)
                 .Include(ip => ip.IrrigationPlanItems)
                     .ThenInclude(ipi => ipi.IrrigationPlanItem_LandAreaNotAgriculturalReasons)
                         .ThenInclude(ipil => ipil.Reason)

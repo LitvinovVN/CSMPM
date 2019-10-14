@@ -1,0 +1,124 @@
+﻿@model CSMPMLib.IrrigationPlan
+
+@{
+    ViewData["Title"] = "Preview";
+}
+
+<h1>План поливов</h1>
+
+<div>
+    <h4>@Model.OrganizationDocumentationPlans.OrganizationDocumentation.Organization.OrganizationName</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            УИД плана
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IrrigationPlanId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>        
+    </dl>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Оросительная система</th>
+                <th>Наличие земель на 01.01.19, тыс. га</th>
+                <th>Сельхозиспользовано, тыс. га</th>
+                <th>Не сельхозиспользовано, тыс. га</th>
+                <th>Включено в план полива, тыс. га</th>
+                <th>Не будет поливаться, тыс. га</th>
+                <th>Посевная площадь, тыс. га</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var irrigationPlanItem in Model.IrrigationPlanItems)
+            {
+                double landAreaOnBeginningOfYear = irrigationPlanItem.LandAreaOnBeginningOfYear / 1000;
+                double landAreaAgriculturalUse = irrigationPlanItem.LandAreaAgriculturalUse / 1000;
+                double landAreaNotAgriculturalUse = landAreaOnBeginningOfYear - landAreaAgriculturalUse;
+                double landAreaIncludedInIrrigationPlan = irrigationPlanItem.LandAreaIncludedInIrrigationPlan / 1000;
+                double landAreaNotIncludedInIrrigationPlan = landAreaOnBeginningOfYear - landAreaIncludedInIrrigationPlan;
+                double landAreaSowing = irrigationPlanItem.LandAreaSowing / 1000;
+
+                double otherLandAreaIncludedInIrrigationPlan = landAreaIncludedInIrrigationPlan - irrigationPlanItem.IrrigationPlanItem_CropSowingAndIrrigations.Sum(item => item.Irrigation) / 1000;
+                double otherLandAreaSowing = landAreaSowing - irrigationPlanItem.IrrigationPlanItem_CropSowingAndIrrigations.Sum(item => item.Sowing) / 1000;
+
+                <tr class="table-success">
+                    <td>@irrigationPlanItem.IrrigationSystem.IrrigationSystemName</td>
+                    <td>@landAreaOnBeginningOfYear</td>
+                    <td>@landAreaAgriculturalUse</td>
+                    <td>@landAreaNotAgriculturalUse</td>
+                    <td>@landAreaIncludedInIrrigationPlan</td>
+                    <td>@landAreaNotIncludedInIrrigationPlan</td>
+                    <td>@landAreaSowing</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td colspan="6">в том числе по культурам</td>
+                </tr>
+
+                @foreach (var cropSowingAndIrrigationGroup in irrigationPlanItem.IrrigationPlanItem_CropSowingAndIrrigations.GroupBy(c => c.Crop.CropGroup.CropGroupName))
+                {
+                    double cropSowingAndIrrigationGroupSumIrrigation = cropSowingAndIrrigationGroup.Sum(cg => cg.Irrigation) / 1000;
+                    double cropSowingAndIrrigationGroupSumSowing = cropSowingAndIrrigationGroup.Sum(cg => cg.Sowing) / 1000;
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2">@cropSowingAndIrrigationGroup.Key</td>
+                        <td colspan="2">@cropSowingAndIrrigationGroupSumIrrigation</td>
+                        <td>@cropSowingAndIrrigationGroupSumSowing</td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>в том числе</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    @foreach (var cropSowingAndIrrigation in cropSowingAndIrrigationGroup)
+                    {
+                        double irrigation = cropSowingAndIrrigation.Irrigation / 1000;
+                        double sowing = cropSowingAndIrrigation.Sowing / 1000;
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>@cropSowingAndIrrigation.Crop.CropName</td>
+                            <td colspan="2">@irrigation</td>
+                            <td>@sowing</td>
+                        </tr>
+                    }
+
+                }
+
+                @if (otherLandAreaIncludedInIrrigationPlan > 0)
+                {
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2">Другое</td>
+                        <td colspan="2">@otherLandAreaIncludedInIrrigationPlan</td>
+                        <td>@otherLandAreaSowing</td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+
+</div>
+<div>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    <a asp-action="Index" class="btn btn-primary">Назад</a>
+</div>

@@ -82,6 +82,15 @@ namespace CSMPMWeb.Controllers
             await _irrigationPlanRepository.RemoveIrrigationPlanAsync(irrigationPlan);
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Preview(int id)
+        {
+            var irrigationPlan = await _irrigationPlanRepository.GetIrrigationPlanAsync(id, User.Identity.Name);
+
+            if (irrigationPlan == null) return NotFound();
+
+            return View(irrigationPlan);
+        }
         #endregion
 
         #region Содержимое плана
@@ -399,6 +408,18 @@ namespace CSMPMWeb.Controllers
             await _irrigationPlanRepository.RemoveIrrigationPlanItemLandAreaNotAgriculturalReasonAsync(entry);
 
             return RedirectToAction(nameof(LandAreaNotAgriculturalReasons), new { entry.IrrigationPlanItemId });
+        }
+        #endregion
+
+        #region
+        /// <summary>
+        /// Создаёт 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> CreateByChildOrganizationsData()
+        {
+
+            return View();
         }
         #endregion
     }

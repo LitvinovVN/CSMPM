@@ -8,6 +8,7 @@
 
 <p>
     <a asp-action="Edit" class="btn btn-primary">Добавить</a>
+    <a asp-action="CreateByChildOrganizationsData" class="btn btn-primary">Сформировать</a>
 </p>
 <table class="table">
     <thead>
@@ -35,7 +36,8 @@
                 <a asp-action="IrrigationPlanItems" asp-route-irrigationPlanId="@item.IrrigationPlanId">Содержимое плана</a>               
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IrrigationPlanId">Редактировать</a> |                
+                <a asp-action="Edit" asp-route-id="@item.IrrigationPlanId">Редактировать</a> |
+                <a asp-action="Preview" asp-route-id="@item.IrrigationPlanId">Просмотр</a> |
                 <a asp-action="Delete" asp-route-id="@item.IrrigationPlanId" class="text-danger">Удалить</a>
             </td>
         </tr>
