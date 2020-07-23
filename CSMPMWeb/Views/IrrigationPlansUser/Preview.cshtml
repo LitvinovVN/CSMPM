@@ -99,7 +99,6 @@
                             <td>@sowing</td>
                         </tr>
                     }
-
                 }
 
                 @if (otherLandAreaIncludedInIrrigationPlan > 0)
@@ -112,6 +111,82 @@
                         <td>@otherLandAreaSowing</td>
                     </tr>
                 }
+
+                <tr>
+                    <td></td>
+                    <td colspan="6">причины неиспользования земель по сельхозназначению</td>
+                </tr>
+
+                @foreach (var landAreaNotAgriculturalReason in irrigationPlanItem.IrrigationPlanItem_LandAreaNotAgriculturalReasons)
+                {
+                    double landAreaNotAgriculturalReasonArea = landAreaNotAgriculturalReason.Area / 1000;
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>@landAreaNotAgriculturalReason.Reason.ReasonName</td>
+                        <td>@landAreaNotAgriculturalReasonArea</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                }
+
+                double landAreaNotAgriculturalReasonOther = landAreaNotAgriculturalUse - irrigationPlanItem.IrrigationPlanItem_LandAreaNotAgriculturalReasons.Sum(r => r.Area) / 1000;
+                string areaLess0 = "";
+                if (landAreaNotAgriculturalReasonOther < 0)
+                {
+                    areaLess0 = "text-danger";
+                }
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Другое</td>
+                    <td class="@areaLess0">@landAreaNotAgriculturalReasonOther</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+
+                <tr>
+                    <td></td>
+                    <td colspan="6">причины отсутствия полива</td>
+                </tr>
+
+                @foreach (var landAreaNotIrrigationReason in irrigationPlanItem.IrrigationPlanItem_LandAreaNotIrrigationReasons)
+                {
+                    double landAreaNotIrrigationReasonArea = landAreaNotIrrigationReason.Area / 1000;
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>@landAreaNotIrrigationReason.Reason.ReasonName</td>
+                        <td></td>
+                        <td></td>
+                        <td>@landAreaNotIrrigationReasonArea</td>
+                        <td></td>
+                    </tr>
+                }
+
+                double landAreaNotIrrigationReasonOther = landAreaNotIncludedInIrrigationPlan - irrigationPlanItem.IrrigationPlanItem_LandAreaNotIrrigationReasons.Sum(r => r.Area) / 1000;
+                string areaNotIrrigationLess0 = "";
+                if (landAreaNotIrrigationReasonOther < 0)
+                {
+                    areaNotIrrigationLess0 = "text-danger";
+                }
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Другое</td>
+                    <td></td>
+                    <td></td>
+                    <td class="@areaNotIrrigationLess0">@landAreaNotIrrigationReasonOther</td>
+                    <td></td>                    
+                </tr>
 
             }
         </tbody>
